@@ -7,6 +7,10 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "Erento GmbH. (https://www.erento.com)",
+  "author": "Erento GmbH <developers@erento.com> (https://www.erento.com)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/erento/nestjs-modules.git"
+  },
   "license": "ISC"
 }
