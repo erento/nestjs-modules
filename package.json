@@ -1,0 +1,12 @@
+{
+  "name": "@erento/nestjs-modules",
+  "version": "0.0.0",
+  "description": "NestJS modules",
+  "scripts": {
+    "publish": "echo \"Cannot publish the repository. You can publish particular module only.\n\" && false && exit 1",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Erento GmbH. (https://www.erento.com)",
+  "license": "ISC"
+}
