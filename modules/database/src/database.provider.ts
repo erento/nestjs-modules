@@ -1,29 +1,43 @@
 import {Injectable} from '@nestjs/common';
+import {SyncOptions} from "sequelize";
 import {Model, Sequelize} from 'sequelize-typescript';
 import {DatabaseCredentials} from './database.module';
 
+export interface ProviderOptions {
+    operatorsAliases?: boolean;
+
+    /**
+     * if not provided, sync is not called.
+     */
+    syncOptions?: SyncOptions;
+}
+
 @Injectable()
 export class DatabaseProvider {
-    public static async create (models: typeof Model[] = [], credentials: DatabaseCredentials): Promise<DatabaseProvider> {
+    public static async create (
+        models: typeof Model[] = [],
+        credentials: DatabaseCredentials,
+        options?: ProviderOptions,
+    ): Promise<DatabaseProvider> {
         if (!credentials) {
             throw new Error('Database provider needs the credentials to be instantiated.');
         }
 
         if (!DatabaseProvider.instance) {
             const sequelize: Sequelize = new Sequelize({
-                username: credentials.user,
-                password: credentials.password,
                 database: credentials.name,
+                dialect: credentials.dialect,
+                password: credentials.password,
                 host: credentials.host,
-                port: 5432,
-                dialect: 'postgres',
-                operatorsAliases: false,
+                port: credentials.port,
+                username: credentials.user,
+                operatorsAliases: options && options.operatorsAliases ? options.operatorsAliases : false,
             });
 
             sequelize.addModels(models);
-            await sequelize.sync({
-                alter: true,
-            });
+            if (options && options.syncOptions) {
+                await sequelize.sync(options.syncOptions);
+            }
 
             DatabaseProvider.instance = sequelize;
         }

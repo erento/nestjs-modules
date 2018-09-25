@@ -19,7 +19,8 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@nestjs/common": ">=5.3.9",
+    "@nestjs/common": ">=5.3",
+    "aws-sdk": ">=2.320.0",
     "typescript": ">=2.7"
   },
   "dependencies": {
