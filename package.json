@@ -6,11 +6,14 @@
     "publish": "echo \"Cannot publish the repository. You can publish particular module only.\n\" && false && exit 1",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "private": true,
   "keywords": [],
   "author": "Erento GmbH <developers@erento.com> (https://www.erento.com)",
   "repository": {
     "type": "git",
     "url": "https://github.com/erento/nestjs-modules.git"
   },
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {}
 }

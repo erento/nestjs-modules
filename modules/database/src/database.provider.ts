@@ -1,5 +1,5 @@
 import {Injectable} from '@nestjs/common';
-import {SyncOptions} from "sequelize";
+import {SyncOptions} from 'sequelize';
 import {Model, Sequelize} from 'sequelize-typescript';
 import {DatabaseCredentials} from './database.module';
 
