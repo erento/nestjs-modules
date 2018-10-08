@@ -7,8 +7,9 @@
   "types": "./dist/public_api.d.ts",
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "prebuild": "rm -rf dist && npm t",
-    "publish": "echo \"This module is not prepared to be published, yet.\n\" && false && exit 1",
+    "lint": "tslint -c tslint.json --fix -e \"**/node_modules/**\" -p ./tsconfig.json",
+    "lint-staged": "lint-staged",
+    "prebuild": "rm -rf dist && npm run lint && npm run test",
     "test": "jest"
   },
   "keywords": [],
@@ -27,11 +28,25 @@
     "@nestjs/core": "5.3.10",
     "@types/jest": "23.3.2",
     "@types/node": "10.10.3",
+    "husky": "1.1.0",
     "jest": "23.6.0",
+    "lint-staged": "7.3.0",
+    "prettier": "1.14.3",
     "reflect-metadata": "0.1.12",
     "rxjs": "6.3.2",
     "ts-jest": "23.10.1",
+    "tslint": "5.11.0",
+    "tslint-eslint-rules": "5.4.0",
     "typescript": "2.9.2"
+  },
+  "precommit": [
+    "lint-staged"
+  ],
+  "lint-staged": {
+    "src/**/*.ts": [
+      "npm run lint",
+      "git add"
+    ]
   },
   "jest": {
     "transform": {
