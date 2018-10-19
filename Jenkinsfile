@@ -27,6 +27,13 @@ node {
                     sh 'cd modules/database && npm t'
                 }
             },
+            "google-pubsub": {
+                buildImage.inside() {
+                    sh 'cd modules/google-pubsub && npm i'
+                    sh 'cd modules/google-pubsub && npm run lint'
+                    sh 'cd modules/google-pubsub && npm t'
+                }
+            },
             "salesforce": {
                 buildImage.inside() {
                     sh 'cd modules/salesforce && npm i'
