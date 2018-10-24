@@ -1,0 +1,39 @@
+buildImage = docker.image('node:10.9')
+
+node {
+    stage('checkout') {
+        checkout scm
+    }
+
+    stage('Tests') {
+        agent {
+            docker {
+                image 'node:10.9'
+            }
+        }
+
+        parallel(
+            "aws": {
+                buildImage.inside() {
+                    sh 'cd modules/aws && npm i'
+                    sh 'cd modules/aws && npm run lint'
+                    sh 'cd modules/aws && npm t'
+                }
+            },
+            "database": {
+                buildImage.inside() {
+                    sh 'cd modules/database && npm i'
+                    sh 'cd modules/database && npm run lint'
+                    sh 'cd modules/database && npm t'
+                }
+            },
+            "salesforce": {
+                buildImage.inside() {
+                    sh 'cd modules/salesforce && npm i'
+                    sh 'cd modules/salesforce && npm run lint'
+                    sh 'cd modules/salesforce && npm t'
+                }
+            }
+        )
+    }
+}

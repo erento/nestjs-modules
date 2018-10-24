@@ -1,10 +1,9 @@
 {
-  "$schema": "./node_modules/ng-packagr/package.schema.json",
   "name": "@erento/nestjs-module-database",
   "version": "1.0.0",
   "description": "NestJS module to work with DB with sequelize.",
   "main": "dist/public_api.js",
-  "types": "./dist/public_api.d.ts",
+  "types": "dist/public_api.d.ts",
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "lint": "tslint -c tslint.json --fix -e \"**/node_modules/**\" -p ./tsconfig.json",
