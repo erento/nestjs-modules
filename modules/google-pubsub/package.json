@@ -1,0 +1,69 @@
+{
+  "name": "@erento/nestjs-module-google-pubsub",
+  "version": "1.0.0",
+  "description": "NestJS module to work with DB with sequelize.",
+  "main": "dist/public_api.js",
+  "types": "dist/public_api.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "lint": "tslint -c tslint.json --fix -e \"**/node_modules/**\" -p ./tsconfig.json",
+    "lint-staged": "lint-staged",
+    "prebuild": "rm -rf dist && npm run lint && npm run test",
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "Erento GmbH <developers@erento.com> (https://www.erento.com)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/erento/nestjs-modules.git"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "@nestjs/common": ">=5.3",
+    "typescript": ">=2.7"
+  },
+  "dependencies": {
+    "@google-cloud/pubsub": "0.19.0",
+    "message-crypto": "1.0.0",
+    "object-hash": "1.3.0"
+  },
+  "devDependencies": {
+    "@nestjs/common": "5.3.15",
+    "@types/google-cloud__pubsub": "0.18.1",
+    "@types/jest": "23.3.5",
+    "@types/node": "10.12.0",
+    "husky": "1.1.2",
+    "jest": "23.6.0",
+    "lint-staged": "7.3.0",
+    "prettier": "1.14.3",
+    "reflect-metadata": "0.1.12",
+    "rxjs": "6.3.3",
+    "ts-jest": "23.10.4",
+    "tslint": "5.11.0",
+    "tslint-eslint-rules": "5.4.0",
+    "typescript": "3.1.3"
+  },
+  "precommit": [
+    "lint-staged"
+  ],
+  "lint-staged": {
+    "src/**/*.ts": [
+      "npm run lint",
+      "git add"
+    ]
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
+  }
+}
