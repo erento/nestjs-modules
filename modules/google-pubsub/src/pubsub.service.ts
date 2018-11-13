@@ -58,7 +58,12 @@ export class PubsubService {
         }
     }
 
-    public async publishMessage <T> (topicName: string, message: T, attributes: {[key: string]: string} = {}): Promise<string> {
+    public async publishMessage <T> (
+        topicName: string,
+        message: T,
+        attributes: {[key: string]: string} = {},
+        encrypted: boolean = true,
+    ): Promise<string> {
         if (!message) {
             throw new Error('Message can\'t be empty.');
         }
@@ -66,11 +71,14 @@ export class PubsubService {
         const messageWithMetadata: string = JSON.stringify(
             this.pubsubHelper.prepareForPubsub<T>(topicName, message, this.serviceIdentifier),
         );
-        const b64Body: string = await this.encryptMessage(messageWithMetadata);
-        const signature: string = await this.createSignature(b64Body);
+        const messageBody: string = encrypted ?
+            await this.encryptMessage(messageWithMetadata) :
+            Buffer.from(messageWithMetadata).toString('base64');
+
+        const signature: string = await this.createSignature(messageBody);
 
         return this.getPublisher(topicName).publish(
-            Buffer.from(b64Body, 'base64'),
+            Buffer.from(messageBody, 'base64'),
             {
                 signature,
                 ...attributes,
