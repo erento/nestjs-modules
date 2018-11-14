@@ -8,7 +8,7 @@
  - [Salesforce](modules/salesforce)
     - Process outbound messages
  - [Google Pub/Sub module](modules/google-pubsub)
-    - Send, receive and verify Google Pub/Sub messages (messages are encrypted)
+    - Send, receive and verify Google Pub/Sub messages (messages are by default encrypted)
     
 Each module is self published under `@erento` scope.
 
