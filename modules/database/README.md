@@ -78,6 +78,8 @@ export class UserEntity extends Model<UserEntity> {
 }
 ```
 
+_Note: If you want to use Typescript 2.x you will need to use this module in version 1.x._
+
 ## Stay in touch
 
 * [Erento's developers](mailto:developers@erento.com) 
