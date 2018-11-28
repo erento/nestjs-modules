@@ -1,12 +1,12 @@
-import {GCloudConfiguration} from '@google-cloud/pubsub';
 import {DynamicModule, Module, Provider} from '@nestjs/common';
+import {GoogleAuthOptions} from './domain';
 import {PubsubService} from './pubsub.service';
 import {PubsubHelper} from './pubsub.helper';
 
 @Module({})
 export class PubsubModule {
     public static forRoot (
-        configFile: GCloudConfiguration,
+        configFile: GoogleAuthOptions,
         cryptoSignKey: string,
         cryptoEncryptionKey: string,
         serviceIdentifier: string,

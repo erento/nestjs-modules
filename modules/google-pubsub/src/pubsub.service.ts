@@ -1,20 +1,22 @@
 import {Injectable} from '@nestjs/common';
-import {GCloudConfiguration, Publisher, PubSub, Subscription} from '@google-cloud/pubsub';
+import {PubSub} from '@google-cloud/pubsub';
+import {Subscription} from '@google-cloud/pubsub/build/src';
+import {Publisher} from '@google-cloud/pubsub/build/src/publisher';
 import * as MessageCrypto from 'message-crypto';
 import {PubsubHelper} from './pubsub.helper';
-import {EncodedMessage} from './domain';
+import {EncodedMessage, GoogleAuthOptions} from './domain';
 
 @Injectable()
 export class PubsubService {
     public static async create (
-        configFile: GCloudConfiguration,
+        googleAuthOptions: GoogleAuthOptions,
         cryptoEncryptionKey: string,
         cryptoSignKey: string,
         pubSubHelper: PubsubHelper,
         serviceIdentifier: string,
     ): Promise<PubsubService> {
         const pubSubService: PubsubService = new PubsubService(cryptoEncryptionKey, cryptoSignKey, pubSubHelper, serviceIdentifier);
-        await pubSubService.initPubSubLibrary(configFile);
+        await pubSubService.initPubSubLibrary(googleAuthOptions);
         return pubSubService;
     }
 
@@ -63,7 +65,7 @@ export class PubsubService {
         message: T,
         attributes: {[key: string]: string} = {},
         encrypted: boolean = true,
-    ): Promise<string> {
+    ): Promise<void> {
         if (!message) {
             throw new Error('Message can\'t be empty.');
         }
@@ -77,7 +79,7 @@ export class PubsubService {
 
         const signature: string = await this.createSignature(messageBody);
 
-        return this.getPublisher(topicName).publish(
+        this.getPublisher(topicName).publish(
             Buffer.from(messageBody, 'base64'),
             {
                 signature,
@@ -94,10 +96,9 @@ export class PubsubService {
         return MessageCrypto.encrypt(message, this.cryptoEncryptionKey);
     }
 
-    private async initPubSubLibrary (config: GCloudConfiguration): Promise<void> {
+    private async initPubSubLibrary (googleAuthOptions: GoogleAuthOptions): Promise<void> {
         if (!this.pubSubLibrary) {
-            const pubSub: (config: GCloudConfiguration) => PubSub = await import('@google-cloud/pubsub');
-            this.pubSubLibrary = pubSub(config);
+            this.pubSubLibrary = new PubSub(googleAuthOptions);
         }
     }
 

@@ -25,3 +25,20 @@ export interface PubsubMessageMeta {
     type: string;
     version: string;
 }
+
+interface CredentialBody {
+    client_email?: string;
+    private_key?: string;
+}
+
+// this type is not exported on `@google-cloud/pubsub`
+export interface GoogleAuthOptions {
+    /** Path to a .json, .pem, or .p12 key file */
+    keyFilename?: string;
+    /** Path to a .json, .pem, or .p12 key file */
+    keyFile?: string;
+    credentials?: CredentialBody;
+    /** Required scopes for the desired API request */
+    scopes?: string | string[];
+    projectId?: string;
+}

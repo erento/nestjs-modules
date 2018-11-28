@@ -1,15 +1,20 @@
-import Mock = jest.Mock;
-const mockPublish: Mock = jest.fn();
+const mockPublish: jest.Mock = jest.fn();
 
-jest.mock('@google-cloud/pubsub', () => (): any => {
+class StupPubSub {
+    constructor(_options) {}
+
+    public topic (): any {
+        return {
+            publisher: (): any => {
+                return {publish: mockPublish};
+            },
+        };
+    }
+}
+
+jest.mock('@google-cloud/pubsub', () => {
     return {
-        topic: (): any => {
-            return {
-                publisher: (): any => {
-                    return {publish: mockPublish};
-                },
-            };
-        },
+        PubSub: StupPubSub,
     };
 });
 
@@ -44,9 +49,9 @@ describe('pubsub service', async () => {
     });
 
     test('should call the publish method on the underlying pub-sub library', async (): Promise<void> => {
-        mockPublish.mockImplementationOnce(() => 'mockMessageId');
-        expect(service.publishMessage('slack', 'mockmsg')).resolves.toEqual('mockMessageId');
+        await expect(service.publishMessage('slack', 'mockmsg')).resolves.toBeUndefined();
         // tslint:disable-next-line
+        expect(mockPublish).toBeCalledWith(expect.any(Buffer), {signature: expect.anything()});
         expect(pubsubHelper.prepareForPubsub).toBeCalledWith('slack', 'mockmsg', 'userAgent');
     });
 });
