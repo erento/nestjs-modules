@@ -49,9 +49,16 @@ describe('pubsub service', async () => {
     });
 
     test('should call the publish method on the underlying pub-sub library', async (): Promise<void> => {
-        await expect(service.publishMessage('slack', 'mockmsg')).resolves.toBeUndefined();
+        const idempotencyKeyMatch: string = '__' + new Date().toISOString().substring(0, 10);
+        await expect(service.publishMessage('slack', 'mockmsg'))
+            .resolves
+            .toContain(idempotencyKeyMatch);
+
         // tslint:disable-next-line
-        expect(mockPublish).toBeCalledWith(expect.any(Buffer), {signature: expect.anything()});
+        expect(mockPublish).toBeCalledWith(
+            expect.any(Buffer),
+            {idempotencyKey: expect.stringContaining(idempotencyKeyMatch), signature: expect.anything()},
+        );
         expect(pubsubHelper.prepareForPubsub).toBeCalledWith('slack', 'mockmsg', 'userAgent');
     });
 });

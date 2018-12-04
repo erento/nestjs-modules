@@ -3,8 +3,13 @@ import {PubSub} from '@google-cloud/pubsub';
 import {Subscription} from '@google-cloud/pubsub/build/src';
 import {Publisher} from '@google-cloud/pubsub/build/src/publisher';
 import * as MessageCrypto from 'message-crypto';
+import * as uuidv4 from 'uuid/v4';
 import {PubsubHelper} from './pubsub.helper';
 import {EncodedMessage, GoogleAuthOptions} from './domain';
+
+function generateIdempotencyKey (): string {
+    return `${uuidv4()}__${new Date().toISOString()}`;
+}
 
 @Injectable()
 export class PubsubService {
@@ -79,13 +84,18 @@ export class PubsubService {
 
         const signature: string = await this.createSignature(messageBody);
 
+        const idempotencyKey: string = generateIdempotencyKey();
+
         this.getPublisher(topicName).publish(
             Buffer.from(messageBody, 'base64'),
             {
+                idempotencyKey,
                 signature,
                 ...attributes,
             },
         );
+
+        return idempotencyKey;
     }
 
     public createSignature (b64Body: string): Promise<string> {
