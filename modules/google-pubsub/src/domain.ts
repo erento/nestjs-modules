@@ -42,3 +42,18 @@ export interface GoogleAuthOptions {
     scopes?: string | string[];
     projectId?: string;
 }
+
+export interface PushMessage<T = string> {
+    message: {
+        attributes: {
+            signature: string;
+            [key: string]: string;
+        };
+        data: T;
+        messageId: string;
+        message_id: string;
+        publishTime: string;
+        publish_time: string;
+    };
+    subscription: string;
+}
