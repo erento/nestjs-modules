@@ -1,6 +1,6 @@
-import {BadRequestException, HttpException, HttpStatus, Injectable, PipeTransform} from "@nestjs/common";
-import {PubsubMessage, PushMessage} from "./domain";
-import {PubsubService} from "./pubsub.service";
+import {BadRequestException, HttpException, HttpStatus, Injectable, PipeTransform} from '@nestjs/common';
+import {PubsubMessage, PushMessage} from './domain';
+import {PubsubService} from './pubsub.service';
 
 @Injectable()
 export class ParsePubsubMessagePipe<T> implements PipeTransform<PushMessage<T>, Promise<PubsubMessage<T>>> {
@@ -15,11 +15,11 @@ export class ParsePubsubMessagePipe<T> implements PipeTransform<PushMessage<T>, 
             const decryptedMessage: string = await this.pubsubService.decryptMessage(<any> pushMessage.message);
 
             return JSON.parse(decryptedMessage);
-        } catch (e) {
-            if (e instanceof HttpException) {
-                throw e;
+        } catch (err) {
+            if (err instanceof HttpException) {
+                throw err;
             }
-            throw new BadRequestException(`Unable to decode pubsub message. Original message: ${e && e.message}`);
+            throw new BadRequestException(`Unable to decode pubsub message. Original message: ${err && err.message}`);
         }
     }
 }
