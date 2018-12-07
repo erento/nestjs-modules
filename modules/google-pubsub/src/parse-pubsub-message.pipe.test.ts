@@ -9,29 +9,37 @@ describe('ParsePubsubMessagePipe', () => {
 
     beforeEach(() => {
         mockPubsubService = <any> {
-            decryptMessage: jest.fn().mockReturnValue('{}'),
-            verifyMessage: jest.fn().mockReturnValue(true),
+            decryptMessage: jest.fn(),
+            verifyMessage: jest.fn(),
         };
         parsePubsubMessagePipe = new ParsePubsubMessagePipe(mockPubsubService);
     });
 
-    test('transform should verify the signature', async () => {
+    test('should verify the signature', async () => {
+        (<jest.Mock> mockPubsubService.verifyMessage).mockResolvedValueOnce(true);
+        (<jest.Mock> mockPubsubService.decryptMessage).mockResolvedValueOnce('{}');
+
         const stubPushMessage: PushMessage = <any> {message: 'some-string'};
         await parsePubsubMessagePipe.transform(stubPushMessage);
 
         expect(mockPubsubService.verifyMessage).toHaveBeenCalledTimes(1);
         expect(mockPubsubService.verifyMessage).toHaveBeenCalledWith(stubPushMessage.message);
+        expect(mockPubsubService.decryptMessage).toHaveBeenCalledTimes(1);
+        expect(mockPubsubService.decryptMessage).toHaveBeenCalledWith(stubPushMessage.message);
     });
 
-    test('transform should throw an HttpException if signature fails', async () => {
+    test('should throw an HttpException if signature fails', async () => {
         (<jest.Mock> mockPubsubService.verifyMessage).mockReturnValueOnce(false);
 
         await expect(parsePubsubMessagePipe.transform(<any> {message: 'some-string'})).rejects.toThrow(HttpException);
+        expect(mockPubsubService.verifyMessage).toHaveBeenCalledTimes(1);
+        expect(mockPubsubService.decryptMessage).not.toHaveBeenCalled();
     });
 
-    test('transform should return the decrypted message and parse it', async () => {
+    test('should return the decrypted message and parse it', async () => {
         const mockMessagePayload: any = {mock: true};
-        (<jest.Mock> mockPubsubService.decryptMessage).mockReturnValueOnce(JSON.stringify(mockMessagePayload));
+        (<jest.Mock> mockPubsubService.verifyMessage).mockResolvedValueOnce(true);
+        (<jest.Mock> mockPubsubService.decryptMessage).mockResolvedValueOnce(JSON.stringify(mockMessagePayload));
 
         const result: any = await parsePubsubMessagePipe.transform(<any> {message: ''});
 
@@ -40,21 +48,23 @@ describe('ParsePubsubMessagePipe', () => {
         expect(result).toEqual(mockMessagePayload);
     });
 
-    test('transform should throw BadRequestException if it fails during decryption', async () => {
-        (<jest.Mock> mockPubsubService.decryptMessage).mockReset();
+    test('should throw BadRequestException if it fails during decryption', async () => {
+        (<jest.Mock> mockPubsubService.verifyMessage).mockResolvedValueOnce(true);
         (<jest.Mock> mockPubsubService.decryptMessage).mockRejectedValueOnce(new Error('Could not decrypt'));
 
         await expect(parsePubsubMessagePipe.transform(<any> {message: ''})).rejects.toThrow(BadRequestException);
+        expect(mockPubsubService.verifyMessage).toHaveBeenCalledTimes(1);
         expect(mockPubsubService.decryptMessage).toHaveBeenCalledTimes(1);
         expect(mockPubsubService.decryptMessage).toHaveBeenCalledWith('');
     });
 
-    test('transform should throw a BadRequestException if the message cannot be parsed', async () => {
-        (<jest.Mock> mockPubsubService.decryptMessage).mockReturnValueOnce('{GoodLuck}Parsing{this}[thing]');
+    test('should throw a BadRequestException if the message cannot be parsed', async () => {
+        (<jest.Mock> mockPubsubService.verifyMessage).mockResolvedValueOnce(true);
+        (<jest.Mock> mockPubsubService.decryptMessage).mockResolvedValueOnce('{GoodLuck}Parsing{this}[thing]');
 
         await expect(parsePubsubMessagePipe.transform(<any> {message: ''})).rejects.toThrow(BadRequestException);
+        expect(mockPubsubService.verifyMessage).toHaveBeenCalledTimes(1);
         expect(mockPubsubService.decryptMessage).toHaveBeenCalledTimes(1);
         expect(mockPubsubService.decryptMessage).toHaveBeenCalledWith('');
     });
-
 });
