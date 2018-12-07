@@ -2,6 +2,7 @@ import {DynamicModule, Module, Provider} from '@nestjs/common';
 import {GoogleAuthOptions} from './domain';
 import {PubsubService} from './pubsub.service';
 import {PubsubHelper} from './pubsub.helper';
+import {ParsePubsubMessagePipe} from './parse-pubsub-message.pipe';
 
 @Module({})
 export class PubsubModule {
@@ -12,6 +13,7 @@ export class PubsubModule {
         serviceIdentifier: string,
     ): DynamicModule {
         const providers: Provider[] = [
+            ParsePubsubMessagePipe,
             PubsubHelper,
             {
                 provide: PubsubService,
