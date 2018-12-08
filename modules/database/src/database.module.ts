@@ -1,6 +1,7 @@
 import {DynamicModule, Module, Provider} from '@nestjs/common';
 import {Model} from 'sequelize-typescript';
-import {DatabaseProvider, ProviderOptions} from './database.provider';
+import {DatabaseProvider} from './database.provider';
+import {ProviderOptions} from './basic-database.provider';
 
 export interface DatabaseCredentials {
     host: string;
@@ -33,7 +34,6 @@ export class DatabaseModule {
             provide: DatabaseProvider,
             useFactory: async (): Promise<DatabaseProvider> => {
                 DatabaseModule.databaseProvider = DatabaseProvider.create(models, credentials, options);
-
                 return DatabaseModule.databaseProvider;
             },
         }];
