@@ -5,9 +5,7 @@ class StupPubSub {
 
     public topic (): any {
         return {
-            publisher: (): any => {
-                return {publish: mockPublish};
-            },
+            publish: mockPublish,
         };
     }
 }
@@ -21,9 +19,10 @@ jest.mock('@google-cloud/pubsub', () => {
 import {PubsubHelper} from './pubsub.helper';
 import {PubsubService} from './pubsub.service';
 
-describe('pubsub service', async () => {
+describe('pubsub service', (): void => {
     let pubsubHelper: PubsubHelper;
     let service: PubsubService;
+
     beforeEach(async (): Promise<void> => {
         pubsubHelper = <any> {prepareForPubsub: jest.fn()};
         jest.spyOn(pubsubHelper, 'prepareForPubsub').mockImplementationOnce(() => {
