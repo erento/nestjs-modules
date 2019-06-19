@@ -4,6 +4,7 @@ import {Model, Sequelize} from 'sequelize-typescript';
 import {DatabaseCredentials} from './database.module';
 
 export interface ProviderOptions {
+    logging?: Function;
     operatorsAliases?: boolean;
 
     /**
@@ -32,6 +33,9 @@ export class DatabaseProvider {
                 port: credentials.port,
                 username: credentials.user,
                 operatorsAliases: options && options.operatorsAliases ? options.operatorsAliases : false,
+                logging: options && options.logging && {}.toString.call(options.logging) === '[object Function]' ?
+                    options.logging :
+                    undefined,
             });
 
             sequelize.addModels(models);
