@@ -1,10 +1,8 @@
+import {PubSub, Subscription, Topic} from '@google-cloud/pubsub';
 import {Injectable} from '@nestjs/common';
-import {PubSub} from '@google-cloud/pubsub';
-import {Subscription} from '@google-cloud/pubsub/build/src';
-import {Publisher} from '@google-cloud/pubsub/build/src/publisher';
 import * as MessageCrypto from 'message-crypto';
-import {PubsubHelper} from './pubsub.helper';
 import {EncodedMessage, GoogleAuthOptions} from './domain';
+import {PubsubHelper} from './pubsub.helper';
 
 @Injectable()
 export class PubsubService {
@@ -79,7 +77,7 @@ export class PubsubService {
 
         const signature: string = await this.createSignature(messageBody);
 
-        this.getPublisher(topicName).publish(
+        this.getTopic(topicName).publish(
             Buffer.from(messageBody, 'base64'),
             {
                 signature,
@@ -102,13 +100,13 @@ export class PubsubService {
         }
     }
 
-    private getPublisher (topicName: string): Publisher {
+    private getTopic (topicName: string): Topic {
         if (!this.pubSubLibrary) {
-            throw new Error('There is no Pub/Sub library. Cannot return a publisher.');
+            throw new Error('There is no Pub/Sub library. Cannot return a topic.');
         }
 
         try {
-            return this.pubSubLibrary.topic(topicName).publisher();
+            return this.pubSubLibrary.topic(topicName);
         } catch (err) {
             throw new Error('Cannot get a publisher.');
         }

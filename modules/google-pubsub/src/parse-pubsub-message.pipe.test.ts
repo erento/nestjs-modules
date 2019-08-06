@@ -3,11 +3,11 @@ import {PushMessage} from './domain';
 import {ParsePubsubMessagePipe} from './parse-pubsub-message.pipe';
 import {BadRequestException, HttpException} from '@nestjs/common';
 
-describe('ParsePubsubMessagePipe', () => {
+describe('ParsePubsubMessagePipe', (): void => {
     let mockPubsubService: PubsubService;
     let parsePubsubMessagePipe: ParsePubsubMessagePipe<string>;
 
-    beforeEach(() => {
+    beforeEach((): void => {
         mockPubsubService = <any> {
             decryptMessage: jest.fn(),
             verifyMessage: jest.fn(),
@@ -15,7 +15,7 @@ describe('ParsePubsubMessagePipe', () => {
         parsePubsubMessagePipe = new ParsePubsubMessagePipe(mockPubsubService);
     });
 
-    test('should verify the signature', async () => {
+    test('should verify the signature', async (): Promise<void> => {
         (<jest.Mock> mockPubsubService.verifyMessage).mockResolvedValueOnce(true);
         (<jest.Mock> mockPubsubService.decryptMessage).mockResolvedValueOnce('{}');
 
@@ -28,7 +28,7 @@ describe('ParsePubsubMessagePipe', () => {
         expect(mockPubsubService.decryptMessage).toHaveBeenCalledWith(stubPushMessage.message);
     });
 
-    test('should throw an HttpException if signature fails', async () => {
+    test('should throw an HttpException if signature fails', async (): Promise<void> => {
         (<jest.Mock> mockPubsubService.verifyMessage).mockReturnValueOnce(false);
 
         await expect(parsePubsubMessagePipe.transform(<any> {message: 'some-string'})).rejects.toThrow(HttpException);
@@ -36,7 +36,7 @@ describe('ParsePubsubMessagePipe', () => {
         expect(mockPubsubService.decryptMessage).not.toHaveBeenCalled();
     });
 
-    test('should return the decrypted message and parse it', async () => {
+    test('should return the decrypted message and parse it', async (): Promise<void> => {
         const mockMessagePayload: any = {mock: true};
         (<jest.Mock> mockPubsubService.verifyMessage).mockResolvedValueOnce(true);
         (<jest.Mock> mockPubsubService.decryptMessage).mockResolvedValueOnce(JSON.stringify(mockMessagePayload));
@@ -48,7 +48,7 @@ describe('ParsePubsubMessagePipe', () => {
         expect(result).toEqual(mockMessagePayload);
     });
 
-    test('should throw BadRequestException if it fails during decryption', async () => {
+    test('should throw BadRequestException if it fails during decryption', async (): Promise<void> => {
         (<jest.Mock> mockPubsubService.verifyMessage).mockResolvedValueOnce(true);
         (<jest.Mock> mockPubsubService.decryptMessage).mockRejectedValueOnce(new Error('Could not decrypt'));
 
@@ -58,7 +58,7 @@ describe('ParsePubsubMessagePipe', () => {
         expect(mockPubsubService.decryptMessage).toHaveBeenCalledWith('');
     });
 
-    test('should throw a BadRequestException if the message cannot be parsed', async () => {
+    test('should throw a BadRequestException if the message cannot be parsed', async (): Promise<void> => {
         (<jest.Mock> mockPubsubService.verifyMessage).mockResolvedValueOnce(true);
         (<jest.Mock> mockPubsubService.decryptMessage).mockResolvedValueOnce('{GoodLuck}Parsing{this}[thing]');
 

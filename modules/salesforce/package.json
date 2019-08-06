@@ -19,24 +19,24 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@nestjs/common": ">=5.3.9",
-    "typescript": ">=2.7"
+    "@nestjs/common": ">=6.5",
+    "typescript": ">=3.5"
   },
   "devDependencies": {
-    "@nestjs/common": "5.3.9",
-    "@nestjs/core": "5.3.10",
-    "@types/jest": "23.3.2",
-    "@types/node": "10.10.3",
-    "husky": "1.1.0",
-    "jest": "23.6.0",
-    "lint-staged": "7.3.0",
-    "prettier": "1.14.3",
-    "reflect-metadata": "0.1.12",
-    "rxjs": "6.3.2",
-    "ts-jest": "23.10.1",
-    "tslint": "5.11.0",
+    "@nestjs/common": "6.5.3",
+    "@nestjs/core": "6.5.3",
+    "@types/jest": "24.0.17",
+    "@types/node": "12.6.9",
+    "husky": "3.0.2",
+    "jest": "24.8.0",
+    "lint-staged": "9.2.1",
+    "prettier": "1.18.2",
+    "reflect-metadata": "0.1.13",
+    "rxjs": "6.5.2",
+    "ts-jest": "24.0.2",
+    "tslint": "5.18.0",
     "tslint-eslint-rules": "5.4.0",
-    "typescript": "2.9.2"
+    "typescript": "3.5.3"
   },
   "precommit": [
     "lint-staged"

@@ -1,6 +1,6 @@
-import * as os from 'os';
-import * as hash from 'object-hash';
 import {Injectable} from '@nestjs/common';
+import * as hash from 'object-hash';
+import * as os from 'os';
 import {PubsubMessage} from './domain';
 
 @Injectable()

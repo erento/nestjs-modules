@@ -21,6 +21,7 @@
         "arrow-return-shorthand": false,
         "await-promise": false,
         "ban-comma-operator": true,
+        "ban-ts-ignore": true,
         "ban-types": true,
         "binary-expression-operand-order": false,
         "block-spacing": [
@@ -33,12 +34,16 @@
         ],
         "class-name": true,
         "comment-format": false,
+        "comment-type": false,
         "callable-types": true,
         "curly": true,
         "encoding": true,
         "eofline": true,
         "forin": true,
         "file-header": false,
+        "file-name-casing": false,
+        "function-constructor": true,
+        "increment-decrement": false,
         "interface-over-type-literal": false,
         "import-blacklist": true,
         "import-spacing": true,
@@ -113,6 +118,7 @@
         "no-control-regex": true,
         "no-debugger": true,
         "no-default-export": true,
+        "no-default-import": true,
         "no-duplicate-case": true,
         "no-duplicate-imports": true,
         "no-duplicate-variable": [true, "check-parameters"],
@@ -177,7 +183,6 @@
         "no-unsafe-any": false,
         "no-unsafe-finally": true,
         "no-unused-expression": true,
-        "no-use-before-declare": true,
         "no-var-keyword": true,
         "no-var-requires": true,
         "no-void-expression": [true, "ignore-arrow-function-shorthand"],
@@ -204,8 +209,8 @@
         "ordered-imports": [
             true,
             {
-                "grouped-imports": true,
-                "import-sources-order": "any",
+                "grouped-imports": false,
+                "import-sources-order": "case-insensitive",
                 "module-source-path": "full",
                 "named-imports-order": "case-insensitive"
             }
@@ -240,7 +245,7 @@
         "switch-default": true,
         "switch-final-break": [true, "always"],
         "strict-boolean-expressions": false,
-        "strict-type-predicates": false, // enable after strictNullChecks in tsconfig
+        "strict-type-predicates": true,
         "ter-arrow-body-style": [
             true,
             "as-needed",
@@ -308,6 +313,7 @@
             true,
             "allow-null-check"
         ],
+        "type-literal-delimiter": true,
         "typedef": [
             true,
             "arrow-call-signature",
@@ -338,6 +344,8 @@
             }
         ],
         "unified-signatures": true,
+        "unnecessary-bind": true,
+        "unnecessary-constructor": true,
         "use-default-type-parameter": true,
         "use-isnan": true,
         "valid-jsdoc": [true, {
