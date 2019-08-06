@@ -1,6 +1,6 @@
 {
   "name": "@erento/nestjs-module-database",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "description": "NestJS module to work with DB with sequelize.",
   "main": "dist/public_api.js",
   "types": "dist/public_api.d.ts",
