@@ -1,6 +1,6 @@
 {
   "name": "@erento/nestjs-module-aws",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "NestJS module for communication with AWS.",
   "main": "dist/public_api.js",
   "types": "dist/public_api.d.ts",
