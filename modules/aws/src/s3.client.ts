@@ -1,6 +1,6 @@
 import {Injectable} from '@nestjs/common';
 import * as aws from 'aws-sdk';
-import {ManagedUpload} from 'aws-sdk/clients/s3';
+import {Body, ManagedUpload} from 'aws-sdk/clients/s3';
 
 @Injectable()
 export class S3Client {
@@ -10,14 +10,19 @@ export class S3Client {
         this.connection = new aws.S3({region: this.regionName});
     }
 
-    public upload (filePath: string, payload: string): Promise<ManagedUpload.SendData> {
+    public upload (
+        filePath: string,
+        payload: Body,
+        options: ManagedUpload.ManagedUploadOptions = {},
+    ): Promise<ManagedUpload.SendData> {
         return new Promise<ManagedUpload.SendData>((resolve: Function, reject: Function): void => {
             this.connection.upload(
                 {
                     Bucket: this.bucketName,
-                    Key: `${this.filePathPrefix}/${filePath}`,
+                    Key: `${this.filePathPrefix ? this.filePathPrefix + '/' : ''}${filePath}`,
                     Body: payload,
                 },
+                options,
                 (err: Error, data: ManagedUpload.SendData) => {
                     err ? reject(err) : resolve(data);
                 },
@@ -25,7 +30,11 @@ export class S3Client {
         });
     }
 
-    public uploadInBatch (filePath: string, payloadItems: object[]): Promise<ManagedUpload.SendData> {
+    public uploadInBatch (
+        filePath: string,
+        payloadItems: object[],
+        options: ManagedUpload.ManagedUploadOptions = {},
+    ): Promise<ManagedUpload.SendData> {
         if (!Array.isArray(payloadItems) || payloadItems.length < 1) {
             throw new Error('You are trying to upload an empty file.');
         }
@@ -33,17 +42,6 @@ export class S3Client {
             .reduce((prev: string, value: object): string => `${prev}${JSON.stringify(value)}\n`, '')
             .trim();
 
-        return new Promise<ManagedUpload.SendData>((resolve: Function, reject: Function): void => {
-            this.connection.upload(
-                {
-                    Bucket: this.bucketName,
-                    Key: `${this.filePathPrefix}/${filePath}`,
-                    Body: payload,
-                },
-                (err: Error, data: ManagedUpload.SendData) => {
-                    err ? reject(err) : resolve(data);
-                },
-            );
-        });
+        return this.upload(filePath, payload, options);
     }
 }
