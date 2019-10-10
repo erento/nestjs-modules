@@ -4,11 +4,7 @@ import {ManagedUpload} from 'aws-sdk/clients/s3';
 
 @Injectable()
 export class S3Client {
-    private connection: aws.S3;
-
-    constructor (private regionName: string, private bucketName: string, private filePathPrefix: string) {
-        this.connection = new aws.S3({region: this.regionName});
-    }
+    constructor (private connection: aws.S3, private bucketName: string, private filePathPrefix: string) {}
 
     public upload (filePath: string, payload: string): Promise<ManagedUpload.SendData> {
         return new Promise<ManagedUpload.SendData>((resolve: Function, reject: Function): void => {
