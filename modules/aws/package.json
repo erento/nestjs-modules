@@ -23,17 +23,17 @@
     "typescript": ">=3.5"
   },
   "dependencies": {
-    "aws-sdk": "2.504.0"
+    "aws-sdk": "2.546.0"
   },
   "devDependencies": {
-    "@nestjs/common": "6.5.3",
-    "@types/node": "12.6.9",
-    "husky": "3.0.2",
-    "lint-staged": "9.2.1",
+    "@nestjs/common": "6.8.2",
+    "@types/node": "12.7.12",
+    "husky": "3.0.8",
+    "lint-staged": "9.4.2",
     "prettier": "1.18.2",
     "reflect-metadata": "0.1.13",
-    "rxjs": "6.5.2",
-    "tslint": "5.18.0",
+    "rxjs": "6.5.3",
+    "tslint": "5.20.0",
     "tslint-eslint-rules": "5.4.0",
     "typescript": "3.5.3"
   },
