@@ -27,7 +27,7 @@ export class AwsModule {
         }
 
         const providers: Provider[] = [
-            {provide: S3Client, useValue: new S3Client(regionName, bucketName, filePathPrefix)},
+            {provide: S3Client, useValue: new S3Client(new aws.S3({region: regionName}), bucketName, filePathPrefix)},
         ];
 
         return {

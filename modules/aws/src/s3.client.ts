@@ -4,11 +4,7 @@ import {Body, ManagedUpload} from 'aws-sdk/clients/s3';
 
 @Injectable()
 export class S3Client {
-    private connection: aws.S3;
-
-    constructor (private regionName: string, private bucketName: string, private filePathPrefix: string) {
-        this.connection = new aws.S3({region: this.regionName});
-    }
+    constructor (private connection: aws.S3, private bucketName: string, private filePathPrefix: string) {}
 
     public upload (
         filePath: string,
