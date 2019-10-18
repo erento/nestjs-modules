@@ -77,7 +77,7 @@ export class PubsubService {
 
         const signature: string = await this.createSignature(messageBody);
 
-        this.getTopic(topicName).publish(
+        await this.getTopic(topicName).publish(
             Buffer.from(messageBody, 'base64'),
             {
                 signature,
