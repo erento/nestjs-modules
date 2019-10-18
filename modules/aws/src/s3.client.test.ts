@@ -4,6 +4,7 @@ import * as aws from 'aws-sdk';
 
 let connection: aws.S3;
 
+/* tslint:disable:no-unbound-method */
 describe('S3 Client', (): void => {
     beforeEach((): void => {
         connection = <any> {
@@ -16,10 +17,11 @@ describe('S3 Client', (): void => {
             const s3Client: S3Client = new S3Client(connection, 'my-bucket-name', '');
 
             // intentionally not awaiting because of a callback handler
-            s3Client.upload('folder/filename.jpg', 'payload');
+            s3Client.upload('folder/filename.jpg', 'payload', {leavePartsOnError: true});
 
             expect(connection.upload).toHaveBeenCalledWith(
-                {Body: 'payload', Bucket: 'my-bucket-name', Key: '/folder/filename.jpg'},
+                {Body: 'payload', Bucket: 'my-bucket-name', Key: 'folder/filename.jpg'},
+                {leavePartsOnError: true},
                 expect.any(Function),
             );
         });
@@ -32,6 +34,7 @@ describe('S3 Client', (): void => {
 
             expect(connection.upload).toHaveBeenCalledWith(
                 {Body: 'payload', Bucket: 'my-bucket-name', Key: 'some-prefix/folder/filename.jpg'},
+                {},
                 expect.any(Function),
             );
         });
@@ -57,6 +60,7 @@ describe('S3 Client', (): void => {
 
             expect(connection.upload).toHaveBeenCalledWith(
                 {Body: '{"a":1}\n{"b":{"c":2}}', Bucket: 'my-bucket-name', Key: 'some-prefix/folder/filename.jpg'},
+                {},
                 expect.any(Function),
             );
         });

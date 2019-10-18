@@ -23,20 +23,20 @@
     "typescript": ">=3.5"
   },
   "dependencies": {
-    "aws-sdk": "2.504.0"
+    "aws-sdk": "2.552.0"
   },
   "devDependencies": {
     "@nestjs/common": "6.5.3",
-    "@types/jest": "24.0.18",
-    "@types/node": "12.6.9",
-    "husky": "3.0.2",
+    "@types/jest": "24.0.19",
+    "@types/node": "12.11.1",
+    "husky": "3.0.9",
     "jest": "24.9.0",
-    "lint-staged": "9.2.1",
+    "lint-staged": "9.4.2",
     "prettier": "1.18.2",
     "reflect-metadata": "0.1.13",
-    "rxjs": "6.5.2",
+    "rxjs": "6.5.3",
     "ts-jest": "24.1.0",
-    "tslint": "5.18.0",
+    "tslint": "5.20.0",
     "tslint-eslint-rules": "5.4.0",
     "typescript": "3.5.3"
   },
@@ -53,6 +53,7 @@
     "transform": {
       "^.+\\.tsx?$": "ts-jest"
     },
+    "testEnvironment": "node",
     "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
     "moduleFileExtensions": [
       "ts",
