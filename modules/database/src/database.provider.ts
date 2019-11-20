@@ -1,11 +1,12 @@
 import {Injectable} from '@nestjs/common';
-import {SyncOptions} from 'sequelize';
+import {PoolOptions, SyncOptions} from 'sequelize';
 import {Model, Sequelize} from 'sequelize-typescript';
 import {DatabaseCredentials} from './database.module';
 
 export interface ProviderOptions {
     logging?: Function;
     operatorsAliases?: boolean;
+    pool?: PoolOptions;
 
     /**
      * if not provided, sync is not called.
@@ -35,6 +36,9 @@ export class DatabaseProvider {
                 operatorsAliases: options && options.operatorsAliases ? options.operatorsAliases : false,
                 logging: options && options.logging && {}.toString.call(options.logging) === '[object Function]' ?
                     options.logging :
+                    undefined,
+                pool: options && options.pool ?
+                    options.pool :
                     undefined,
             });
 
