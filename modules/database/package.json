@@ -25,7 +25,7 @@
     "sequelize-typescript": "0.6.6"
   },
   "dependencies": {
-    "sequelize": "4.44.3",
+    "sequelize": "5.15.1",
     "sequelize-typescript": "0.6.6"
   },
   "devDependencies": {
