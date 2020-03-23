@@ -1,20 +1,21 @@
-import {PubSub, Subscription, Topic} from '@google-cloud/pubsub';
+import {PubSub, Topic} from '@google-cloud/pubsub';
+import {ClientConfig} from '@google-cloud/pubsub/build/src/pubsub';
 import {Injectable} from '@nestjs/common';
 import * as MessageCrypto from 'message-crypto';
-import {EncodedMessage, GoogleAuthOptions} from './domain';
+import {EncodedMessage, PublishOptions, Subscription, SubscriptionOptions} from './domain';
 import {PubsubHelper} from './pubsub.helper';
 
 @Injectable()
 export class PubsubService {
     public static async create (
-        googleAuthOptions: GoogleAuthOptions,
+        clientConfig: ClientConfig,
         cryptoEncryptionKey: string,
         cryptoSignKey: string,
         pubSubHelper: PubsubHelper,
         serviceIdentifier: string,
     ): Promise<PubsubService> {
         const pubSubService: PubsubService = new PubsubService(cryptoEncryptionKey, cryptoSignKey, pubSubHelper, serviceIdentifier);
-        await pubSubService.initPubSubLibrary(googleAuthOptions);
+        await pubSubService.initPubSubLibrary(clientConfig);
         return pubSubService;
     }
 
@@ -27,14 +28,21 @@ export class PubsubService {
         private readonly serviceIdentifier: string,
     ) {}
 
-    public listenOnSubscription (subscriptionName: string, onMessage: (...args: any[]) => void, onError: (...args: any[]) => void): void {
+    public listenOnSubscription (
+        subscriptionName: string,
+        onMessage: (...args: any[]) => void,
+        onError: (...args: any[]) => void,
+        options?: SubscriptionOptions,
+    ): Subscription {
         if (!this.pubSubLibrary) {
             throw new Error('There is no Pub/Sub library. Cannot return a subscription.');
         }
 
-        const subscription: Subscription = this.pubSubLibrary.subscription(subscriptionName);
+        const subscription: Subscription = this.pubSubLibrary.subscription(subscriptionName, options);
         subscription.on('message', onMessage);
         subscription.on('error', onError);
+
+        return subscription;
     }
 
     public decryptMessage <T = string> (body: EncodedMessage): Promise<T> {
@@ -63,6 +71,7 @@ export class PubsubService {
         message: T,
         attributes: {[key: string]: string} = {},
         encrypted: boolean = true,
+        publishOptions?: PublishOptions,
     ): Promise<void> {
         if (!message) {
             throw new Error('Message can\'t be empty.');
@@ -77,7 +86,7 @@ export class PubsubService {
 
         const signature: string = await this.createSignature(messageBody);
 
-        await this.getTopic(topicName).publish(
+        await this.getTopic(topicName, publishOptions).publish(
             Buffer.from(messageBody, 'base64'),
             {
                 signature,
@@ -94,19 +103,19 @@ export class PubsubService {
         return MessageCrypto.encrypt(message, this.cryptoEncryptionKey);
     }
 
-    private async initPubSubLibrary (googleAuthOptions: GoogleAuthOptions): Promise<void> {
+    private async initPubSubLibrary (googleClientConfig: ClientConfig): Promise<void> {
         if (!this.pubSubLibrary) {
-            this.pubSubLibrary = new PubSub(googleAuthOptions);
+            this.pubSubLibrary = new PubSub(googleClientConfig);
         }
     }
 
-    private getTopic (topicName: string): Topic {
+    private getTopic (topicName: string, publishOptions?: PublishOptions): Topic {
         if (!this.pubSubLibrary) {
             throw new Error('There is no Pub/Sub library. Cannot return a topic.');
         }
 
         try {
-            return this.pubSubLibrary.topic(topicName);
+            return this.pubSubLibrary.topic(topicName, publishOptions);
         } catch (err) {
             throw new Error('Cannot get a publisher.');
         }
