@@ -1,17 +1,13 @@
-export interface EncodedMessage {
-    connectionId: string;
-    ackId: string;
-    id: string;
-    attributes: {
-        signature: string;
-    };
-    publishTime: string;
-    received: number;
-    data: Buffer;
-    length: number;
-    ack: Function;
-    nack: Function;
-}
+import {Message as gMessage, Subscription as gSubscription} from '@google-cloud/pubsub';
+import {PublishOptions as gPublishOptions} from '@google-cloud/pubsub/build/src/publisher';
+import {SubscriptionOptions as gSubscriptionOptions} from '@google-cloud/pubsub/build/src/subscription';
+
+export interface PublishOptions extends gPublishOptions {}
+
+export interface Subscription extends gSubscription {}
+export interface SubscriptionOptions extends gSubscriptionOptions {}
+
+export interface EncodedMessage extends gMessage {}
 
 export interface PubsubMessage<T = any> {
     meta: PubsubMessageMeta;
@@ -24,23 +20,6 @@ export interface PubsubMessageMeta {
     source: string;
     type: string;
     version: string;
-}
-
-interface CredentialBody {
-    client_email?: string;
-    private_key?: string;
-}
-
-// this type is not exported on `@google-cloud/pubsub`
-export interface GoogleAuthOptions {
-    /** Path to a .json, .pem, or .p12 key file */
-    keyFilename?: string;
-    /** Path to a .json, .pem, or .p12 key file */
-    keyFile?: string;
-    credentials?: CredentialBody;
-    /** Required scopes for the desired API request */
-    scopes?: string | string[];
-    projectId?: string;
 }
 
 export interface PushMessage<T = string> {
