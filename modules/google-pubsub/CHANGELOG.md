@@ -1,3 +1,8 @@
+<a name="2.2.0"></a>
+# 2.2.0 (2020-03-24)
+- Added subscription and publisher options
+- Upgrade dependencies
+
 <a name="2.1.0"></a>
 # 2.1.0 (2019-10-18)
 - Upgrade dependencies: Google Pub/Sub is stable 1.x.x
