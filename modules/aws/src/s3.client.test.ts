@@ -119,7 +119,7 @@ describe('S3 Client', (): void => {
             expect(connection.copyObject).toHaveBeenCalledWith(
                 {
                     CopySource: 'my-bucket-name/some-prefix/some-object.txt',
-                    Key: 'my-bucket-name/some-prefix/some-other-object.txt',
+                    Key: 'some-prefix/some-other-object.txt',
                     Bucket: 'my-bucket-name',
                 },
                 expect.any(Function),

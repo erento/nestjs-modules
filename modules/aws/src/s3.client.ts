@@ -65,7 +65,7 @@ export class S3Client {
         const sourceObjectName: string = this.generateObjectName(sourceFilePath);
         return new Promise((resolve: Function, reject: Function): void => {
             this.connection.copyObject({
-                Key: `${this.bucketName}/${this.generateObjectName(targetFilePath)}`,
+                Key: this.generateObjectName(targetFilePath),
                 CopySource: `${this.bucketName}/${sourceObjectName}`,
                 Bucket: this.bucketName,
 
