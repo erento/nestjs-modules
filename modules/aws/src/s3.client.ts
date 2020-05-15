@@ -1,6 +1,7 @@
 import {Injectable} from '@nestjs/common';
 import * as aws from 'aws-sdk';
 import {Body, CopyObjectOutput, ManagedUpload} from 'aws-sdk/clients/s3';
+import {S3MoveFileError, S3MoveFileErrorCode} from './errors/s3-move-file.error';
 
 @Injectable()
 export class S3Client {
@@ -71,17 +72,17 @@ export class S3Client {
 
             }, (copyErr: aws.AWSError, output: CopyObjectOutput): void => {
                 if (copyErr) {
-                    return reject(copyErr);
+                    return reject(new S3MoveFileError(S3MoveFileErrorCode.COPY_FAILED, copyErr));
                 }
-                this.connection.deleteObject({
-                    Key: sourceObjectName,
-                    Bucket: this.bucketName,
-                }, (deleteErr: aws.AWSError) => {
-                    if (deleteErr) {
-                        return reject(deleteErr);
-                    }
-                    resolve(output);
-                });
+                this.connection.deleteObject(
+                    {
+                        Key: sourceObjectName,
+                        Bucket: this.bucketName,
+                    },
+                    (deleteErr: aws.AWSError) => deleteErr ?
+                        reject(new S3MoveFileError(S3MoveFileErrorCode.DELETE_FAILED, deleteErr)) :
+                        resolve(output),
+                );
             });
         });
     }

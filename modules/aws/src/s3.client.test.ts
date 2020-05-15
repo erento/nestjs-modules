@@ -1,6 +1,6 @@
-import {S3Client} from './s3.client';
-
 import * as aws from 'aws-sdk';
+import {S3MoveFileError, S3MoveFileErrorCode} from './errors/s3-move-file.error';
+import {S3Client} from './s3.client';
 
 let connection: aws.S3;
 
@@ -8,11 +8,11 @@ let connection: aws.S3;
 describe('S3 Client', (): void => {
     beforeEach((): void => {
         connection = <any> {
-            upload: jest.fn(),
-            headObject: jest.fn(),
             copyObject: jest.fn(),
             deleteObject: jest.fn(),
             getSignedUrl: jest.fn(),
+            headObject: jest.fn(),
+            upload: jest.fn(),
         };
     });
 
@@ -105,7 +105,9 @@ describe('S3 Client', (): void => {
             (<jest.Mock> connection.copyObject).mockImplementation((_: never, callback: Function): void => callback(new Error('Test')));
 
             const s3Client: S3Client = new S3Client(connection, 'my-bucket-name', 'some-prefix');
-            await expect(s3Client.moveWithinBucket('some-object.txt', 'some-other-object.txt')).rejects.toThrowError('Test');
+            await expect(s3Client.moveWithinBucket('some-object.txt', 'some-other-object.txt'))
+                .rejects.toThrowError(new S3MoveFileError(S3MoveFileErrorCode.COPY_FAILED));
+            expect(connection.deleteObject).not.toHaveBeenCalled();
         });
 
         test('it copies object from source to target and deletes original', async (): Promise<void> => {
@@ -115,6 +117,30 @@ describe('S3 Client', (): void => {
 
             const s3Client: S3Client = new S3Client(connection, 'my-bucket-name', 'some-prefix');
             await expect(s3Client.moveWithinBucket('some-object.txt', 'some-other-object.txt')).resolves.toBe(stubOutput);
+
+            expect(connection.copyObject).toHaveBeenCalledWith(
+                {
+                    CopySource: 'my-bucket-name/some-prefix/some-object.txt',
+                    Key: 'some-prefix/some-other-object.txt',
+                    Bucket: 'my-bucket-name',
+                },
+                expect.any(Function),
+            );
+            expect(connection.deleteObject).toHaveBeenCalledWith(
+                {Key: 'some-prefix/some-object.txt', Bucket: 'my-bucket-name'},
+                expect.any(Function),
+            );
+        });
+
+        test('it throws if copy succeeds but delete fails', async (): Promise<void> => {
+            const stubOutput: aws.S3.CopyObjectOutput = <any> {};
+            const stubError: aws.AWSError = <any> {};
+            (<jest.Mock> connection.copyObject).mockImplementation((_: never, callback: Function): void => callback(undefined, stubOutput));
+            (<jest.Mock> connection.deleteObject).mockImplementation((_: never, callback: Function): void => callback(stubError));
+
+            const s3Client: S3Client = new S3Client(connection, 'my-bucket-name', 'some-prefix');
+            await expect(s3Client.moveWithinBucket('some-object.txt', 'some-other-object.txt'))
+                .rejects.toThrowError(new S3MoveFileError(S3MoveFileErrorCode.DELETE_FAILED));
 
             expect(connection.copyObject).toHaveBeenCalledWith(
                 {
