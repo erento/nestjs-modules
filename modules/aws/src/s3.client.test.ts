@@ -9,6 +9,10 @@ describe('S3 Client', (): void => {
     beforeEach((): void => {
         connection = <any> {
             upload: jest.fn(),
+            headObject: jest.fn(),
+            copyObject: jest.fn(),
+            deleteObject: jest.fn(),
+            getSignedUrl: jest.fn(),
         };
     });
 
@@ -62,6 +66,84 @@ describe('S3 Client', (): void => {
                 {Body: '{"a":1}\n{"b":{"c":2}}', Bucket: 'my-bucket-name', Key: 'some-prefix/folder/filename.jpg'},
                 {},
                 expect.any(Function),
+            );
+        });
+    });
+
+    describe('fileExists', (): void => {
+        test('it throws if there is an unknown error', async (): Promise<void> => {
+            (<jest.Mock> connection.headObject).mockImplementation((_: never, callback: Function): void => callback(new Error('Test')));
+
+            const s3Client: S3Client = new S3Client(connection, 'my-bucket-name', 'some-prefix');
+            await expect(s3Client.fileExists('some-object.txt')).rejects.toThrowError('Test');
+        });
+
+        test('it returns false if object is not found', async (): Promise<void> => {
+            (<jest.Mock> connection.headObject).mockImplementation((_: never, callback: Function): void => callback({statusCode: 404}));
+
+            const s3Client: S3Client = new S3Client(connection, 'my-bucket-name', 'some-prefix');
+            await expect(s3Client.fileExists('some-object.txt')).resolves.toBe(false);
+        });
+
+        test('it returns true if metadata is returned', async (): Promise<void> => {
+            (<jest.Mock> connection.headObject).mockImplementation(
+                (_: never, callback: Function): void => callback(undefined, {ObjectName: 'yay'}),
+            );
+
+            const s3Client: S3Client = new S3Client(connection, 'my-bucket-name', 'some-prefix');
+            await expect(s3Client.fileExists('some-object.txt')).resolves.toBe(true);
+
+            expect(connection.headObject).toHaveBeenCalledWith(
+                {Key: 'some-prefix/some-object.txt', Bucket: 'my-bucket-name'},
+                expect.any(Function),
+            );
+        });
+    });
+
+    describe('moveWithinBucket', (): void => {
+        test('it throws if there is an error with copying', async (): Promise<void> => {
+            (<jest.Mock> connection.copyObject).mockImplementation((_: never, callback: Function): void => callback(new Error('Test')));
+
+            const s3Client: S3Client = new S3Client(connection, 'my-bucket-name', 'some-prefix');
+            await expect(s3Client.moveWithinBucket('some-object.txt', 'some-other-object.txt')).rejects.toThrowError('Test');
+        });
+
+        test('it copies object from source to target and deletes original', async (): Promise<void> => {
+            const stubOutput: aws.S3.CopyObjectOutput = <any> {};
+            (<jest.Mock> connection.copyObject).mockImplementation((_: never, callback: Function): void => callback(undefined, stubOutput));
+            (<jest.Mock> connection.deleteObject).mockImplementation((_: never, callback: Function): void => callback(undefined));
+
+            const s3Client: S3Client = new S3Client(connection, 'my-bucket-name', 'some-prefix');
+            await expect(s3Client.moveWithinBucket('some-object.txt', 'some-other-object.txt')).resolves.toBe(stubOutput);
+
+            expect(connection.copyObject).toHaveBeenCalledWith(
+                {
+                    CopySource: 'my-bucket-name/some-prefix/some-object.txt',
+                    Key: 'my-bucket-name/some-prefix/some-other-object.txt',
+                    Bucket: 'my-bucket-name',
+                },
+                expect.any(Function),
+            );
+            expect(connection.deleteObject).toHaveBeenCalledWith(
+                {Key: 'some-prefix/some-object.txt', Bucket: 'my-bucket-name'},
+                expect.any(Function),
+            );
+        });
+    });
+
+    describe('getEphemeralSignedFileUrl', (): void => {
+        test('it generates a getObject signed url', (): void => {
+            const s3Client: S3Client = new S3Client(connection, 'my-bucket-name', 'some-prefix');
+
+            s3Client.getEphemeralSignedFileUrl('some-object.txt', 60);
+
+            expect(connection.getSignedUrl).toHaveBeenCalledWith(
+                'getObject',
+                {
+                    Key: 'some-prefix/some-object.txt',
+                    Bucket: 'my-bucket-name',
+                    Expires: 60,
+                },
             );
         });
     });
