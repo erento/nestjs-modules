@@ -1,3 +1,9 @@
+<a name="2.2.0"></a>
+# 2.2.0 (2020-05-18)
+- Added `fileExists` method
+- Added `moveWithinBucket` method
+- Added `getEphemeralSignedFileUrl` method
+
 <a name="2.1.0"></a>
 # 2.1.0 (2019-10-18)
 - Added typings to S3 client
