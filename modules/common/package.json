@@ -1,0 +1,62 @@
+{
+  "name": "@erento/nestjs-common",
+  "version": "1.0.0",
+  "description": "NestJS module with some shared utilities",
+  "main": "dist/public_api.js",
+  "types": "dist/public_api.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "lint": "tslint -c tslint.json --fix -e \"**/node_modules/**\" -p ./tsconfig.json",
+    "lint-staged": "lint-staged",
+    "prebuild": "rm -rf dist && npm run lint && npm run test",
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "Erento GmbH <developers@erento.com> (https://www.erento.com)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/erento/nestjs-modules.git"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "@nestjs/common": ">=6.5",
+    "typescript": ">=3.5"
+  },
+  "devDependencies": {
+    "@nestjs/common": "6.11.11",
+    "@types/jest": "26.0.3",
+    "@types/node": "14.0.14",
+    "husky": "4.2.5",
+    "jest": "26.1.0",
+    "lint-staged": "10.2.11",
+    "prettier": "2.0.5",
+    "reflect-metadata": "0.1.13",
+    "ts-jest": "25.5.1",
+    "tslint": "6.1.2",
+    "tslint-eslint-rules": "5.4.0",
+    "typescript": "3.9.5"
+  },
+  "precommit": [
+    "lint-staged"
+  ],
+  "lint-staged": {
+    "src/**/*.ts": [
+      "npm run lint",
+      "git add"
+    ]
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
+  }
+}

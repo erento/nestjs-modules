@@ -1,0 +1,179 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`utils array difference 1`] = `
+Array [
+  "a",
+  "c",
+]
+`;
+
+exports[`utils array difference 2`] = `
+Array [
+  "a",
+  "b",
+]
+`;
+
+exports[`utils array difference 3`] = `Array []`;
+
+exports[`utils array intersection 1`] = `
+Array [
+  "b",
+]
+`;
+
+exports[`utils array intersection 2`] = `Array []`;
+
+exports[`utils array intersection 3`] = `Array []`;
+
+exports[`utils array intersection 4`] = `
+Array [
+  Object {
+    "b": "b",
+  },
+  "b",
+]
+`;
+
+exports[`utils array intersection is unique 1`] = `
+Array [
+  12,
+]
+`;
+
+exports[`utils buffer create 1`] = `"ahoy"`;
+
+exports[`utils buffer create with wrong data 1`] = `"Cannot create a buffer."`;
+
+exports[`utils buffer create with wrong data 2`] = `"Cannot create a buffer."`;
+
+exports[`utils cleanNullValues 1`] = `undefined`;
+
+exports[`utils cleanNullValues 2`] = `
+Object {
+  "test": undefined,
+}
+`;
+
+exports[`utils cleanNullValues 3`] = `
+Object {
+  "test": 123,
+}
+`;
+
+exports[`utils cleanNullValues 4`] = `undefined`;
+
+exports[`utils cleanNullValues 5`] = `undefined`;
+
+exports[`utils cleanNullValues 6`] = `undefined`;
+
+exports[`utils fillArrayWithIndices should return an array with indices providing a length 1`] = `
+Array [
+  0,
+  1,
+  2,
+  3,
+  4,
+]
+`;
+
+exports[`utils fillArrayWithIndices should return an empty array on undefined length 1`] = `Array []`;
+
+exports[`utils fillArrayWithIndices should return an empty array on zero length 1`] = `Array []`;
+
+exports[`utils object copy 1`] = `
+Object {
+  "a": Object {
+    "a": 1,
+  },
+  "b": Object {
+    "b": 1,
+  },
+  "c": 1,
+}
+`;
+
+exports[`utils object copy 2`] = `
+Object {
+  "a": Object {
+    "a": 1,
+  },
+  "b": Object {
+    "b": 1,
+  },
+  "c": 1,
+}
+`;
+
+exports[`utils object copy not an object 1`] = `undefined`;
+
+exports[`utils object copy not an object 2`] = `null`;
+
+exports[`utils object copy not an object 3`] = `null`;
+
+exports[`utils object copy not an object 4`] = `""`;
+
+exports[`utils object copy not an object 5`] = `"some string"`;
+
+exports[`utils object copy not an object 6`] = `1`;
+
+exports[`utils replaceEmptyStringValuesWithNull 1`] = `null`;
+
+exports[`utils replaceEmptyStringValuesWithNull 2`] = `
+Object {
+  "property": null,
+  "test": null,
+}
+`;
+
+exports[`utils replaceEmptyStringValuesWithNull 3`] = `
+Object {
+  "property": null,
+  "test": null,
+}
+`;
+
+exports[`utils replaceEmptyStringValuesWithNull 4`] = `
+Object {
+  "element": "is-good",
+  "property": null,
+  "test": null,
+}
+`;
+
+exports[`utils replaceEmptyStringValuesWithNull 5`] = `
+Object {
+  "element": "is-good",
+  "property": null,
+  "test": 1,
+}
+`;
+
+exports[`utils undefined or value get any value or undefined 1`] = `"some test"`;
+
+exports[`utils undefined or value get any value or undefined 2`] = `
+Object {
+  "other": "thing",
+  "some": "thing",
+}
+`;
+
+exports[`utils undefined or value get any value or undefined 3`] = `undefined`;
+
+exports[`utils undefined or value get any value or undefined 4`] = `undefined`;
+
+exports[`utils undefined or value get date string or undefined 1`] = `undefined`;
+
+exports[`utils undefined or value get date string or undefined 2`] = `"2018-10-19T12:34:31.893Z"`;
+
+exports[`utils undefined or value get date string or undefined 3`] = `undefined`;
+
+exports[`utils undefined or value get true or undefined 1`] = `undefined`;
+
+exports[`utils undefined or value get true or undefined 2`] = `true`;
+
+exports[`utils undefined or value parse date or undefined 1`] = `undefined`;
+
+exports[`utils undefined or value parse date or undefined 2`] = `undefined`;
+
+exports[`utils undefined or value parse date or undefined 3`] = `1977-10-11T00:00:00.000Z`;

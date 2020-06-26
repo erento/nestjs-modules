@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pagination utils mapToPaginatedResponse maps to paginated response 1`] = `
+Object {
+  "page": 1,
+  "pages": 2,
+  "results": Array [
+    1,
+    2,
+    3,
+  ],
+  "size": 10,
+  "total": 20,
+}
+`;
+
+exports[`Pagination utils mapToPaginatedResponse maps to paginated response 2`] = `
+Object {
+  "page": 1,
+  "pages": 2,
+  "results": Array [
+    1,
+  ],
+  "size": 10,
+  "total": 13,
+}
+`;
+
+exports[`Pagination utils mapToPaginatedResponse maps to paginated response 3`] = `
+Object {
+  "page": 5,
+  "pages": 17,
+  "results": Array [
+    1,
+    2,
+    3,
+    4,
+    5,
+  ],
+  "size": 3,
+  "total": 50,
+}
+`;
