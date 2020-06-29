@@ -37,8 +37,4 @@ describe('Environments', (): void => {
 
         process.env.NODE_ENV = oldEnv;
     });
-
-    test('should get keys', (): void => {
-        expect(Environments.getBugsnagKey()).toMatchSnapshot();
-    });
 });

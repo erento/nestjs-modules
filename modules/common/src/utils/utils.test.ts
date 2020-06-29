@@ -234,9 +234,11 @@ describe('utils', (): void => {
                 SELECT *
                 FROM "user"
                 WHERE field = 'value'
-                    AND other_field = 'other_value'
+                    AND other_field = 'other_value        with_spaces'
                 LIMIT 10;
-            `)).toEqual('SELECT * FROM "user" WHERE field = \'value\' AND other_field = \'other_value\' LIMIT 10;');
+            `)).toEqual('SELECT * FROM "user" WHERE field = \'value\' AND other_field = \'other_value        with_spaces\' LIMIT 10;');
+            expect(oneLine(`UPDATE "user" SET field='multi word value with any amount  of    spaces'`)).toEqual(`UPDATE "user" SET field='multi word value with any amount  of    spaces'`);
+            expect(oneLine(`UPDATE "user" SET\n field='multi word value with any amount  of    spaces'`)).toEqual(`UPDATE "user" SET field='multi word value with any amount  of    spaces'`);
         });
     });
 });

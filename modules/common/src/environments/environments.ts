@@ -23,10 +23,6 @@ export class Environments {
         return this.getEnv() === EnvironmentType.TEST;
     }
 
-    public static getBugsnagKey (): string {
-        return 'f85a2d2409fa127df8ac0d51b4c81f0d';
-    }
-
     public static getPackageJson (): any {
         // tslint:disable-next-line no-var-requires no-require-imports
         return require(process.cwd() + '/package.json');
