@@ -23,7 +23,9 @@
     "@nestjs/core": "^6.11.11",
     "typescript": ">=3.5",
     "@bugsnag/js": "^6.5.2",
-    "@bugsnag/plugin-express": "^6.5.1"
+    "@bugsnag/plugin-express": "^6.5.1",
+    "express-http-context": "^1.2.3",
+    "json-stringify-safe": "^5.0.1"
   },
   "devDependencies": {
     "@types/jest": "26.0.3",
@@ -39,8 +41,8 @@
     "typescript": "3.8.3"
   },
   "dependencies": {
-    "@bugsnag/js": "^6.5.2",
-    "@bugsnag/plugin-express": "^6.5.1",
+    "@bugsnag/js": "6.5.2",
+    "@bugsnag/plugin-express": "6.5.1",
     "@nestjs/common": "6.11.11",
     "@nestjs/core": "6.11.11",
     "express-http-context": "1.2.3",
