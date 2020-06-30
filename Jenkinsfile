@@ -40,6 +40,13 @@ node {
                     sh 'cd modules/salesforce && npm run lint'
                     sh 'cd modules/salesforce && npm t'
                 }
+            },
+            "common": {
+               buildImage.inside() {
+                    sh 'cd modules/common && npm i'
+                    sh 'cd modules/common && npm run lint'
+                    sh 'cd modules/common && npm t'
+                } 
             }
         )
     }
