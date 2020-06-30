@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Enum utils should get max length of enumeration 1`] = `"Enumeration can contain only string values to get a max length."`;
+
+exports[`Enum utils should get max length of enumeration 2`] = `"Enumeration can contain only string values to get a max length."`;
+
+exports[`Enum utils should get values from mixed enumeration 1`] = `
+Array [
+  1,
+  100,
+  10000,
+  "some text",
+  "some longer text",
+  "some even longer text",
+]
+`;
+
+exports[`Enum utils should get values from number enumeration 1`] = `
+Array [
+  1,
+  100,
+  10000,
+]
+`;
+
+exports[`Enum utils should get values from string enumeration 1`] = `
+Array [
+  "some text",
+  "some longer text",
+  "some even longer text",
+]
+`;

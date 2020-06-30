@@ -20,6 +20,13 @@ node {
                     sh 'cd modules/aws && npm t'
                 }
             },
+             "common": {
+               buildImage.inside() {
+                    sh 'cd modules/common && npm i'
+                    sh 'cd modules/common && npm run lint'
+                    sh 'cd modules/common && npm t'
+                } 
+            },
             "database": {
                 buildImage.inside() {
                     sh 'cd modules/database && npm i'
