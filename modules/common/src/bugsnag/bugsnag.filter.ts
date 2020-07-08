@@ -1,5 +1,6 @@
-import {Catch, ExceptionFilter, HttpStatus} from '@nestjs/common';
+import {Catch, ExceptionFilter, HttpException, HttpStatus} from '@nestjs/common';
 import {ArgumentsHost} from '@nestjs/common/interfaces/features/arguments-host.interface';
+import {Response} from 'express';
 import * as httpContext from 'express-http-context';
 import * as jsonStringifySafe from 'json-stringify-safe';
 import {REQUEST_UNIQUE_ID_KEY} from '../constants';
@@ -14,31 +15,31 @@ export class BugsnagErrorFilter implements ExceptionFilter {
         private readonly loggerMethod?: Function,
     ) {}
 
-    public catch (err: any, host: ArgumentsHost): any {
-        const res: any = host.switchToHttp().getResponse();
-        const status: any = err && typeof err.getStatus === 'function' ? err.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
+    public catch (exception: HttpException, host: ArgumentsHost): any {
+        const res: Response = host.switchToHttp().getResponse();
+        const status: number = exception?.getStatus() ?? HttpStatus.INTERNAL_SERVER_ERROR;
 
         // tslint:disable-next-line:no-unbound-method
-        (this.loggerMethod ? this.loggerMethod : console.error)(
+        (this?.loggerMethod ?? console.error)(
             // Stringify when err message is an object to avoid [object Object] only
-            `>> status: "${status}" - "${jsonStringifySafe(err)}" - "${jsonStringifySafe(err.stack)}"`,
+            `>> status: "${status}" - "${jsonStringifySafe(exception)}" - "${jsonStringifySafe(exception.stack)}"`,
         );
 
-        this.bugsnagClient.notifyWithMeta(
-            err instanceof Error ? err : new Error(err),
+        this.bugsnagClient.notifyWithMetaData(
+            exception instanceof Error ? exception : new Error(exception),
             {
                 severity: BugsnagSeverity.ERROR,
+                breadcrumbs: getBreadcrumbs(),
                 metaData: {
                     uniqueId: (httpContext.get(REQUEST_UNIQUE_ID_KEY) || 'unknown'),
-                    reason: err.message.reason,
-                    breadcrumbs: getBreadcrumbs(),
+                    reason: exception.message.reason,
                 },
             },
         );
         clearBreadcrumbs();
 
         return res.status(status).send({
-            err: err.message,
+            err: exception.message,
         });
     }
 }

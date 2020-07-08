@@ -10,7 +10,7 @@ export class UniqueIdMiddleware implements NestMiddleware {
         try {
             userAgent = req['headers']['user-agent'] || userAgent;
         } catch {}
-        httpContext.set(REQUEST_UNIQUE_ID_KEY, `${uuidv4()} -npm ${userAgent}`);
+        httpContext.set(REQUEST_UNIQUE_ID_KEY, `${uuidv4()} - ${userAgent}`);
         next();
     }
 }
