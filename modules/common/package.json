@@ -1,6 +1,6 @@
 {
   "name": "@erento/nestjs-common",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "NestJS module with some shared utilities",
   "main": "dist/public_api.js",
   "types": "dist/public_api.d.ts",
