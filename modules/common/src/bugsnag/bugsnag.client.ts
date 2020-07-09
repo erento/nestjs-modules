@@ -19,7 +19,7 @@ export class BugsnagClient {
             (event: Event): void => {
                 event.severity = <any> payload.severity;
                 event.breadcrumbs = payload.breadcrumbs || [];
-                event.context = payload.context ? payload.context : err.stack;
+                event.context = payload.context ?? err.stack;
                 event.addMetadata('metaData', payload.metaData);
             },
        );

@@ -15,24 +15,25 @@ export class BugsnagErrorFilter implements ExceptionFilter {
         private readonly loggerMethod?: Function,
     ) {}
 
-    public catch (exception: HttpException, host: ArgumentsHost): any {
+    public catch (err: any, host: ArgumentsHost): Response<any> {
         const res: Response = host.switchToHttp().getResponse();
-        const status: number = exception?.getStatus() ?? HttpStatus.INTERNAL_SERVER_ERROR;
+        const status: number = err instanceof HttpException ? err.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
+        const exception: Error = err instanceof Error ? err : new Error(err);
 
         // tslint:disable-next-line:no-unbound-method
-        (this?.loggerMethod ?? console.error)(
+        (this.loggerMethod || console.error)(
             // Stringify when err message is an object to avoid [object Object] only
             `>> status: "${status}" - "${jsonStringifySafe(exception)}" - "${jsonStringifySafe(exception.stack)}"`,
         );
 
         this.bugsnagClient.notifyWithMetaData(
-            exception instanceof Error ? exception : new Error(exception),
+            exception,
             {
                 severity: BugsnagSeverity.ERROR,
                 breadcrumbs: getBreadcrumbs(),
                 metaData: {
                     uniqueId: (httpContext.get(REQUEST_UNIQUE_ID_KEY) || 'unknown'),
-                    reason: exception.message.reason,
+                    reason: exception.message,
                 },
             },
         );

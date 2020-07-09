@@ -110,6 +110,11 @@ export class Logger implements LoggerService {
     }
 
     public getUniqueKey (): string {
-        return (httpContext.get(REQUEST_UNIQUE_ID_KEY) || 'uniqueID') + ':';
+        const uniqueId: string = httpContext.get(REQUEST_UNIQUE_ID_KEY);
+        if (!uniqueId) {
+            return '';
+        }
+
+        return `${uniqueId}:`;
     }
 }
