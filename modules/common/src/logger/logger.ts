@@ -102,7 +102,7 @@ export class Logger implements LoggerService {
                 context: trace,
                 breadcrumbs: getBreadcrumbs(),
                 metadata: {
-                    uniqueId: this.getUniqueKey(),
+                    uniqueId: this.getUniqueKey() || 'unknown',
                 },
             },
         );
