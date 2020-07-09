@@ -15,7 +15,7 @@ export class BugsnagErrorFilter implements ExceptionFilter {
         private readonly loggerMethod?: Function,
     ) {}
 
-    public catch (err: any, host: ArgumentsHost): Response<any> {
+    public catch (err: any, host: ArgumentsHost): Response {
         const res: Response = host.switchToHttp().getResponse();
         const status: number = err instanceof HttpException ? err.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
         const exception: Error = err instanceof Error ? err : new Error(err);
@@ -26,12 +26,12 @@ export class BugsnagErrorFilter implements ExceptionFilter {
             `>> status: "${status}" - "${jsonStringifySafe(exception)}" - "${jsonStringifySafe(exception.stack)}"`,
         );
 
-        this.bugsnagClient.notifyWithMetaData(
+        this.bugsnagClient.notifyWithMetadata(
             exception,
             {
                 severity: BugsnagSeverity.ERROR,
                 breadcrumbs: getBreadcrumbs(),
-                metaData: {
+                metadata: {
                     uniqueId: (httpContext.get(REQUEST_UNIQUE_ID_KEY) || 'unknown'),
                     reason: exception.message,
                 },

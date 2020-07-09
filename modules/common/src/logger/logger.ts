@@ -72,12 +72,12 @@ export class Logger implements LoggerService {
             return;
         }
 
-        this.bugsnagClient.notifyWithMetaData(
+        this.bugsnagClient.notifyWithMetadata(
             error,
             {
                 severity: BugsnagSeverity.WARNING,
                 breadcrumbs: getBreadcrumbs(),
-                metaData: {
+                metadata: {
                     uniqueId: this.getUniqueKey(),
                 },
             },
@@ -95,13 +95,13 @@ export class Logger implements LoggerService {
             return;
         }
 
-        this.bugsnagClient.notifyWithMetaData(
+        this.bugsnagClient.notifyWithMetadata(
             error,
             {
                 severity: BugsnagSeverity.ERROR,
                 context: trace,
                 breadcrumbs: getBreadcrumbs(),
-                metaData: {
+                metadata: {
                     uniqueId: this.getUniqueKey(),
                 },
             },

@@ -6,13 +6,13 @@ export function getBreadcrumbs (): Breadcrumb[] {
     return httpContext.get(REQUEST_UNIQUE_ID_BREADCRUMBS_KEY) || [];
 }
 
-export function leaveBreadcrumb (name: string, metaData?: Record<string, any>): void {
+export function leaveBreadcrumb (message: string, metadata?: Record<string, any>): void {
     try {
         const breadcrumbs: Breadcrumb[] = getBreadcrumbs();
         breadcrumbs.push({
-            message: name,
+            message,
             timestamp: new Date(),
-            metadata: metaData || {},
+            metadata: metadata || {},
             type: 'manual',
         });
         httpContext.set(REQUEST_UNIQUE_ID_BREADCRUMBS_KEY, breadcrumbs);
