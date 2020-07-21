@@ -7,6 +7,7 @@ export * from './environments/environments';
 export * from './environments/interfaces';
 export * from './guards/authorization.decorator';
 export * from './guards/authorization.guard';
+export * from './guards/guards.module';
 export * from './guards/interfaces';
 export * from './logger/global-logger.module';
 export * from './logger/logger';
