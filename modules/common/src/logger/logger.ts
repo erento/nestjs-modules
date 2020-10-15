@@ -89,6 +89,9 @@ export class Logger implements LoggerService {
         const uniqueId: string = this.getUniqueKey();
         const error: Error = err instanceof Error ? err : new Error(err);
         error.message = error.message.indexOf(uniqueId) !== -1 ? `${uniqueId}: ${error.message}` : error.message;
+        if (!(err instanceof Error) && trace) {
+            error.stack = trace;
+        }
 
         log(LoggerMethod.ERROR, uniqueId, error.message);
         if (!this.bugsnagClient) {
