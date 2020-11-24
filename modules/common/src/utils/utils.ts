@@ -169,3 +169,9 @@ export function oneLine (multiline: string): string {
         .replace(/(?:\n(?:\s*))+/g, ' ')
         .trim();
 }
+
+export function waitForMs (time: number): Promise<void> {
+    return new Promise((resolve: Function): void => {
+        setTimeout(resolve, time);
+    });
+}
