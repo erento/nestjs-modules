@@ -13,9 +13,11 @@ export class PaginationParamsPipe implements PipeTransform<any, PaginationParams
             };
         }
 
+        const page: number = parseInt(query.page, 10) || 1;
+        const size: number = parseInt(query.size, 10) || this.defaultSize;
         return {
-            page: parseInt(query.page, 10) || 1,
-            size: parseInt(query.size, 10) || this.defaultSize,
+            page: page > 0 ? page : 1,
+            size: size > 0 ? size : this.defaultSize,
         };
     }
 }
