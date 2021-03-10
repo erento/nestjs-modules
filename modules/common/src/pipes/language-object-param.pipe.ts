@@ -5,8 +5,8 @@ import {LanguageObject} from './interfaces';
 const GERMAN_LANG_OBJECT: LanguageObject = LANGUAGES[0];
 
 @Injectable()
-export class LanguageObjectParamPipe implements PipeTransform<{[name: string]: any}, LanguageObject> {
-    public transform (query: {[name: string]: any }): LanguageObject {
+export class LanguageObjectParamPipe implements PipeTransform<Record<string, any>, LanguageObject> {
+    public transform (query: Record<string, any>): LanguageObject {
         if (!query?.lang) {
             return GERMAN_LANG_OBJECT;
         }
