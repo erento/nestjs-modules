@@ -29,7 +29,7 @@ describe('LanguageObjectParamPipe', (): void => {
     ])('should transform query params properly', (input: any, locale: string): void => {
         const expected: LanguageObject = {
             full: locale,
-            language: locale.split('-')[0],
+            locale: locale.split('-')[0],
             culture: locale.split('-')[1],
             original: input?.lang !== undefined ? input.lang : '',
         };
