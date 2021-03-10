@@ -15,3 +15,10 @@ export interface OffsetAndLimit {
     offset?: number;
     limit?: number;
 }
+
+export interface LanguageObject {
+    full: string,
+    locale: string,
+    culture: string,
+    original?: string
+}
