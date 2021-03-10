@@ -17,8 +17,8 @@ export interface OffsetAndLimit {
 }
 
 export interface LanguageObject {
-    full: string,
-    locale: string,
-    culture: string,
-    original?: string
+    full: string;
+    locale: string;
+    culture: string;
+    original: string;
 }

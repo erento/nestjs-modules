@@ -15,6 +15,7 @@ export * from './middleware/elapsed-time.middleware';
 export * from './middleware/unique-id.middleware';
 export * from './pipes/boolean-or-undefined-param.pipe';
 export * from './pipes/interfaces';
+export * from './pipes/language-object-param.pipe';
 export * from './pipes/language-param.pipe';
 export * from './pipes/pagination-params.pipe';
 export * from './pipes/pattern.pipe';
