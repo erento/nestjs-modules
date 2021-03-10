@@ -2,38 +2,38 @@ import {Injectable, PipeTransform} from '@nestjs/common';
 import {ISO_LANGUAGE_CODES} from './constants/iso-language-codes.const';
 import {LanguageObject} from './interfaces';
 
-const GERMAN_LOCALE: string = 'de-DE';
+const DEFAULT_ISO_CODE: string = 'de-DE';
 
 @Injectable()
 export class LanguageObjectParamPipe implements PipeTransform<Record<string, any>, LanguageObject> {
     public transform (query: Record<string, any>): LanguageObject {
         if (!query?.lang) {
-            return this.createLanguageObject(GERMAN_LOCALE, '');
+            return this.createLanguageObject(DEFAULT_ISO_CODE, '');
         }
 
-        let selectedLocale: string | undefined = ISO_LANGUAGE_CODES.find(
+        const selectedByIsoCode: string | undefined = ISO_LANGUAGE_CODES.find(
             (isoCode: string): boolean => isoCode === query.lang,
         );
 
-        if (selectedLocale !== undefined) {
-            return this.createLanguageObject(selectedLocale, query.lang);
+        if (selectedByIsoCode !== undefined) {
+            return this.createLanguageObject(selectedByIsoCode, query.lang);
         }
 
-        selectedLocale = ISO_LANGUAGE_CODES.find(
+        const selectedByLocale: string | undefined = ISO_LANGUAGE_CODES.find(
             (isoCode: string): boolean => isoCode.split('-')[0] === query.lang,
         );
 
-        if (selectedLocale !== undefined) {
-            return this.createLanguageObject(selectedLocale, query.lang);
+        if (selectedByLocale !== undefined) {
+            return this.createLanguageObject(selectedByLocale, query.lang);
         }
 
-        return this.createLanguageObject(GERMAN_LOCALE, query.lang);
+        return this.createLanguageObject(DEFAULT_ISO_CODE, query.lang);
     }
 
-    private createLanguageObject (isoCode: string, original: string = ''): LanguageObject {
+    private createLanguageObject (isoCode: string, original: string): LanguageObject {
         return <LanguageObject> {
             full: isoCode,
-            language: isoCode.split('-')[0],
+            locale: isoCode.split('-')[0],
             culture: isoCode.split('-')[1],
             original,
         };
