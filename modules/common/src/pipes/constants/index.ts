@@ -1,37 +1,37 @@
 export enum ErentoLocales {
-    deDe = 'de-DE',
-    deCh = 'de-CH',
-    deAt = 'de-AT',
-    enGb = 'en-GB',
-    enUs = 'en-US',
+    DeDe = 'de-DE',
+    DeCh = 'de-CH',
+    DeAt = 'de-AT',
+    EnGb = 'en-GB',
+    EnUs = 'en-US',
 }
 
 export enum CampandaLocales {
-    deDe = 'de_DE',
-    deCh = 'de_CH',
-    deAt = 'de_AT',
-    enGb = 'en_GB',
-    enUs = 'en_US',
-    frFr = 'fr_FR',
-    esEs = 'es_ES',
-    itIt = 'it_IT',
+    DeDe = 'de_DE',
+    DeCh = 'de_CH',
+    DeAt = 'de_AT',
+    EnGb = 'en_GB',
+    EnUs = 'en_US',
+    FrFr = 'fr_FR',
+    EsEs = 'es_ES',
+    ItIt = 'it_IT',
 }
 
 export enum ErentoLanguages {
-    de = 'de',
-    en = 'en',
+    De = 'de',
+    En = 'en',
 }
 
 export enum CampandaLanguages {
-    de = 'de',
-    en = 'en',
-    fr = 'fr',
-    es = 'es',
-    it = 'it',
+    De = 'de',
+    En = 'en',
+    Fr = 'fr',
+    Es = 'es',
+    It = 'it',
 }
 
 export const CAMPANDA_LOCALE_ARRAY: string[] = Object.values(CampandaLocales);
-export const CAMPANDA_DEFAULT_LOCALE: string = CampandaLocales.deDe;
+export const CAMPANDA_DEFAULT_LOCALE: string = CampandaLocales.DeDe;
 
 export const ERENTO_LOCALE_ARRAY: string[] = Object.values(ErentoLocales);
-export const ERENTO_DEFAULT_LOCALE: string = ErentoLocales.deDe;
+export const ERENTO_DEFAULT_LOCALE: string = ErentoLocales.DeDe;
