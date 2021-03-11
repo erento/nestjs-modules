@@ -19,20 +19,20 @@ export class LocaleParamPipe implements PipeTransform<Record<string, any>, Local
             return this.createLocaleObject(this.defaultLocale, '');
         }
 
-        const selectedByIsoCode: string | undefined = this.locales.find(
-            (isoCode: string): boolean => isoCode === query.locale,
-        );
-
-        if (selectedByIsoCode !== undefined) {
-            return this.createLocaleObject(selectedByIsoCode, query.locale);
-        }
-
         const selectedByLocale: string | undefined = this.locales.find(
-            (isoCode: string): boolean => isoCode.split(this.separator)[0] === query.locale,
+            (locale: string): boolean => locale === query.locale,
         );
 
         if (selectedByLocale !== undefined) {
             return this.createLocaleObject(selectedByLocale, query.locale);
+        }
+
+        const selectedByLanguage: string | undefined = this.locales.find(
+            (locale: string): boolean => locale.split(this.separator)[0] === query.locale,
+        );
+
+        if (selectedByLanguage !== undefined) {
+            return this.createLocaleObject(selectedByLanguage, query.locale);
         }
 
         return this.createLocaleObject(this.defaultLocale, query.locale);
@@ -44,11 +44,11 @@ export class LocaleParamPipe implements PipeTransform<Record<string, any>, Local
         return separator ?? '-';
     }
 
-    private createLocaleObject (isoCode: string, original: string): LocaleObject {
+    private createLocaleObject (locale: string, original: string): LocaleObject {
         return {
-            locale: isoCode,
-            language: isoCode.split(this.separator)[0],
-            territory: isoCode.split(this.separator)[1],
+            locale,
+            language: locale.split(this.separator)[0],
+            territory: locale.split(this.separator)[1],
             original,
         };
     }
