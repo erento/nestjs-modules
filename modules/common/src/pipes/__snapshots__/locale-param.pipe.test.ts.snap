@@ -1,0 +1,289 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LanguageObjectParamPipe should transform campanda locale params properly 1`] = `
+Object {
+  "culture": "DE",
+  "lang": "de",
+  "locale": "de_DE",
+  "original": "",
+}
+`;
+
+exports[`LanguageObjectParamPipe should transform campanda locale params properly 2`] = `
+Object {
+  "culture": "DE",
+  "lang": "de",
+  "locale": "de_DE",
+  "original": "",
+}
+`;
+
+exports[`LanguageObjectParamPipe should transform campanda locale params properly 3`] = `
+Object {
+  "culture": "DE",
+  "lang": "de",
+  "locale": "de_DE",
+  "original": "",
+}
+`;
+
+exports[`LanguageObjectParamPipe should transform campanda locale params properly 4`] = `
+Object {
+  "culture": "DE",
+  "lang": "de",
+  "locale": "de_DE",
+  "original": "de_DE",
+}
+`;
+
+exports[`LanguageObjectParamPipe should transform campanda locale params properly 5`] = `
+Object {
+  "culture": "CH",
+  "lang": "de",
+  "locale": "de_CH",
+  "original": "de_CH",
+}
+`;
+
+exports[`LanguageObjectParamPipe should transform campanda locale params properly 6`] = `
+Object {
+  "culture": "AT",
+  "lang": "de",
+  "locale": "de_AT",
+  "original": "de_AT",
+}
+`;
+
+exports[`LanguageObjectParamPipe should transform campanda locale params properly 7`] = `
+Object {
+  "culture": "GB",
+  "lang": "en",
+  "locale": "en_GB",
+  "original": "en_GB",
+}
+`;
+
+exports[`LanguageObjectParamPipe should transform campanda locale params properly 8`] = `
+Object {
+  "culture": "US",
+  "lang": "en",
+  "locale": "en_US",
+  "original": "en_US",
+}
+`;
+
+exports[`LanguageObjectParamPipe should transform campanda locale params properly 9`] = `
+Object {
+  "culture": "ES",
+  "lang": "es",
+  "locale": "es_ES",
+  "original": "es_ES",
+}
+`;
+
+exports[`LanguageObjectParamPipe should transform campanda locale params properly 10`] = `
+Object {
+  "culture": "FR",
+  "lang": "fr",
+  "locale": "fr_FR",
+  "original": "fr_FR",
+}
+`;
+
+exports[`LanguageObjectParamPipe should transform campanda locale params properly 11`] = `
+Object {
+  "culture": "IT",
+  "lang": "it",
+  "locale": "it_IT",
+  "original": "it_IT",
+}
+`;
+
+exports[`LanguageObjectParamPipe should transform campanda locale params properly 12`] = `
+Object {
+  "culture": "DE",
+  "lang": "de",
+  "locale": "de_DE",
+  "original": "de",
+}
+`;
+
+exports[`LanguageObjectParamPipe should transform campanda locale params properly 13`] = `
+Object {
+  "culture": "GB",
+  "lang": "en",
+  "locale": "en_GB",
+  "original": "en",
+}
+`;
+
+exports[`LanguageObjectParamPipe should transform campanda locale params properly 14`] = `
+Object {
+  "culture": "ES",
+  "lang": "es",
+  "locale": "es_ES",
+  "original": "es",
+}
+`;
+
+exports[`LanguageObjectParamPipe should transform campanda locale params properly 15`] = `
+Object {
+  "culture": "FR",
+  "lang": "fr",
+  "locale": "fr_FR",
+  "original": "fr",
+}
+`;
+
+exports[`LanguageObjectParamPipe should transform campanda locale params properly 16`] = `
+Object {
+  "culture": "IT",
+  "lang": "it",
+  "locale": "it_IT",
+  "original": "it",
+}
+`;
+
+exports[`LanguageObjectParamPipe should transform campanda locale params properly 17`] = `
+Object {
+  "culture": "DE",
+  "lang": "de",
+  "locale": "de_DE",
+  "original": "abc",
+}
+`;
+
+exports[`LanguageObjectParamPipe should transform campanda locale params properly 18`] = `
+Object {
+  "culture": "DE",
+  "lang": "de",
+  "locale": "de_DE",
+  "original": "en-GB",
+}
+`;
+
+exports[`LanguageObjectParamPipe should transform erento locale params properly 1`] = `
+Object {
+  "culture": "DE",
+  "lang": "de",
+  "locale": "de-DE",
+  "original": "",
+}
+`;
+
+exports[`LanguageObjectParamPipe should transform erento locale params properly 2`] = `
+Object {
+  "culture": "DE",
+  "lang": "de",
+  "locale": "de-DE",
+  "original": "",
+}
+`;
+
+exports[`LanguageObjectParamPipe should transform erento locale params properly 3`] = `
+Object {
+  "culture": "DE",
+  "lang": "de",
+  "locale": "de-DE",
+  "original": "",
+}
+`;
+
+exports[`LanguageObjectParamPipe should transform erento locale params properly 4`] = `
+Object {
+  "culture": "DE",
+  "lang": "de",
+  "locale": "de-DE",
+  "original": "de-DE",
+}
+`;
+
+exports[`LanguageObjectParamPipe should transform erento locale params properly 5`] = `
+Object {
+  "culture": "CH",
+  "lang": "de",
+  "locale": "de-CH",
+  "original": "de-CH",
+}
+`;
+
+exports[`LanguageObjectParamPipe should transform erento locale params properly 6`] = `
+Object {
+  "culture": "AT",
+  "lang": "de",
+  "locale": "de-AT",
+  "original": "de-AT",
+}
+`;
+
+exports[`LanguageObjectParamPipe should transform erento locale params properly 7`] = `
+Object {
+  "culture": "GB",
+  "lang": "en",
+  "locale": "en-GB",
+  "original": "en-GB",
+}
+`;
+
+exports[`LanguageObjectParamPipe should transform erento locale params properly 8`] = `
+Object {
+  "culture": "US",
+  "lang": "en",
+  "locale": "en-US",
+  "original": "en-US",
+}
+`;
+
+exports[`LanguageObjectParamPipe should transform erento locale params properly 9`] = `
+Object {
+  "culture": "DE",
+  "lang": "de",
+  "locale": "de-DE",
+  "original": "de",
+}
+`;
+
+exports[`LanguageObjectParamPipe should transform erento locale params properly 10`] = `
+Object {
+  "culture": "GB",
+  "lang": "en",
+  "locale": "en-GB",
+  "original": "en",
+}
+`;
+
+exports[`LanguageObjectParamPipe should transform erento locale params properly 11`] = `
+Object {
+  "culture": "DE",
+  "lang": "de",
+  "locale": "de-DE",
+  "original": "abc",
+}
+`;
+
+exports[`LanguageObjectParamPipe should transform erento locale params properly 12`] = `
+Object {
+  "culture": "DE",
+  "lang": "de",
+  "locale": "de-DE",
+  "original": "en_GB",
+}
+`;
+
+exports[`LanguageObjectParamPipe should transform erento locale params properly 13`] = `
+Object {
+  "culture": "DE",
+  "lang": "de",
+  "locale": "de-DE",
+  "original": "es-ES",
+}
+`;
+
+exports[`LanguageObjectParamPipe should transform erento locale params properly 14`] = `
+Object {
+  "culture": "DE",
+  "lang": "de",
+  "locale": "de-DE",
+  "original": "es",
+}
+`;
