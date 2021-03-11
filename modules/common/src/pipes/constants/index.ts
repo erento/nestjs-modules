@@ -1,20 +1,20 @@
 export enum ErentoLocales {
     deDe = 'de-DE',
-    deCH = 'de-CH',
-    deAT = 'de-AT',
-    enGB = 'en-GB',
-    enUS = 'en-US',
+    deCh = 'de-CH',
+    deAt = 'de-AT',
+    enGb = 'en-GB',
+    enUs = 'en-US',
 }
 
 export enum CampandaLocales {
     deDe = 'de_DE',
-    deCH = 'de_CH',
-    deAT = 'de_AT',
-    enGB = 'en_GB',
-    enUS = 'en_US',
-    frFR = 'fr_FR',
-    esES = 'es_ES',
-    itIT = 'it_IT',
+    deCh = 'de_CH',
+    deAt = 'de_AT',
+    enGb = 'en_GB',
+    enUs = 'en_US',
+    frFr = 'fr_FR',
+    esEs = 'es_ES',
+    itIt = 'it_IT',
 }
 
 export enum ErentoLanguages {
