@@ -17,6 +17,19 @@ export enum CampandaLocales {
     itIT = 'it_IT',
 }
 
+export enum ErentoLanguages {
+    de = 'de',
+    en = 'en',
+}
+
+export enum CampandaLanguages {
+    de = 'de',
+    en = 'en',
+    fr = 'fr',
+    es = 'es',
+    it = 'it',
+}
+
 export const CAMPANDA_LOCALE_ARRAY: string[] = Object.values(CampandaLocales);
 export const CAMPANDA_DEFAULT_LOCALE: string = CampandaLocales.deDe;
 
