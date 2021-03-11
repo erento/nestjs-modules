@@ -4,7 +4,6 @@ import {LocaleObject} from './interfaces';
 @Injectable()
 export class LocaleParamPipe implements PipeTransform<Record<string, any>, LocaleObject> {
     private separator: string;
-
     /**
      * Delimiters can be dashes or underscores but must match between defaultLocale and other locales
      * @constructor
@@ -12,9 +11,7 @@ export class LocaleParamPipe implements PipeTransform<Record<string, any>, Local
      * @param {string} defaultLocale  Default locale e.g. de-DE or en_GB
      */
     constructor (private locales: string[], private defaultLocale: string) {
-        const regex: RegExp = /^[a-zA-Z]{2}(?<separator>[-_])[a-zA-Z]{2}$/;
-        const separator: string | undefined = defaultLocale.match(regex)?.groups?.separator;
-        this.separator = separator ?? '-';
+        this.separator = this.createSeparator();
     }
 
     public transform (query: Record<string, any>): LocaleObject {
@@ -41,10 +38,16 @@ export class LocaleParamPipe implements PipeTransform<Record<string, any>, Local
         return this.createLocaleObject(this.defaultLocale, query.locale);
     }
 
+    private createSeparator (): string {
+        const regex: RegExp = /^[a-zA-Z]{2}(?<separator>[-_])[a-zA-Z]{2}$/;
+        const separator: string | undefined = this.defaultLocale.match(regex)?.groups?.separator;
+        return separator ?? '-';
+    }
+
     private createLocaleObject (isoCode: string, original: string): LocaleObject {
         return {
             locale: isoCode,
-            lang: isoCode.split(this.separator)[0],
+            language: isoCode.split(this.separator)[0],
             territory: isoCode.split(this.separator)[1],
             original,
         };
