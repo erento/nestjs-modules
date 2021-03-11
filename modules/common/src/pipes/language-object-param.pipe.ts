@@ -31,7 +31,7 @@ export class LanguageObjectParamPipe implements PipeTransform<Record<string, any
     }
 
     private createLanguageObject (isoCode: string, original: string): LanguageObject {
-        return <LanguageObject> {
+        return {
             full: isoCode,
             locale: isoCode.split('-')[0],
             culture: isoCode.split('-')[1],
