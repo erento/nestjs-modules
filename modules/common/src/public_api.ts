@@ -14,6 +14,7 @@ export * from './logger/logger';
 export * from './middleware/elapsed-time.middleware';
 export * from './middleware/unique-id.middleware';
 export * from './pipes/boolean-or-undefined-param.pipe';
+export * from './pipes/constants';
 export * from './pipes/interfaces';
 export * from './pipes/language-param.pipe';
 export * from './pipes/locale-param.pipe';
