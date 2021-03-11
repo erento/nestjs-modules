@@ -1,0 +1,289 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LocaleParamPipe should transform campanda locale params properly 1`] = `
+Object {
+  "language": "de",
+  "locale": "de_DE",
+  "original": "",
+  "territory": "DE",
+}
+`;
+
+exports[`LocaleParamPipe should transform campanda locale params properly 2`] = `
+Object {
+  "language": "de",
+  "locale": "de_DE",
+  "original": "",
+  "territory": "DE",
+}
+`;
+
+exports[`LocaleParamPipe should transform campanda locale params properly 3`] = `
+Object {
+  "language": "de",
+  "locale": "de_DE",
+  "original": "",
+  "territory": "DE",
+}
+`;
+
+exports[`LocaleParamPipe should transform campanda locale params properly 4`] = `
+Object {
+  "language": "de",
+  "locale": "de_DE",
+  "original": "de_DE",
+  "territory": "DE",
+}
+`;
+
+exports[`LocaleParamPipe should transform campanda locale params properly 5`] = `
+Object {
+  "language": "de",
+  "locale": "de_CH",
+  "original": "de_CH",
+  "territory": "CH",
+}
+`;
+
+exports[`LocaleParamPipe should transform campanda locale params properly 6`] = `
+Object {
+  "language": "de",
+  "locale": "de_AT",
+  "original": "de_AT",
+  "territory": "AT",
+}
+`;
+
+exports[`LocaleParamPipe should transform campanda locale params properly 7`] = `
+Object {
+  "language": "en",
+  "locale": "en_GB",
+  "original": "en_GB",
+  "territory": "GB",
+}
+`;
+
+exports[`LocaleParamPipe should transform campanda locale params properly 8`] = `
+Object {
+  "language": "en",
+  "locale": "en_US",
+  "original": "en_US",
+  "territory": "US",
+}
+`;
+
+exports[`LocaleParamPipe should transform campanda locale params properly 9`] = `
+Object {
+  "language": "es",
+  "locale": "es_ES",
+  "original": "es_ES",
+  "territory": "ES",
+}
+`;
+
+exports[`LocaleParamPipe should transform campanda locale params properly 10`] = `
+Object {
+  "language": "fr",
+  "locale": "fr_FR",
+  "original": "fr_FR",
+  "territory": "FR",
+}
+`;
+
+exports[`LocaleParamPipe should transform campanda locale params properly 11`] = `
+Object {
+  "language": "it",
+  "locale": "it_IT",
+  "original": "it_IT",
+  "territory": "IT",
+}
+`;
+
+exports[`LocaleParamPipe should transform campanda locale params properly 12`] = `
+Object {
+  "language": "de",
+  "locale": "de_DE",
+  "original": "de",
+  "territory": "DE",
+}
+`;
+
+exports[`LocaleParamPipe should transform campanda locale params properly 13`] = `
+Object {
+  "language": "en",
+  "locale": "en_GB",
+  "original": "en",
+  "territory": "GB",
+}
+`;
+
+exports[`LocaleParamPipe should transform campanda locale params properly 14`] = `
+Object {
+  "language": "es",
+  "locale": "es_ES",
+  "original": "es",
+  "territory": "ES",
+}
+`;
+
+exports[`LocaleParamPipe should transform campanda locale params properly 15`] = `
+Object {
+  "language": "fr",
+  "locale": "fr_FR",
+  "original": "fr",
+  "territory": "FR",
+}
+`;
+
+exports[`LocaleParamPipe should transform campanda locale params properly 16`] = `
+Object {
+  "language": "it",
+  "locale": "it_IT",
+  "original": "it",
+  "territory": "IT",
+}
+`;
+
+exports[`LocaleParamPipe should transform campanda locale params properly 17`] = `
+Object {
+  "language": "de",
+  "locale": "de_DE",
+  "original": "abc",
+  "territory": "DE",
+}
+`;
+
+exports[`LocaleParamPipe should transform campanda locale params properly 18`] = `
+Object {
+  "language": "de",
+  "locale": "de_DE",
+  "original": "en-GB",
+  "territory": "DE",
+}
+`;
+
+exports[`LocaleParamPipe should transform erento locale params properly 1`] = `
+Object {
+  "language": "de",
+  "locale": "de-DE",
+  "original": "",
+  "territory": "DE",
+}
+`;
+
+exports[`LocaleParamPipe should transform erento locale params properly 2`] = `
+Object {
+  "language": "de",
+  "locale": "de-DE",
+  "original": "",
+  "territory": "DE",
+}
+`;
+
+exports[`LocaleParamPipe should transform erento locale params properly 3`] = `
+Object {
+  "language": "de",
+  "locale": "de-DE",
+  "original": "",
+  "territory": "DE",
+}
+`;
+
+exports[`LocaleParamPipe should transform erento locale params properly 4`] = `
+Object {
+  "language": "de",
+  "locale": "de-DE",
+  "original": "de-DE",
+  "territory": "DE",
+}
+`;
+
+exports[`LocaleParamPipe should transform erento locale params properly 5`] = `
+Object {
+  "language": "de",
+  "locale": "de-CH",
+  "original": "de-CH",
+  "territory": "CH",
+}
+`;
+
+exports[`LocaleParamPipe should transform erento locale params properly 6`] = `
+Object {
+  "language": "de",
+  "locale": "de-AT",
+  "original": "de-AT",
+  "territory": "AT",
+}
+`;
+
+exports[`LocaleParamPipe should transform erento locale params properly 7`] = `
+Object {
+  "language": "en",
+  "locale": "en-GB",
+  "original": "en-GB",
+  "territory": "GB",
+}
+`;
+
+exports[`LocaleParamPipe should transform erento locale params properly 8`] = `
+Object {
+  "language": "en",
+  "locale": "en-US",
+  "original": "en-US",
+  "territory": "US",
+}
+`;
+
+exports[`LocaleParamPipe should transform erento locale params properly 9`] = `
+Object {
+  "language": "de",
+  "locale": "de-DE",
+  "original": "de",
+  "territory": "DE",
+}
+`;
+
+exports[`LocaleParamPipe should transform erento locale params properly 10`] = `
+Object {
+  "language": "en",
+  "locale": "en-GB",
+  "original": "en",
+  "territory": "GB",
+}
+`;
+
+exports[`LocaleParamPipe should transform erento locale params properly 11`] = `
+Object {
+  "language": "de",
+  "locale": "de-DE",
+  "original": "abc",
+  "territory": "DE",
+}
+`;
+
+exports[`LocaleParamPipe should transform erento locale params properly 12`] = `
+Object {
+  "language": "de",
+  "locale": "de-DE",
+  "original": "en_GB",
+  "territory": "DE",
+}
+`;
+
+exports[`LocaleParamPipe should transform erento locale params properly 13`] = `
+Object {
+  "language": "de",
+  "locale": "de-DE",
+  "original": "es-ES",
+  "territory": "DE",
+}
+`;
+
+exports[`LocaleParamPipe should transform erento locale params properly 14`] = `
+Object {
+  "language": "de",
+  "locale": "de-DE",
+  "original": "es",
+  "territory": "DE",
+}
+`;

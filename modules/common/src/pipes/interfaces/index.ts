@@ -15,3 +15,12 @@ export interface OffsetAndLimit {
     offset?: number;
     limit?: number;
 }
+
+// Object properties defined as in this wiki article
+// https://en.wikipedia.org/wiki/Locale_(computer_software)
+export interface LocaleObject {
+    locale: string;
+    language: string;
+    territory: string;
+    original: string;
+}
