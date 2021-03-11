@@ -21,7 +21,7 @@ export interface OffsetAndLimit {
 export interface LocaleObject {
     locale: string;
     lang: string;
-    culture: string;
+    territory: string;
     original: string;
 }
 

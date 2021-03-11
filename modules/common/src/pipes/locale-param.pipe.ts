@@ -45,7 +45,7 @@ export class LocaleParamPipe implements PipeTransform<Record<string, any>, Local
         return {
             locale: isoCode,
             lang: isoCode.split(this.separator)[0],
-            culture: isoCode.split(this.separator)[1],
+            territory: isoCode.split(this.separator)[1],
             original,
         };
     }

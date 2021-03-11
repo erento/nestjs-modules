@@ -2,288 +2,288 @@
 
 exports[`LocaleParamPipe should transform campanda locale params properly 1`] = `
 Object {
-  "culture": "DE",
   "lang": "de",
   "locale": "de_DE",
   "original": "",
+  "territory": "DE",
 }
 `;
 
 exports[`LocaleParamPipe should transform campanda locale params properly 2`] = `
 Object {
-  "culture": "DE",
   "lang": "de",
   "locale": "de_DE",
   "original": "",
+  "territory": "DE",
 }
 `;
 
 exports[`LocaleParamPipe should transform campanda locale params properly 3`] = `
 Object {
-  "culture": "DE",
   "lang": "de",
   "locale": "de_DE",
   "original": "",
+  "territory": "DE",
 }
 `;
 
 exports[`LocaleParamPipe should transform campanda locale params properly 4`] = `
 Object {
-  "culture": "DE",
   "lang": "de",
   "locale": "de_DE",
   "original": "",
+  "territory": "DE",
 }
 `;
 
 exports[`LocaleParamPipe should transform campanda locale params properly 5`] = `
 Object {
-  "culture": "DE",
   "lang": "de",
   "locale": "de_DE",
   "original": "",
+  "territory": "DE",
 }
 `;
 
 exports[`LocaleParamPipe should transform campanda locale params properly 6`] = `
 Object {
-  "culture": "DE",
   "lang": "de",
   "locale": "de_DE",
   "original": "",
+  "territory": "DE",
 }
 `;
 
 exports[`LocaleParamPipe should transform campanda locale params properly 7`] = `
 Object {
-  "culture": "DE",
   "lang": "de",
   "locale": "de_DE",
   "original": "",
+  "territory": "DE",
 }
 `;
 
 exports[`LocaleParamPipe should transform campanda locale params properly 8`] = `
 Object {
-  "culture": "DE",
   "lang": "de",
   "locale": "de_DE",
   "original": "",
+  "territory": "DE",
 }
 `;
 
 exports[`LocaleParamPipe should transform campanda locale params properly 9`] = `
 Object {
-  "culture": "DE",
   "lang": "de",
   "locale": "de_DE",
   "original": "",
+  "territory": "DE",
 }
 `;
 
 exports[`LocaleParamPipe should transform campanda locale params properly 10`] = `
 Object {
-  "culture": "DE",
   "lang": "de",
   "locale": "de_DE",
   "original": "",
+  "territory": "DE",
 }
 `;
 
 exports[`LocaleParamPipe should transform campanda locale params properly 11`] = `
 Object {
-  "culture": "DE",
   "lang": "de",
   "locale": "de_DE",
   "original": "",
+  "territory": "DE",
 }
 `;
 
 exports[`LocaleParamPipe should transform campanda locale params properly 12`] = `
 Object {
-  "culture": "DE",
   "lang": "de",
   "locale": "de_DE",
   "original": "",
+  "territory": "DE",
 }
 `;
 
 exports[`LocaleParamPipe should transform campanda locale params properly 13`] = `
 Object {
-  "culture": "DE",
   "lang": "de",
   "locale": "de_DE",
   "original": "",
+  "territory": "DE",
 }
 `;
 
 exports[`LocaleParamPipe should transform campanda locale params properly 14`] = `
 Object {
-  "culture": "DE",
   "lang": "de",
   "locale": "de_DE",
   "original": "",
+  "territory": "DE",
 }
 `;
 
 exports[`LocaleParamPipe should transform campanda locale params properly 15`] = `
 Object {
-  "culture": "DE",
   "lang": "de",
   "locale": "de_DE",
   "original": "",
+  "territory": "DE",
 }
 `;
 
 exports[`LocaleParamPipe should transform campanda locale params properly 16`] = `
 Object {
-  "culture": "DE",
   "lang": "de",
   "locale": "de_DE",
   "original": "",
+  "territory": "DE",
 }
 `;
 
 exports[`LocaleParamPipe should transform campanda locale params properly 17`] = `
 Object {
-  "culture": "DE",
   "lang": "de",
   "locale": "de_DE",
   "original": "",
+  "territory": "DE",
 }
 `;
 
 exports[`LocaleParamPipe should transform campanda locale params properly 18`] = `
 Object {
-  "culture": "DE",
   "lang": "de",
   "locale": "de_DE",
   "original": "",
+  "territory": "DE",
 }
 `;
 
 exports[`LocaleParamPipe should transform erento locale params properly 1`] = `
 Object {
-  "culture": "DE",
   "lang": "de",
   "locale": "de-DE",
   "original": "",
+  "territory": "DE",
 }
 `;
 
 exports[`LocaleParamPipe should transform erento locale params properly 2`] = `
 Object {
-  "culture": "DE",
   "lang": "de",
   "locale": "de-DE",
   "original": "",
+  "territory": "DE",
 }
 `;
 
 exports[`LocaleParamPipe should transform erento locale params properly 3`] = `
 Object {
-  "culture": "DE",
   "lang": "de",
   "locale": "de-DE",
   "original": "",
+  "territory": "DE",
 }
 `;
 
 exports[`LocaleParamPipe should transform erento locale params properly 4`] = `
 Object {
-  "culture": "DE",
   "lang": "de",
   "locale": "de-DE",
   "original": "",
+  "territory": "DE",
 }
 `;
 
 exports[`LocaleParamPipe should transform erento locale params properly 5`] = `
 Object {
-  "culture": "DE",
   "lang": "de",
   "locale": "de-DE",
   "original": "",
+  "territory": "DE",
 }
 `;
 
 exports[`LocaleParamPipe should transform erento locale params properly 6`] = `
 Object {
-  "culture": "DE",
   "lang": "de",
   "locale": "de-DE",
   "original": "",
+  "territory": "DE",
 }
 `;
 
 exports[`LocaleParamPipe should transform erento locale params properly 7`] = `
 Object {
-  "culture": "DE",
   "lang": "de",
   "locale": "de-DE",
   "original": "",
+  "territory": "DE",
 }
 `;
 
 exports[`LocaleParamPipe should transform erento locale params properly 8`] = `
 Object {
-  "culture": "DE",
   "lang": "de",
   "locale": "de-DE",
   "original": "",
+  "territory": "DE",
 }
 `;
 
 exports[`LocaleParamPipe should transform erento locale params properly 9`] = `
 Object {
-  "culture": "DE",
   "lang": "de",
   "locale": "de-DE",
   "original": "",
+  "territory": "DE",
 }
 `;
 
 exports[`LocaleParamPipe should transform erento locale params properly 10`] = `
 Object {
-  "culture": "DE",
   "lang": "de",
   "locale": "de-DE",
   "original": "",
+  "territory": "DE",
 }
 `;
 
 exports[`LocaleParamPipe should transform erento locale params properly 11`] = `
 Object {
-  "culture": "DE",
   "lang": "de",
   "locale": "de-DE",
   "original": "",
+  "territory": "DE",
 }
 `;
 
 exports[`LocaleParamPipe should transform erento locale params properly 12`] = `
 Object {
-  "culture": "DE",
   "lang": "de",
   "locale": "de-DE",
   "original": "",
+  "territory": "DE",
 }
 `;
 
 exports[`LocaleParamPipe should transform erento locale params properly 13`] = `
 Object {
-  "culture": "DE",
   "lang": "de",
   "locale": "de-DE",
   "original": "",
+  "territory": "DE",
 }
 `;
 
 exports[`LocaleParamPipe should transform erento locale params properly 14`] = `
 Object {
-  "culture": "DE",
   "lang": "de",
   "locale": "de-DE",
   "original": "",
+  "territory": "DE",
 }
 `;
