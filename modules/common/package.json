@@ -47,6 +47,7 @@
   "dependencies": {
     "chalk": "4.1.0",
     "json-stringify-safe": "5.0.1",
+    "rxjs": "6.6.3",
     "uuid": "8.2.0"
   },
   "precommit": [
