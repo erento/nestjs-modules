@@ -1,6 +1,6 @@
 {
   "name": "@erento/nestjs-common",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "NestJS module with some shared utilities",
   "main": "dist/public_api.js",
   "types": "dist/public_api.d.ts",
@@ -47,6 +47,7 @@
   "dependencies": {
     "chalk": "4.1.0",
     "json-stringify-safe": "5.0.1",
+    "rxjs": "6.6.3",
     "uuid": "8.2.0"
   },
   "precommit": [
