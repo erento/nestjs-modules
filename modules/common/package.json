@@ -1,6 +1,6 @@
 {
   "name": "@erento/nestjs-common",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "description": "NestJS module with some shared utilities",
   "main": "dist/public_api.js",
   "types": "dist/public_api.d.ts",
@@ -19,25 +19,25 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@bugsnag/js": ">=7.2.0",
-    "@nestjs/common": ">=6.0.0 <8.0.0",
-    "@nestjs/core": ">=6.0.0 <8.0.0",
-    "express-http-context": ">=1.2.3",
-    "typescript": ">=3.5"
+    "@bugsnag/js": ">=7.10.1",
+    "@nestjs/common": "^7.6.17",
+    "@nestjs/core": "^7.6.17",
+    "express-http-context": ">=1.2.4",
+    "typescript": ">=3.9.9"
   },
   "devDependencies": {
     "@bugsnag/js": "7.2.0",
     "@nestjs/common": "6.11.11",
     "@nestjs/core": "6.11.11",
-    "@types/express": "4.17.7",
+    "@types/express": "4.17.12",
     "@types/jest": "26.0.4",
     "@types/node": "14.0.19",
     "express": "4.17.1",
     "express-http-context": "1.2.3",
-    "husky": "4.2.5",
+    "husky": "6.0.0",
     "jest": "26.1.0",
-    "lint-staged": "10.2.11",
-    "prettier": "2.0.5",
+    "lint-staged": "11.0.0",
+    "prettier": "2.3.0",
     "reflect-metadata": "0.1.13",
     "ts-jest": "26.1.1",
     "tslint": "6.1.2",
@@ -45,10 +45,10 @@
     "typescript": "3.9.6"
   },
   "dependencies": {
-    "chalk": "4.1.0",
+    "chalk": "4.1.1",
     "json-stringify-safe": "5.0.1",
     "rxjs": "6.6.3",
-    "uuid": "8.2.0"
+    "uuid": "8.3.2"
   },
   "precommit": [
     "lint-staged"
