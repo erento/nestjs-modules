@@ -74,11 +74,19 @@ const logObject: Function = (
     /* tslint:enable:no-unbound-method */
     const expressRequest: any = httpContext.get(REQUEST_KEY);
 
-    const jsonLog: LogObject = {
+    let jsonLog: LogObject = {
         severity: method,
         time: new Date(Date.now()).toISOString(),
-        message,
     };
+
+    if (typeof(message) === 'string') {
+        jsonLog.message = message;
+    } else {
+        jsonLog = {
+            ...jsonLog,
+            ...message,
+        };
+    }
 
     if (expressRequest) {
         const httpRequest: StackDriverHttpRequest = {
@@ -103,7 +111,7 @@ interface StackDriverHttpRequest {
 interface LogObject {
     severity: string;
     time: string;
-    message: string | Record<string, string>;
+    message?: string;
     httpRequest?: StackDriverHttpRequest;
 }
 
