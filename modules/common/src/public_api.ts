@@ -13,6 +13,7 @@ export * from './guards/interfaces';
 export * from './logger/global-logger.module';
 export * from './logger/logger';
 export * from './middleware/elapsed-time.middleware';
+export * from './middleware/request.middleware';
 export * from './middleware/unique-id.middleware';
 export * from './pipes/boolean-or-undefined-param.pipe';
 export * from './pipes/constants';
