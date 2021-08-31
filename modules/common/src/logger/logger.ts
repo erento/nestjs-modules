@@ -45,18 +45,16 @@ const log: Function = (method: LoggerMethod, uniqueId: string, message: string |
     if (Environments.isDev()) {
         const methodColor: Function = method === LoggerMethod.ERROR ? chalk.red.bold : (
             method === LoggerMethod.WARNING ? chalk.yellow.bold : chalk.cyan
-            );
+        );
 
         const messageColor: Function = colorMethod(uniqueId);
         logMethod(
             chalk.gray(`${new Date(Date.now()).toLocaleString('en-GB', dateOptions)}`),
             `${methodColor((method + '  ').substr(0, 5))} ${messageColor(uniqueId)}`,
             chalk.white(JSON.stringify(message)),
-                );
+        );
         return;
     }
-
-    const expressRequest: any = httpContext.get(REQUEST_KEY);
 
     let jsonLog: LogObject = {
         requestId: uniqueId,
@@ -73,16 +71,8 @@ const log: Function = (method: LoggerMethod, uniqueId: string, message: string |
         };
     }
 
-    if (expressRequest) {
-        const httpRequest: StackDriverHttpRequest = {
-            requestMethod: expressRequest.method,
-            requestUrl: `${expressRequest.protocol}://${expressRequest.host}${expressRequest.path}`,
-            userAgent: expressRequest.header('user-agent'),
-            protocol: expressRequest.protocol,
-        };
+    jsonLog.httpRequest = httpContext.get(REQUEST_KEY);
 
-        jsonLog.httpRequest = httpRequest;
-    }
     logMethod(JSON.stringify(jsonLog));
 };
 
