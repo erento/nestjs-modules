@@ -2,7 +2,6 @@ import {Catch, ExceptionFilter, HttpException, HttpStatus} from '@nestjs/common'
 import {ArgumentsHost} from '@nestjs/common/interfaces/features/arguments-host.interface';
 import {Response} from 'express';
 import * as httpContext from 'express-http-context';
-import * as jsonStringifySafe from 'json-stringify-safe';
 import {REQUEST_UNIQUE_ID_KEY} from '../constants';
 import {clearBreadcrumbs, getBreadcrumbs} from './breadcrumbs';
 import {BugsnagClient} from './bugsnag.client';
@@ -21,10 +20,7 @@ export class BugsnagErrorFilter implements ExceptionFilter {
         const exception: Error = err instanceof Error ? err : new Error(err);
 
         // tslint:disable-next-line:no-unbound-method
-        (this.loggerMethod || console.error)(
-            // Stringify when err message is an object to avoid [object Object] only
-            `>> status: "${status}" - "${jsonStringifySafe(exception)}" - "${jsonStringifySafe(exception.stack)}"`,
-        );
+        (this.loggerMethod || console.error)(exception);
 
         this.bugsnagClient.notifyWithMetadata(
             exception,

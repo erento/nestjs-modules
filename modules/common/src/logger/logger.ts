@@ -113,7 +113,12 @@ export class Logger implements LoggerService {
         const error: Error = err instanceof Error ? err : new Error(err);
         error.message = error.message.indexOf(uniqueId) !== -1 ? `${uniqueId}: ${error.message}` : error.message;
 
-        log(LoggerMethod.WARNING, uniqueId, error);
+        log(LoggerMethod.WARNING, uniqueId, {
+            message: error.message,
+            stack: error.stack,
+            name: error.name,
+        });
+
         if (!this.bugsnagClient) {
             return;
         }
@@ -139,7 +144,12 @@ export class Logger implements LoggerService {
             error.stack = trace;
         }
 
-        log(LoggerMethod.ERROR, uniqueId, error);
+        log(LoggerMethod.ERROR, uniqueId, {
+            message: error.message,
+            stack: error.stack,
+            name: error.name,
+        });
+
         if (!this.bugsnagClient) {
             return;
         }
