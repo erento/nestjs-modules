@@ -1,6 +1,7 @@
 import {Injectable, LoggerService, Optional} from '@nestjs/common';
 import * as chalk from 'chalk';
 import * as httpContext from 'express-http-context';
+import * as jsonStringifySafe from 'json-stringify-safe';
 import {clearBreadcrumbs, getBreadcrumbs} from '../bugsnag/breadcrumbs';
 import {BugsnagClient} from '../bugsnag/bugsnag.client';
 import {BugsnagSeverity} from '../bugsnag/interfaces';
@@ -51,7 +52,7 @@ const log: Function = (method: LoggerMethod, uniqueId: string, message: string |
         logMethod(
             chalk.gray(`${new Date(Date.now()).toLocaleString('en-GB', dateOptions)}`),
             `${methodColor((method + '  ').substr(0, 5))} ${messageColor(uniqueId)}`,
-            chalk.white(JSON.stringify(message)),
+            chalk.white(jsonStringifySafe(message)),
         );
         return;
     }
@@ -73,7 +74,7 @@ const log: Function = (method: LoggerMethod, uniqueId: string, message: string |
 
     jsonLog.httpRequest = httpContext.get(REQUEST_KEY);
 
-    logMethod(JSON.stringify(jsonLog));
+    logMethod(jsonStringifySafe(jsonLog));
 };
 
 interface StackDriverHttpRequest {
@@ -102,7 +103,7 @@ export class Logger implements LoggerService {
             log(LoggerMethod.INFO, this.getUniqueKey(), [message, ...args].join(' '));
         } else {
             if (args.length > 0) {
-                message.additionalArguments = JSON.stringify(args);
+                message.additionalArguments = jsonStringifySafe(args);
             }
             log(LoggerMethod.INFO, this.getUniqueKey(), message);
         }
@@ -114,9 +115,9 @@ export class Logger implements LoggerService {
         error.message = error.message.indexOf(uniqueId) !== -1 ? `${uniqueId}: ${error.message}` : error.message;
 
         log(LoggerMethod.WARNING, uniqueId, {
-            message: error.message,
-            stack: error.stack,
-            name: error.name,
+            errorMessage: error.message,
+            errorStack: error.stack,
+            errorName: error.name,
         });
 
         if (!this.bugsnagClient) {
@@ -145,9 +146,9 @@ export class Logger implements LoggerService {
         }
 
         log(LoggerMethod.ERROR, uniqueId, {
-            message: error.message,
-            stack: error.stack,
-            name: error.name,
+            errorMessage: error.message,
+            errorStack: error.stack,
+            errorName: error.name,
         });
 
         if (!this.bugsnagClient) {

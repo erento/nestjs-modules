@@ -8,9 +8,10 @@ export class RequestMiddleware implements NestMiddleware {
     public async use (req: Request, _res: Response, next: Function): Promise<void> {
         httpContext.set(REQUEST_KEY, {
             requestMethod: req.method,
-            requestUrl: `${req.protocol}://${req.hostname}${req.path}`,
+            requestUrl: req.originalUrl,
             userAgent: req.header('user-agent'),
             protocol: req.protocol,
+            serverIp: req.hostname,
         });
         next();
     }
