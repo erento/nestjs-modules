@@ -33,9 +33,7 @@ export class ElapsedTimeMiddleware implements NestMiddleware {
             });
         });
 
-        this.logger.log({
-            message: 'Route started',
-        });
+        this.logger.log('Route started');
         next();
     }
 }
