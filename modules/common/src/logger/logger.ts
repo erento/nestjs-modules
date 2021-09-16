@@ -1,6 +1,7 @@
 import {Injectable, LoggerService, Optional} from '@nestjs/common';
 import * as chalk from 'chalk';
 import * as httpContext from 'express-http-context';
+import * as jsonStringifySafe from 'json-stringify-safe';
 import {clearBreadcrumbs, getBreadcrumbs} from '../bugsnag/breadcrumbs';
 import {BugsnagClient} from '../bugsnag/bugsnag.client';
 import {BugsnagSeverity} from '../bugsnag/interfaces';
@@ -35,7 +36,7 @@ function uniqueIdToHex (str: string): string {
 
 const colorMethod: Function = (uniqueId: string): Function => chalk.hex(uniqueIdToHex(uniqueId));
 
-const log: Function = (method: LoggerMethod, uniqueId: string, ...args: string[]): void => {
+const log: Function = (method: LoggerMethod, uniqueId: string, message: string | Record<string, string>): void => {
     /* tslint:disable:no-unbound-method */
     const logMethod: Function = method === LoggerMethod.ERROR ? console.error : (
         method === LoggerMethod.WARNING ? console.warn : console.log
@@ -45,36 +46,19 @@ const log: Function = (method: LoggerMethod, uniqueId: string, ...args: string[]
     if (Environments.isDev()) {
         const methodColor: Function = method === LoggerMethod.ERROR ? chalk.red.bold : (
             method === LoggerMethod.WARNING ? chalk.yellow.bold : chalk.cyan
-            );
+        );
 
         const messageColor: Function = colorMethod(uniqueId);
         logMethod(
             chalk.gray(`${new Date(Date.now()).toLocaleString('en-GB', dateOptions)}`),
             `${methodColor((method + '  ').substr(0, 5))} ${messageColor(uniqueId)}`,
-            chalk.white(...args),
-                );
+            chalk.white(jsonStringifySafe(message)),
+        );
         return;
     }
 
-    logObject(
-        method,
-        `${new Date(Date.now()).toLocaleString('en-GB', dateOptions)} ${(method + '  ').substr(0, 5)} ${uniqueId} ${args}`,
-    );
-
-};
-
-const logObject: Function = (
-    method: LoggerMethod,
-    message: string | Record<string, string>,
-): void => {
-    /* tslint:disable:no-unbound-method */
-    const logMethod: Function = method === LoggerMethod.ERROR ? console.error : (
-        method === LoggerMethod.WARNING ? console.warn : console.log
-    );
-    /* tslint:enable:no-unbound-method */
-    const expressRequest: any = httpContext.get(REQUEST_KEY);
-
     let jsonLog: LogObject = {
+        requestId: uniqueId,
         severity: method,
         time: new Date(Date.now()).toISOString(),
     };
@@ -88,17 +72,9 @@ const logObject: Function = (
         };
     }
 
-    if (expressRequest) {
-        const httpRequest: StackDriverHttpRequest = {
-            requestMethod: expressRequest.method,
-            requestUrl: `${expressRequest.protocol}://${expressRequest.host}${expressRequest.path}`,
-            userAgent: expressRequest.header('user-agent'),
-            protocol: expressRequest.protocol,
-        };
+    jsonLog.httpRequest = httpContext.get(REQUEST_KEY);
 
-        jsonLog.httpRequest = httpRequest;
-    }
-    logMethod(JSON.stringify(jsonLog));
+    logMethod(jsonStringifySafe(jsonLog));
 };
 
 interface StackDriverHttpRequest {
@@ -109,6 +85,7 @@ interface StackDriverHttpRequest {
 }
 
 interface LogObject {
+    requestId: string;
     severity: string;
     time: string;
     message?: string;
@@ -121,12 +98,15 @@ export class Logger implements LoggerService {
         @Optional() private readonly bugsnagClient?: BugsnagClient,
     ) {}
 
-    public log (...args: string[]): void {
-        log(LoggerMethod.INFO, this.getUniqueKey(), ...args);
-    }
-
-    public logObject (message: Record<string, string>): void {
-        logObject(LoggerMethod.INFO, {...message, requestId: this.getUniqueKey()});
+    public log (message: string | Record<string, string>, ...args: string[]): void {
+        if (typeof (message) === 'string') {
+            log(LoggerMethod.INFO, this.getUniqueKey(), [message, ...args].join(' '));
+        } else {
+            if (args.length > 0) {
+                message.additionalArguments = jsonStringifySafe(args);
+            }
+            log(LoggerMethod.INFO, this.getUniqueKey(), message);
+        }
     }
 
     public warn (err: any): void {
@@ -134,7 +114,12 @@ export class Logger implements LoggerService {
         const error: Error = err instanceof Error ? err : new Error(err);
         error.message = error.message.indexOf(uniqueId) !== -1 ? `${uniqueId}: ${error.message}` : error.message;
 
-        log(LoggerMethod.WARNING, uniqueId, error.message);
+        log(LoggerMethod.WARNING, uniqueId, {
+            errorMessage: error.message,
+            errorStack: error.stack,
+            errorName: error.name,
+        });
+
         if (!this.bugsnagClient) {
             return;
         }
@@ -160,7 +145,12 @@ export class Logger implements LoggerService {
             error.stack = trace;
         }
 
-        log(LoggerMethod.ERROR, uniqueId, error.message);
+        log(LoggerMethod.ERROR, uniqueId, {
+            errorMessage: error.message,
+            errorStack: error.stack,
+            errorName: error.name,
+        });
+
         if (!this.bugsnagClient) {
             return;
         }
@@ -185,6 +175,6 @@ export class Logger implements LoggerService {
             return '';
         }
 
-        return `${uniqueId}:`;
+        return uniqueId;
     }
 }

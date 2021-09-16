@@ -23,19 +23,17 @@ export class ElapsedTimeMiddleware implements NestMiddleware {
         }
 
         const startHrTime: [number, number] = process.hrtime();
-        const requestIdentifier: string = `${req.method} ${req.originalUrl}`;
         res.on('finish', (): void => {
             const elapsedHrTime: [number, number] = process.hrtime(startHrTime);
             const elapsedTimeInMs: number = elapsedHrTime[0] * 1e3 + elapsedHrTime[1] / 1e6;
-            this.logger.logObject({
+            this.logger.log({
                 statusCode: `${res.statusCode}`,
-                request: requestIdentifier,
                 elapsedTime: `${elapsedTimeInMs}`,
-                message: `Route finished: ${requestIdentifier} ${res.statusCode}, execution time ${elapsedTimeInMs}ms`,
+                message: 'Route finished',
             });
         });
 
-        this.logger.log(`Route started: ${requestIdentifier}`);
+        this.logger.log('Route started');
         next();
     }
 }
