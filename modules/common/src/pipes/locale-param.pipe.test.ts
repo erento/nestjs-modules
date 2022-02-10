@@ -18,7 +18,7 @@ describe('LocaleParamPipe', (): void => {
         [{locale: 'es-ES'}], // fails to find it returns default
         [{locale: 'es'}], // fails to find it returns default
     ])('should transform erento locale params properly', (input: any): void => {
-        const pipe: LocaleParamPipe = new LocaleParamPipe(ERENTO_LOCALE_ARRAY, ERENTO_DEFAULT_LOCALE);
+        const pipe: LocaleParamPipe = new LocaleParamPipe(ERENTO_DEFAULT_LOCALE, ERENTO_LOCALE_ARRAY);
         expect(pipe.transform(input)).toMatchSnapshot();
     });
 
@@ -42,7 +42,7 @@ describe('LocaleParamPipe', (): void => {
         [{locale: 'abc'}],
         [{locale: 'en-GB'}], // fails to find it returns default
     ])('should transform campanda locale params properly', (input: any): void => {
-        const pipe: LocaleParamPipe = new LocaleParamPipe(CAMPANDA_LOCALE_ARRAY, CAMPANDA_DEFAULT_LOCALE);
+        const pipe: LocaleParamPipe = new LocaleParamPipe(CAMPANDA_DEFAULT_LOCALE, CAMPANDA_LOCALE_ARRAY);
         expect(pipe.transform(input)).toMatchSnapshot();
     });
 });

@@ -1,4 +1,4 @@
-const getCleanStringKeys: Function = (enumeration: any): string[] => {
+const getCleanStringKeys: (enumeration: any) => string[] = (enumeration: any): string[] => {
     const objKeys: string[] = Object.keys(enumeration);
 
     return objKeys

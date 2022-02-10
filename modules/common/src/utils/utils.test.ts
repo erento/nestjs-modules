@@ -17,10 +17,12 @@ import {
     parseDateOrUndefined,
     replaceEmptyStringValuesWithNull,
     requiredEnvVariable,
-    waitForMs
+    waitForMs,
 } from './utils';
+import DoneCallback = jest.DoneCallback;
 
 jest.useFakeTimers();
+jest.spyOn(global, 'setTimeout');
 
 describe('utils', (): void => {
     describe('buffer', (): void => {
@@ -216,6 +218,7 @@ describe('utils', (): void => {
 
     describe('requiredEnvVariable', (): void => {
         test('it returns process.env variable, if it exists', (): void => {
+            // eslint-disable-next-line no-underscore-dangle
             process.env.__TESTING_PROPERTY = 'some-value';
 
             expect(requiredEnvVariable('__TESTING_PROPERTY')).toBe('some-value');
@@ -240,14 +243,16 @@ describe('utils', (): void => {
                     AND other_field = 'other_value        with_spaces'
                 LIMIT 10;
             `)).toEqual('SELECT * FROM "user" WHERE field = \'value\' AND other_field = \'other_value        with_spaces\' LIMIT 10;');
-            expect(oneLine(`UPDATE "user" SET field='multi word value with any amount  of    spaces'`)).toEqual(`UPDATE "user" SET field='multi word value with any amount  of    spaces'`);
-            expect(oneLine(`UPDATE "user" SET\n field='multi word value with any amount  of    spaces'`)).toEqual(`UPDATE "user" SET field='multi word value with any amount  of    spaces'`);
+            expect(oneLine(`UPDATE "user" SET field='multi word value with any amount  of    spaces'`))
+                .toEqual(`UPDATE "user" SET field='multi word value with any amount  of    spaces'`);
+            expect(oneLine(`UPDATE "user" SET\n field='multi word value with any amount  of    spaces'`))
+                .toEqual(`UPDATE "user" SET field='multi word value with any amount  of    spaces'`);
         });
     });
 
     describe('waitForMs', (): void => {
-        test('it waits using setTimeout', (done: Function): void => {
-            const callback: Function = jest.fn();
+        test('it waits using setTimeout', (done: DoneCallback): void => {
+            const callback: jest.Mock = jest.fn();
             waitForMs(100).then((): void => {
                 done();
             });

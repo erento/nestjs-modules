@@ -22,7 +22,7 @@ export class BugsnagClient {
                 event.context = payload.context ?? err.stack;
                 event.addMetadata('metadata', payload.metadata);
             },
-       );
+        );
     }
 
     public getPlugin (plugin: string): ReturnType<Client['getPlugin']> {

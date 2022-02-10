@@ -23,11 +23,11 @@ const dateOptions: Intl.DateTimeFormatOptions = {
 function uniqueIdToHex (str: string): string {
     let hashedNumber: number = 0;
     for (let i: number = 0; i < str.length; i++) {
-        // tslint:disable-next-line:no-bitwise
+        // eslint-disable-next-line no-bitwise
         hashedNumber = str.charCodeAt(i) + ((hashedNumber << 5) - hashedNumber);
     }
 
-    // tslint:disable-next-line:no-bitwise
+    // eslint-disable-next-line no-bitwise
     const c: string = (hashedNumber & 0x00FFFFFF)
         .toString(16)
         .toUpperCase();
@@ -35,26 +35,28 @@ function uniqueIdToHex (str: string): string {
     return '00000'.substring(0, 6 - c.length) + c;
 }
 
-const colorMethod: Function = (uniqueId: string): Function => chalk.hex(uniqueIdToHex(uniqueId));
+type colorMethodFunction = (uniqueId: string) => chalk.Chalk;
+const colorMethod: colorMethodFunction = (uniqueId: string): chalk.Chalk => chalk.hex(uniqueIdToHex(uniqueId));
 
-const log: Function = (method: LoggerMethod, uniqueId: string, message: string | Record<string, string>): void => {
-    /* tslint:disable:no-unbound-method */
-    const logMethod: Function = method === LoggerMethod.ERROR ? console.error : (
+type consoleFunction = (...data: any[]) => void;
+type logFunction = (method: LoggerMethod, uniqueId: string, message: string | Record<string, string>) => void;
+const log: logFunction = (method: LoggerMethod, uniqueId: string, message: string | Record<string, string>): void => {
+    const logMethod: consoleFunction = method === LoggerMethod.ERROR ? console.error : (
         method === LoggerMethod.WARNING ? console.warn : console.log
     );
-    /* tslint:enable:no-unbound-method */
 
     if (Environments.isDev()) {
-        const methodColor: Function = method === LoggerMethod.ERROR ? chalk.red.bold : (
+        const methodColor: consoleFunction = method === LoggerMethod.ERROR ? chalk.red.bold : (
             method === LoggerMethod.WARNING ? chalk.yellow.bold : chalk.cyan
         );
 
-        const messageColor: Function = colorMethod(uniqueId);
+        const messageColor: consoleFunction = colorMethod(uniqueId);
         logMethod(
             chalk.gray(`${new Date(Date.now()).toLocaleString('en-GB', dateOptions)}`),
-            `${methodColor((method + '  ').substr(0, 5))} ${messageColor(uniqueId)}`,
+            `${methodColor((`${method}  `).substr(0, 5))} ${messageColor(uniqueId)}`,
             chalk.white(jsonStringifySafe(message)),
         );
+
         return;
     }
 
@@ -117,7 +119,7 @@ export class Logger implements LoggerService {
 
         log(LoggerMethod.WARNING, uniqueId, {
             errorMessage: error.message,
-            errorStack: error.stack,
+            errorStack: error.stack ?? '',
             errorName: error.name,
         });
 
@@ -148,7 +150,7 @@ export class Logger implements LoggerService {
 
         log(LoggerMethod.ERROR, uniqueId, {
             errorMessage: error.message,
-            errorStack: error.stack,
+            errorStack: error.stack ?? '',
             errorName: error.name,
         });
 

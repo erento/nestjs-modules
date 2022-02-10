@@ -1,4 +1,4 @@
 export interface CronJobMethodReference {
-    target: Object;
+    target: any;
     methodName: string;
 }

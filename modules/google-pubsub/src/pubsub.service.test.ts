@@ -1,8 +1,6 @@
 const mockPublish: jest.Mock = jest.fn();
 
 class StupPubSub {
-    constructor(_options) {}
-
     public topic (): any {
         return {
             publish: mockPublish,
@@ -23,7 +21,7 @@ describe('pubsub service', (): void => {
     let pubsubHelper: PubsubHelper;
     let service: PubsubService;
 
-    beforeEach(async (): Promise<void> => {
+    beforeEach((): void => {
         pubsubHelper = <any> {prepareForPubsub: jest.fn()};
         jest.spyOn(pubsubHelper, 'prepareForPubsub').mockImplementationOnce(() => {
             return {
@@ -32,7 +30,7 @@ describe('pubsub service', (): void => {
             };
         });
 
-        service = await PubsubService.create(
+        service = PubsubService.create(
             {},
             'cryptoEncryptionKey',
             'cryptoSignKey',
@@ -49,8 +47,8 @@ describe('pubsub service', (): void => {
 
     test('should call the publish method on the underlying pub-sub library', async (): Promise<void> => {
         await expect(service.publishMessage('slack', 'mockmsg')).resolves.toBeUndefined();
-        // tslint:disable-next-line
         expect(mockPublish).toBeCalledWith(expect.any(Buffer), {signature: expect.anything()});
+        /* eslint-disable-next-line @typescript-eslint/unbound-method */
         expect(pubsubHelper.prepareForPubsub).toBeCalledWith('slack', 'mockmsg', 'userAgent');
     });
 });
