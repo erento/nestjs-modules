@@ -245,6 +245,7 @@ describe('utils', (): void => {
         });
     });
 
+    jest.useFakeTimers('legacy');
     describe('waitForMs', (): void => {
         test('it waits using setTimeout', (done: Function): void => {
             const callback: Function = jest.fn();
