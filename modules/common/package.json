@@ -26,14 +26,14 @@
     "typescript": ">=3.9.9"
   },
   "devDependencies": {
-    "@bugsnag/js": "7.2.0",
+    "@bugsnag/js": "7.10.1",
     "@nestjs/common": "8.3.0",
     "@nestjs/core": "8.3.0",
     "@types/express": "4.17.12",
     "@types/jest": "26.0.4",
     "@types/node": "14.0.19",
     "express": "4.17.1",
-    "express-http-context": "1.2.3",
+    "express-http-context": "1.2.4",
     "husky": "6.0.0",
     "jest": "26.1.0",
     "lint-staged": "11.0.0",
