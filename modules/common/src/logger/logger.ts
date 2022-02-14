@@ -1,5 +1,5 @@
 import {Injectable, LoggerService, Optional} from '@nestjs/common';
-import * as chalk from 'chalk';
+import chalk from 'chalk';
 import * as httpContext from 'express-http-context';
 import * as jsonStringifySafe from 'json-stringify-safe';
 import {clearBreadcrumbs, getBreadcrumbs} from '../bugsnag/breadcrumbs';
