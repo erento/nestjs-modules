@@ -29,6 +29,7 @@ export class BugsnagIgnoreExceptionsInterceptor implements NestInterceptor {
                         // return error as result to avoid errors being caught by Bugsnag
                         const response: any = context.switchToHttp().getResponse();
                         response.status(error.status || 500).json({err: error.response ? error.response.message : undefined});
+
                         return of();
                     }
                     // rethrow

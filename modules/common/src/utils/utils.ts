@@ -62,8 +62,9 @@ export function parseDateOrUndefined (date?: string): Date | undefined {
         if (isNaN(parsed)) {
             return undefined;
         }
+
         return new Date(parsed);
-    } catch (e) {
+    } catch {
         return undefined;
     }
 }
@@ -131,7 +132,7 @@ export function getPropertyOrFallback<V, F> (value: V | undefined | null, fallBa
 }
 
 export function fillArrayWithIndices (length: number = 0): number[] {
-    return [...Array(length).keys()];
+    return [...new Array(length).keys()];
 }
 
 export function batchArray<T> (items: T[], maxBatchSize: number): T[][] {

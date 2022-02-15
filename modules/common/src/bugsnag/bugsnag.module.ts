@@ -22,6 +22,7 @@ export class BugsnagModule {
                     provide: BugsnagClient,
                     useFactory: (): BugsnagClient => {
                         BugsnagModule.providedClient = new BugsnagClient(Bugsnag.createClient(bugsnagConfig));
+
                         return BugsnagModule.providedClient;
                     },
                 },

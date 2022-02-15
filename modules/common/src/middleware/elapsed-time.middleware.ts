@@ -19,6 +19,7 @@ export class ElapsedTimeMiddleware implements NestMiddleware {
     public async use (req: ExtendedRequest, res: any, next: any): Promise<void> {
         if (filteredUrls.indexOf(req.url) !== -1) {
             next();
+
             return;
         }
 

@@ -8,6 +8,7 @@ export function CronJob (name: string): MethodDecorator {
             typeof target[propertyKey] === 'function'
         ) {
             cronJobs.set(name, {target, methodName: propertyKey});
+
             return;
         }
 

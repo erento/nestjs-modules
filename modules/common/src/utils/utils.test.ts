@@ -17,7 +17,7 @@ import {
     parseDateOrUndefined,
     replaceEmptyStringValuesWithNull,
     requiredEnvVariable,
-    waitForMs
+    waitForMs,
 } from './utils';
 
 jest.useFakeTimers();

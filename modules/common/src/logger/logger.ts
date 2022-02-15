@@ -51,9 +51,10 @@ const log: Function = (method: LoggerMethod, uniqueId: string, message: string |
         const messageColor: Function = colorMethod(uniqueId);
         logMethod(
             chalk.gray(`${new Date(Date.now()).toLocaleString('en-GB', dateOptions)}`),
-            `${methodColor((method + '  ').substr(0, 5))} ${messageColor(uniqueId)}`,
+            `${methodColor((`${method}  `).substr(0, 5))} ${messageColor(uniqueId)}`,
             chalk.white(jsonStringifySafe(message)),
         );
+
         return;
     }
 
