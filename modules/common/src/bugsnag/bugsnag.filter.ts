@@ -5,13 +5,13 @@ import * as httpContext from 'express-http-context';
 import {REQUEST_UNIQUE_ID_KEY} from '../constants';
 import {clearBreadcrumbs, getBreadcrumbs} from './breadcrumbs';
 import {BugsnagClient} from './bugsnag.client';
-import {BugsnagSeverity} from './interfaces';
+import {BugsnagErrorFunction, BugsnagSeverity} from './interfaces';
 
 @Catch()
 export class BugsnagErrorFilter implements ExceptionFilter {
     constructor (
         private readonly bugsnagClient: BugsnagClient,
-        private readonly loggerMethod?: Function,
+        private readonly loggerMethod?: BugsnagErrorFunction,
     ) {}
 
     public catch (err: any, host: ArgumentsHost): Response {
@@ -19,7 +19,6 @@ export class BugsnagErrorFilter implements ExceptionFilter {
         const status: number = err instanceof HttpException ? err.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
         const exception: Error = err instanceof Error ? err : new Error(err);
 
-        // tslint:disable-next-line:no-unbound-method
         (this.loggerMethod || console.error)(exception);
 
         this.bugsnagClient.notifyWithMetadata(

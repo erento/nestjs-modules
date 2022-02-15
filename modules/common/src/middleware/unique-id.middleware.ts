@@ -5,7 +5,7 @@ import {REQUEST_UNIQUE_ID_KEY} from '../constants';
 
 @Injectable()
 export class UniqueIdMiddleware implements NestMiddleware {
-    public async use (_: Express.Request, _res: Express.Response, next: Function): Promise<void> {
+    public use (_: Express.Request, _res: Express.Response, next: () => void): void {
         httpContext.set(REQUEST_UNIQUE_ID_KEY, uuidv4());
         next();
     }

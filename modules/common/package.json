@@ -6,11 +6,11 @@
     "npm": ">=8.0.0"
   },
   "description": "NestJS module with some shared utilities",
-  "main": "dist/public_api.js",
-  "types": "dist/public_api.d.ts",
+  "main": "dist/public-api.js",
+  "types": "dist/public-api.d.ts",
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "lint": "tslint -c tslint.json --fix -e \"**/node_modules/**\" -p ./tsconfig.json",
+    "lint": "eslint --fix -c .eslintrc.json",
     "lint-staged": "lint-staged",
     "prebuild": "rm -rf dist && npm run lint && npm run test",
     "test": "jest"
@@ -54,11 +54,11 @@
     "typescript": "4.5.5"
   },
   "dependencies": {
+    "@erento/eslint-plugin-erento-rules": "1.0.0",
     "chalk": "5.0.0",
     "json-stringify-safe": "5.0.1",
     "rxjs": "7.5.4",
-    "uuid": "8.3.2",
-    "@erento/eslint-plugin-erento-rules": "1.0.0"
+    "uuid": "8.3.2"
   },
   "precommit": [
     "lint-staged"

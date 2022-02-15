@@ -1,9 +1,10 @@
 import {cronJobs} from './cronjobs.store';
 
 export function CronJob (name: string): MethodDecorator {
-    return (target: Object, propertyKey: string | symbol): void => {
+    return (target: any, propertyKey: string | symbol): void => {
         if (
             typeof propertyKey === 'string' &&
+            // eslint-disable-next-line no-prototype-builtins
             target.hasOwnProperty(propertyKey) &&
             typeof target[propertyKey] === 'function'
         ) {

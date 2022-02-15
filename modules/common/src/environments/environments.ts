@@ -24,7 +24,6 @@ export class Environments {
     }
 
     public static getPackageJson (): any {
-        // tslint:disable-next-line no-var-requires no-require-imports
         return require(`${process.cwd()}/package.json`);
     }
 

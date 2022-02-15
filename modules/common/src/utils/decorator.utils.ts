@@ -1,4 +1,3 @@
-/* tslint:disable:variable-name */
 import {applyDecorators, Header} from '@nestjs/common';
 type DecoratorFunction = (...args: any[]) => MethodDecorator;
 

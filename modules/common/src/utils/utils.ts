@@ -75,12 +75,14 @@ export function isUuid (value: string | null | undefined): boolean {
 
 // is used for fields which are saved as JSONB. NULL values have to be cleaned on reading
 // default has to be undefined, so the property is not returned
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function cleanNullValues<T extends Object> (someObject: T | null | undefined): T | undefined {
     if (someObject === null || someObject === undefined) {
         return undefined;
     }
 
     for (const propName in someObject) {
+        // eslint-disable-next-line no-prototype-builtins
         if (someObject.hasOwnProperty(propName) && <any> someObject[propName] === null) {
             delete someObject[propName];
         }
@@ -95,6 +97,7 @@ export function cleanNullValues<T extends Object> (someObject: T | null | undefi
 
 // Is used for apis which provide empty string values as default values.
 // Those defaults are converted to null to be able to remove these fields in the database
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function replaceEmptyStringValuesWithNull<T extends Object> (someObject: T | null): T | null {
     if (someObject === null || Object.keys(someObject).length === 0) {
         return null;
@@ -132,7 +135,8 @@ export function getPropertyOrFallback<V, F> (value: V | undefined | null, fallBa
 }
 
 export function fillArrayWithIndices (length: number = 0): number[] {
-    return [...new Array(length).keys()];
+    /* eslint-disable unicorn/new-for-builtins */
+    return [...Array(length).keys()];
 }
 
 export function batchArray<T> (items: T[], maxBatchSize: number): T[][] {
@@ -172,7 +176,7 @@ export function oneLine (multiline: string): string {
 }
 
 export function waitForMs (time: number): Promise<void> {
-    return new Promise((resolve: Function): void => {
+    return new Promise((resolve: TimerHandler): void => {
         setTimeout(resolve, time);
     });
 }

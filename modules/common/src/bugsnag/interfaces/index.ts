@@ -3,3 +3,5 @@ export enum BugsnagSeverity {
     WARNING = 'warn',
     ERROR = 'error',
 }
+
+export type BugsnagErrorFunction = (error: Error) => void;

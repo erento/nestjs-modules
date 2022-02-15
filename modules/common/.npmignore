@@ -1,6 +1,6 @@
 src/
 tsconfig.json
-tslint.json
+.eslintrc.json
 *.snap
 *.test.d.ts
 *.test.ts

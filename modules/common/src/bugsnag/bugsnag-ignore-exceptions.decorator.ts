@@ -25,7 +25,7 @@ export class BugsnagIgnoreExceptionsInterceptor implements NestInterceptor {
             .handle()
             .pipe(
                 catchError((error: any): Observable<any> => {
-                    if (exceptions.find((e: any): boolean => error instanceof e)) {
+                    if (exceptions.some((e: any): boolean => error instanceof e)) {
                         // return error as result to avoid errors being caught by Bugsnag
                         const response: any = context.switchToHttp().getResponse();
                         response.status(error.status || 500).json({err: error.response ? error.response.message : undefined});
