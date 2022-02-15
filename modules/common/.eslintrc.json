@@ -1,0 +1,25 @@
+{
+  "root": true,
+  "ignorePatterns": [
+    "projects/**/*"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "*.ts"
+      ],
+      "parserOptions": {
+        "project": [
+          "tsconfig.json"
+        ],
+        "createDefaultProgram": true
+      },
+      "extends": [
+        "plugin:@erento/erento-rules/recommended"
+      ],
+      "plugins": [
+        "@erento/erento-rules"
+      ]
+    }
+  ]
+}
