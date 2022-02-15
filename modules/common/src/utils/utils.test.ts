@@ -22,6 +22,7 @@ import {
 import DoneCallback = jest.DoneCallback;
 
 jest.useFakeTimers();
+jest.spyOn(global, 'setTimeout');
 
 describe('utils', (): void => {
     describe('buffer', (): void => {
