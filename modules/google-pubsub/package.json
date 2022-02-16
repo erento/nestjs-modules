@@ -2,11 +2,11 @@
   "name": "@erento/nestjs-module-google-pubsub",
   "version": "2.2.0",
   "description": "NestJS module to work with Google Pub/Sub messages.",
-  "main": "dist/public_api.js",
-  "types": "dist/public_api.d.ts",
+  "main": "dist/public-api.js",
+  "types": "dist/public-api.d.ts",
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "lint": "tslint -c tslint.json --fix -e \"**/node_modules/**\" -p ./tsconfig.json",
+    "lint": "eslint --fix -c .eslintrc.json",
     "lint-staged": "lint-staged",
     "prebuild": "rm -rf dist && npm run lint && npm run test",
     "test": "jest"
