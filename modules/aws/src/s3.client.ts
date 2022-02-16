@@ -6,7 +6,7 @@ import {S3MoveFileError, S3MoveFileErrorCode} from './errors/s3-move-file.error'
 @Injectable()
 export class S3Client {
     constructor (
-        private readonly connection: aws.S3,
+        private readonly awsConnection: aws.S3,
         private readonly bucketName: string,
         private readonly filePathPrefix: string,
     ) {}
@@ -16,8 +16,8 @@ export class S3Client {
         payload: Body,
         options: ManagedUpload.ManagedUploadOptions = {},
     ): Promise<ManagedUpload.SendData> {
-        return new Promise<ManagedUpload.SendData>((resolve: Function, reject: Function): void => {
-            this.connection.upload(
+        return new Promise<ManagedUpload.SendData>((resolve: (data: any) => void, reject: (err: any) => void): void => {
+            this.awsConnection.upload(
                 {
                     Bucket: this.bucketName,
                     Key: this.generateObjectName(filePath),
@@ -25,7 +25,11 @@ export class S3Client {
                 },
                 options,
                 (err: Error, data: ManagedUpload.SendData) => {
-                    err ? reject(err) : resolve(data);
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(data);
+                    }
                 },
             );
         });
@@ -46,9 +50,9 @@ export class S3Client {
         return this.upload(filePath, payload, options);
     }
 
-    public async fileExists (filePath: string): Promise<boolean> {
-        return new Promise<boolean>((resolve: Function, reject: Function): void => {
-            this.connection.headObject({
+    public fileExists (filePath: string): Promise<boolean> {
+        return new Promise<boolean>((resolve: (data: boolean) => void, reject: (err: any) => void): void => {
+            this.awsConnection.headObject({
                 Bucket: this.bucketName,
                 Key: this.generateObjectName(filePath),
             }, (err: aws.AWSError, data: aws.S3.HeadObjectOutput): void => {
@@ -64,23 +68,24 @@ export class S3Client {
 
     public moveWithinBucket (sourceFilePath: string, targetFilePath: string): Promise<CopyObjectOutput> {
         const sourceObjectName: string = this.generateObjectName(sourceFilePath);
-        return new Promise((resolve: Function, reject: Function): void => {
-            this.connection.copyObject({
+
+        return new Promise((resolve: (data: any) => void, reject: (err: any) => void): void => {
+            this.awsConnection.copyObject({
                 Key: this.generateObjectName(targetFilePath),
                 CopySource: `${this.bucketName}/${sourceObjectName}`,
                 Bucket: this.bucketName,
 
             }, (copyErr: aws.AWSError, output: CopyObjectOutput): void => {
                 if (copyErr) {
-                    return reject(new S3MoveFileError(S3MoveFileErrorCode.COPY_FAILED, copyErr));
+                    return reject(new S3MoveFileError(S3MoveFileErrorCode.CopyFailed, copyErr));
                 }
-                this.connection.deleteObject(
+                this.awsConnection.deleteObject(
                     {
                         Key: sourceObjectName,
                         Bucket: this.bucketName,
                     },
                     (deleteErr: aws.AWSError) => deleteErr ?
-                        reject(new S3MoveFileError(S3MoveFileErrorCode.DELETE_FAILED, deleteErr)) :
+                        reject(new S3MoveFileError(S3MoveFileErrorCode.DeleteFailed, deleteErr)) :
                         resolve(output),
                 );
             });
@@ -88,7 +93,7 @@ export class S3Client {
     }
 
     public getEphemeralSignedFileUrl (filePath: string, expiresInSeconds: number = 60): string {
-        return this.connection.getSignedUrl(
+        return this.awsConnection.getSignedUrl(
             'getObject',
             {
                 Key: this.generateObjectName(filePath),
@@ -99,6 +104,6 @@ export class S3Client {
     }
 
     private generateObjectName (filePath: string): string {
-        return `${this.filePathPrefix ? this.filePathPrefix + '/' : ''}${filePath}`;
+        return `${this.filePathPrefix ? `${this.filePathPrefix}/` : ''}${filePath}`;
     }
 }
