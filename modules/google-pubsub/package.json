@@ -1,6 +1,10 @@
 {
   "name": "@erento/nestjs-module-google-pubsub",
   "version": "2.2.0",
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
   "description": "NestJS module to work with Google Pub/Sub messages.",
   "main": "dist/public-api.js",
   "types": "dist/public-api.d.ts",
