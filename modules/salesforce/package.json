@@ -6,8 +6,8 @@
     "npm": ">=8.0.0"
   },
   "description": "NestJS module to communicate with SF and process outbound messages.",
-  "main": "dist/public_api.js",
-  "types": "dist/public_api.d.ts",
+  "main": "dist/public-api.js",
+  "types": "dist/public-api.d.ts",
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "lint": "eslint --fix -c .eslintrc.json",
