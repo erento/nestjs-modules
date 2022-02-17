@@ -26,6 +26,9 @@
     "@nestjs/common": ">=6.5",
     "typescript": ">=3.5"
   },
+  "dependencies": {
+    "@erento/eslint-plugin-erento-rules": "1.0.0"
+  },
   "devDependencies": {
     "@nestjs/common": "8.3.0",
     "@nestjs/core": "8.3.0",
