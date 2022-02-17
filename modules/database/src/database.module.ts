@@ -18,7 +18,7 @@ export class DatabaseModule {
     public static forChild (): DynamicModule {
         const providers: Provider[] = [{
             provide: DatabaseProvider,
-            useFactory: async (): Promise<DatabaseProvider> => DatabaseModule.databaseProvider,
+            useFactory: (): Promise<DatabaseProvider> => DatabaseModule.databaseProvider,
         }];
 
         return {
@@ -31,7 +31,7 @@ export class DatabaseModule {
     public static forRoot (models: typeof Model[], credentials: DatabaseCredentials, options?: ProviderOptions): DynamicModule {
         const providers: Provider[] = [{
             provide: DatabaseProvider,
-            useFactory: async (): Promise<DatabaseProvider> => {
+            useFactory: (): DatabaseProvider => {
                 DatabaseModule.databaseProvider = DatabaseProvider.create(models, credentials, options);
 
                 return DatabaseModule.databaseProvider;

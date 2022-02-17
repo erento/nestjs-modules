@@ -1,4 +1,6 @@
-const getCleanStringKeys: Function = (enumeration: any): string[] => {
+type EnumFunction<T = string[]> = (enumeration: any) => T;
+
+const getCleanStringKeys: EnumFunction = (enumeration: any): string[] => {
     const objKeys: string[] = Object.keys(enumeration);
 
     return objKeys
@@ -6,13 +8,13 @@ const getCleanStringKeys: Function = (enumeration: any): string[] => {
         .map((value: string): string => enumeration[value]);
 };
 
-export const getEnumValues: (enumeration: any) => string[] = (enumeration: any): string[] => {
+export const getEnumValues: EnumFunction = (enumeration: any): string[] => {
     const enumerationObj: string[] = JSON.parse(JSON.stringify(enumeration));
 
     return getCleanStringKeys(enumerationObj);
 };
 
-export const getMaxLengthOfEnumValues: (enumeration: any) => number = (enumeration: any): number => {
+export const getMaxLengthOfEnumValues: EnumFunction<number> = (enumeration: any): number => {
     const enumerationValuesLengths: number[] = getEnumValues(enumeration)
         .map((enumerationValue: string): number => enumerationValue.length);
 

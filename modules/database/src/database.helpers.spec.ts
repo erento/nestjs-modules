@@ -24,23 +24,23 @@ enum EnumWithMixedValues {
 }
 
 describe('Database helpers', (): void => {
-    test('should get values from empty enumeration', async (): Promise<void> => {
+    test('should get values from empty enumeration', (): void => {
         expect(getEnumValues(EnumEmpty)).toEqual([]);
     });
 
-    test('should get values from string enumeration', async (): Promise<void> => {
+    test('should get values from string enumeration', (): void => {
         expect(getEnumValues(EnumWithStrings)).toMatchSnapshot();
     });
 
-    test('should get values from number enumeration', async (): Promise<void> => {
+    test('should get values from number enumeration', (): void => {
         expect(getEnumValues(EnumWithNumbers)).toMatchSnapshot();
     });
 
-    test('should get values from mixed enumeration', async (): Promise<void> => {
+    test('should get values from mixed enumeration', (): void => {
         expect(getEnumValues(EnumWithMixedValues)).toMatchSnapshot();
     });
 
-    test('should get max length of enumeration', async (): Promise<void> => {
+    test('should get max length of enumeration', (): void => {
         expect(getMaxLengthOfEnumValues(EnumWithStrings)).toBe(21);
         expect(() => getMaxLengthOfEnumValues(EnumWithNumbers)).toThrowErrorMatchingSnapshot();
         expect(() => getMaxLengthOfEnumValues(EnumWithMixedValues)).toThrowErrorMatchingSnapshot();

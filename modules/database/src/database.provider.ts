@@ -4,7 +4,7 @@ import {Model, Sequelize} from 'sequelize-typescript';
 import {DatabaseCredentials} from './database.module';
 
 export interface ProviderOptions {
-    logging?: Function;
+    logging?: boolean | ((sql: string, timing?: number) => void);
     operatorsAliases?: boolean;
     pool?: PoolOptions;
 
@@ -16,6 +16,9 @@ export interface ProviderOptions {
 
 @Injectable()
 export class DatabaseProvider {
+    private static instance: Sequelize;
+    constructor (private readonly sequelize: Sequelize) {}
+
     public static async create (
         models: typeof Model[] = [],
         credentials: DatabaseCredentials,
@@ -33,7 +36,7 @@ export class DatabaseProvider {
                 host: credentials.host,
                 port: credentials.port,
                 username: credentials.user,
-                operatorsAliases: options && options.operatorsAliases ? options.operatorsAliases : false,
+                operatorsAliases: options ? (options.operatorsAliases === false ? {} : undefined) : undefined,
                 logging: options && options.logging && {}.toString.call(options.logging) === '[object Function]' ?
                     options.logging :
                     undefined,
@@ -52,10 +55,6 @@ export class DatabaseProvider {
 
         return new DatabaseProvider(DatabaseProvider.instance);
     }
-
-    private static instance: Sequelize;
-
-    constructor (private readonly sequelize: Sequelize) {}
 
     public getConnection (): Sequelize {
         return this.sequelize;
