@@ -1,8 +1,9 @@
-import {PubsubService} from './pubsub.service';
+import {BadRequestException, HttpException} from '@nestjs/common';
 import {PushMessage} from './domain';
 import {ParsePubsubMessagePipe} from './parse-pubsub-message.pipe';
-import {BadRequestException, HttpException} from '@nestjs/common';
+import {PubsubService} from './pubsub.service';
 
+/* eslint-disable @typescript-eslint/unbound-method */
 describe('ParsePubsubMessagePipe', (): void => {
     let mockPubsubService: PubsubService;
     let parsePubsubMessagePipe: ParsePubsubMessagePipe<string>;

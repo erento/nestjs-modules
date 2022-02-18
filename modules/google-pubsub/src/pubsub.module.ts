@@ -17,7 +17,7 @@ export class PubsubModule {
             PubsubHelper,
             {
                 provide: PubsubService,
-                useFactory: async (pubsubHelper: PubsubHelper): Promise<PubsubService> => PubsubService.create(
+                useFactory: (pubsubHelper: PubsubHelper): PubsubService => PubsubService.create(
                     configFile,
                     cryptoEncryptionKey,
                     cryptoSignKey,
