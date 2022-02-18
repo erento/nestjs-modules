@@ -5,6 +5,7 @@
     "node": ">=16.0.0",
     "npm": ">=8.0.0"
   },
+  "engineStrict": true,
   "description": "NestJS module with some shared utilities",
   "main": "dist/public-api.js",
   "types": "dist/public-api.d.ts",
