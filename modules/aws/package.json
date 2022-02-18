@@ -5,6 +5,7 @@
     "node": ">=16.0.0",
     "npm": ">=8.0.0"
   },
+  "engineStrict": true,
   "description": "NestJS module for communication with AWS.",
   "main": "dist/public-api.js",
   "types": "dist/public-api.d.ts",
@@ -33,7 +34,7 @@
   "devDependencies": {
     "@nestjs/common": "8.3.0",
     "@types/jest": "27.4.0",
-    "@types/node": "17.0.18",
+    "@types/node": "16.11.25",
     "@typescript-eslint/eslint-plugin": "5.9.0",
     "@typescript-eslint/parser": "5.9.0",
     "eslint": "8.6.0",
