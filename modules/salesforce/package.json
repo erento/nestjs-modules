@@ -5,6 +5,7 @@
     "node": ">=16.0.0",
     "npm": ">=8.0.0"
   },
+  "engineStrict": true,
   "description": "NestJS module to communicate with SF and process outbound messages.",
   "main": "dist/public-api.js",
   "types": "dist/public-api.d.ts",
