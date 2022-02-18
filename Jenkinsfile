@@ -27,13 +27,6 @@ node {
                     sh 'cd modules/common && npm t'
                 } 
             },
-            "database": {
-                buildImage.inside() {
-                    sh 'cd modules/database && npm i'
-                    sh 'cd modules/database && npm run lint'
-                    sh 'cd modules/database && npm t'
-                }
-            },
             "google-pubsub": {
                 buildImage.inside() {
                     sh 'cd modules/google-pubsub && npm i'
