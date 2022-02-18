@@ -11,7 +11,7 @@
   "types": "dist/public-api.d.ts",
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "lint": "eslint --fix -c .eslintrc.json",
+    "lint": "eslint --fix -c .eslintrc.json .",
     "lint-staged": "lint-staged",
     "prebuild": "rm -rf dist && npm run lint && npm run test",
     "test": "jest"
