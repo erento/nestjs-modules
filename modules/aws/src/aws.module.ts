@@ -9,12 +9,12 @@ export class AwsModule {
      * The config's file path can be passed as path to JSON config, otherwise the aws library take it from the home folder
      * fyi: https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/loading-node-credentials-json-file.html
      *
-     * @param {String} regionName
-     * @param {String} bucketName
-     * @param {String} filePathPrefix
-     * @param {String=} configFilePath
+     * @param regionName
+     * @param bucketName
+     * @param filePathPrefix
+     * @param configFilePath
      *
-     * @returns {DynamicModule}
+     * @returns
      */
     public static forRoot (
         regionName: string,
