@@ -1,5 +1,5 @@
 import {Injectable, LoggerService, Optional} from '@nestjs/common';
-import chalk, {ChalkInstance} from 'chalk';
+import * as chalk from 'chalk';
 import * as httpContext from 'express-http-context';
 import * as jsonStringifySafe from 'json-stringify-safe';
 import {clearBreadcrumbs, getBreadcrumbs} from '../bugsnag/breadcrumbs';
@@ -34,8 +34,8 @@ function uniqueIdToHex (str: string): string {
     return '00000'.substring(0, 6 - c.length) + c;
 }
 
-type colorMethodFunction = (uniqueId: string) => ChalkInstance;
-const colorMethod: colorMethodFunction = (uniqueId: string): ChalkInstance => chalk.hex(uniqueIdToHex(uniqueId));
+type colorMethodFunction = (uniqueId: string) => chalk.Chalk;
+const colorMethod: colorMethodFunction = (uniqueId: string): chalk.Chalk => chalk.hex(uniqueIdToHex(uniqueId));
 
 type consoleFunction = (...data: any[]) => void;
 type logFunction = (method: LoggerMethod, uniqueId: string, message: string | Record<string, string>) => void;
