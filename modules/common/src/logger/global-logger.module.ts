@@ -12,7 +12,7 @@ import {Logger} from './logger';
         {
             provide: Logger,
             inject: [BugsnagClient],
-             useFactory: (bugsnagClient: BugsnagClient): Logger => new Logger(bugsnagClient),
+            useFactory: (bugsnagClient: BugsnagClient): Logger => new Logger(bugsnagClient),
         },
     ],
     exports: [Logger],
