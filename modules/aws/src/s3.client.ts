@@ -8,7 +8,7 @@ export class S3Client {
     constructor (
         private readonly awsConnection: aws.S3,
         private readonly bucketName: string,
-        private readonly filePathPrefix: string,
+          private readonly filePathPrefix: string,
     ) {}
 
     public upload (

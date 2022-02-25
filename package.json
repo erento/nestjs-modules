@@ -10,10 +10,10 @@
   "scripts": {
     "publish": "echo \"Cannot publish the repository. You can publish particular module only.\n\" && false && exit 1",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "aws:lint-staged": "cd ./modules/common && npm run lint-staged",
+    "aws:lint-staged": "cd ./modules/aws && npm run lint-staged",
     "common:lint-staged": "cd ./modules/common && npm run lint-staged",
-    "google-pubsub:lint-staged": "cd ./modules/common && npm run lint-staged",
-    "salesforce:lint-staged": "cd ./modules/common && npm run lint-staged",
+    "google-pubsub:lint-staged": "cd ./modules/google-pubsub && npm run lint-staged",
+    "salesforce:lint-staged": "cd ./modules/salesforce && npm run lint-staged",
     "prepare": "husky install"
   },
   "private": true,

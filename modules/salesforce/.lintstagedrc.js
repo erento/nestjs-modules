@@ -6,6 +6,6 @@ module.exports = {
         const filenamesParams = filenames.map((filename) => `${filename.replace(`${process.cwd()}/`, '')}`);
 
         const args = filenamesParams.join(' ');
-        return filenamesParams.length ? [`npm run lint:fix ${args}`, `git add ${args}`] : [];
+        return filenamesParams.length ? [`npm run lint:fix ${args}`, `git add ${filenames.join(' ')}`] : [];
     },
 }
