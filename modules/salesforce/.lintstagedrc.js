@@ -3,8 +3,9 @@ module.exports = {
         if (filenames.length === 0) {
             return [];
         }
-        const filenamesParams = filenames.map((filename) => `--lint-file-patterns=${filename.replace(`${process.cwd()}/`, '')}`);
+        const filenamesParams = filenames.map((filename) => `${filename.replace(`${process.cwd()}/`, '')}`);
 
-        return `npm run lint:fix ${filenamesParams.join(' ')}`;
+        const args = filenamesParams.join(' ');
+        return filenamesParams.length ? [`npm run lint:fix ${args}`, `git add ${args}`] : [];
     },
 }
