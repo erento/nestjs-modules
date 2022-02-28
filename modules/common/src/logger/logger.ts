@@ -5,8 +5,9 @@ import * as jsonStringifySafe from 'json-stringify-safe';
 import {clearBreadcrumbs, getBreadcrumbs} from '../bugsnag/breadcrumbs';
 import {BugsnagClient} from '../bugsnag/bugsnag.client';
 import {BugsnagSeverity} from '../bugsnag/interfaces';
-import {REQUEST_KEY, REQUEST_UNIQUE_ID_KEY} from '../constants';
+import {REQUEST_KEY} from '../constants';
 import {Environments} from '../environments/environments';
+import {getCurrentRequestUniqueId} from './logger.utils';
 
 enum LoggerMethod {
     INFO = 'INFO', // Needs to be INFO for Google Stack Driver compatibility
@@ -100,17 +101,17 @@ export class Logger implements LoggerService {
 
     public log (message: string | Record<string, string>, ...args: string[]): void {
         if (typeof (message) === 'string') {
-            log(LoggerMethod.INFO, this.getUniqueKey(), [message, ...args].join(' '));
+            log(LoggerMethod.INFO, getCurrentRequestUniqueId(), [message, ...args].join(' '));
         } else {
             if (args.length > 0) {
                 message.additionalArguments = jsonStringifySafe(args);
             }
-            log(LoggerMethod.INFO, this.getUniqueKey(), message);
+            log(LoggerMethod.INFO, getCurrentRequestUniqueId(), message);
         }
     }
 
     public warn (err: any): void {
-        const uniqueId: string = this.getUniqueKey();
+        const uniqueId: string = getCurrentRequestUniqueId();
         const error: Error = err instanceof Error ? err : new Error(err);
         error.message = error.message.indexOf(uniqueId) !== -1 ? `${uniqueId}: ${error.message}` : error.message;
 
@@ -130,7 +131,7 @@ export class Logger implements LoggerService {
                 severity: BugsnagSeverity.WARNING,
                 breadcrumbs: getBreadcrumbs(),
                 metadata: {
-                    uniqueId: this.getUniqueKey(),
+                    uniqueId: getCurrentRequestUniqueId(),
                 },
             },
         );
@@ -138,7 +139,7 @@ export class Logger implements LoggerService {
     }
 
     public error (err: any, trace?: any): void {
-        const uniqueId: string = this.getUniqueKey();
+        const uniqueId: string = getCurrentRequestUniqueId();
         const error: Error = err instanceof Error ? err : new Error(err);
         error.message = error.message.indexOf(uniqueId) !== -1 ? `${uniqueId}: ${error.message}` : error.message;
         if (!(err instanceof Error) && trace) {
@@ -162,19 +163,10 @@ export class Logger implements LoggerService {
                 context: trace,
                 breadcrumbs: getBreadcrumbs(),
                 metadata: {
-                    uniqueId: this.getUniqueKey() || 'unknown',
+                    uniqueId: getCurrentRequestUniqueId() || 'unknown',
                 },
             },
         );
         clearBreadcrumbs();
-    }
-
-    public getUniqueKey (): string {
-        const uniqueId: string = httpContext.get(REQUEST_UNIQUE_ID_KEY);
-        if (!uniqueId) {
-            return '';
-        }
-
-        return uniqueId;
     }
 }
