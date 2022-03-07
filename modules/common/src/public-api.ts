@@ -11,6 +11,7 @@ export * from './guards/authorization.decorator';
 export * from './guards/authorization.guard';
 export * from './guards/guards.module';
 export * from './guards/interfaces';
+export * from './interceptors/axios.interceptor';
 export * from './logger/global-logger.module';
 export * from './logger/logger.utils';
 export * from './logger/logger';
