@@ -1,4 +1,4 @@
-buildImage = docker.image('node:12.7')
+buildImage = docker.image('node:16.14')
 
 node {
     stage('checkout') {
@@ -8,7 +8,7 @@ node {
     stage('Tests') {
         agent {
             docker {
-                image 'node:12.7'
+                image 'node:16.14'
             }
         }
 
@@ -26,13 +26,6 @@ node {
                     sh 'cd modules/common && npm run lint'
                     sh 'cd modules/common && npm t'
                 } 
-            },
-            "database": {
-                buildImage.inside() {
-                    sh 'cd modules/database && npm i'
-                    sh 'cd modules/database && npm run lint'
-                    sh 'cd modules/database && npm t'
-                }
             },
             "google-pubsub": {
                 buildImage.inside() {

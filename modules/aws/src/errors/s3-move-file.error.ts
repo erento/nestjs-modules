@@ -1,8 +1,8 @@
 import * as aws from 'aws-sdk';
 
 export enum S3MoveFileErrorCode {
-    COPY_FAILED = 100,
-    DELETE_FAILED = 200,
+    CopyFailed = 100,
+    DeleteFailed = 200,
 }
 
 export class S3MoveFileError extends Error {

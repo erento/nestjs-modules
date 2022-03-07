@@ -6,7 +6,7 @@ import {REQUEST_UNIQUE_ID_KEY, REQUEST_UNIQUE_ID_QUERY_PARAM} from '../constants
 
 @Injectable()
 export class UniqueIdMiddleware implements NestMiddleware {
-    public async use (req: Request, _res: Response, next: Function): Promise<void> {
+    public use (req: Request, _res: Response, next: () => void): void {
         const uniqueID: string = (req.query || [])[REQUEST_UNIQUE_ID_QUERY_PARAM] || uuidv4();
         httpContext.set(REQUEST_UNIQUE_ID_KEY, uniqueID);
         next();

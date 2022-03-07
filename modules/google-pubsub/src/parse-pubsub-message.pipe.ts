@@ -15,7 +15,7 @@ export class ParsePubsubMessagePipe<T> implements PipeTransform<PushMessage<T>, 
             const decryptedMessage: string = await this.pubsubService.decryptMessage(<any> pushMessage.message);
 
             return JSON.parse(decryptedMessage);
-        } catch (err) {
+        } catch (err: any) {
             if (err instanceof HttpException) {
                 throw err;
             }

@@ -6,7 +6,7 @@ import {BugsnagClient} from './bugsnag.client';
     providers: [
         {
             provide: BugsnagClient,
-            useFactory: async (): Promise<BugsnagClient> => BugsnagModule.providedClient,
+            useFactory: (): Promise<BugsnagClient> => Promise.resolve(BugsnagModule.providedClient),
         },
     ],
     exports: [BugsnagClient],
@@ -22,6 +22,7 @@ export class BugsnagModule {
                     provide: BugsnagClient,
                     useFactory: (): BugsnagClient => {
                         BugsnagModule.providedClient = new BugsnagClient(Bugsnag.createClient(bugsnagConfig));
+
                         return BugsnagModule.providedClient;
                     },
                 },

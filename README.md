@@ -3,8 +3,6 @@
 ## List of modules and its current responsibilities
  - [AWS](modules/aws)
     - S3 upload
- - [Database](modules/database)
-    - Connection with sequelize
  - [Salesforce](modules/salesforce)
     - Process outbound messages
  - [Google Pub/Sub module](modules/google-pubsub)

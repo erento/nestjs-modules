@@ -2,12 +2,12 @@ import {Message as gMessage, Subscription as gSubscription} from '@google-cloud/
 import {PublishOptions as gPublishOptions} from '@google-cloud/pubsub/build/src/publisher';
 import {SubscriptionOptions as gSubscriptionOptions} from '@google-cloud/pubsub/build/src/subscription';
 
-export interface PublishOptions extends gPublishOptions {}
+export type PublishOptions = gPublishOptions;
 
-export interface Subscription extends gSubscription {}
-export interface SubscriptionOptions extends gSubscriptionOptions {}
+export type Subscription = gSubscription;
+export type SubscriptionOptions = gSubscriptionOptions;
 
-export interface EncodedMessage extends gMessage {}
+export type EncodedMessage = gMessage;
 
 export interface PubsubMessage<T = any> {
     meta: PubsubMessageMeta;
@@ -25,8 +25,8 @@ export interface PubsubMessageMeta {
 export interface PushMessage<T = string> {
     message: {
         attributes: {
-            signature: string;
             [key: string]: string;
+            signature: string;
         };
         data: T;
         messageId: string;

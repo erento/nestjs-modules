@@ -7,18 +7,6 @@ import {PubsubHelper} from './pubsub.helper';
 
 @Injectable()
 export class PubsubService {
-    public static async create (
-        clientConfig: ClientConfig,
-        cryptoEncryptionKey: string,
-        cryptoSignKey: string,
-        pubSubHelper: PubsubHelper,
-        serviceIdentifier: string,
-    ): Promise<PubsubService> {
-        const pubSubService: PubsubService = new PubsubService(cryptoEncryptionKey, cryptoSignKey, pubSubHelper, serviceIdentifier);
-        await pubSubService.initPubSubLibrary(clientConfig);
-        return pubSubService;
-    }
-
     private pubSubLibrary: PubSub | undefined;
 
     constructor (
@@ -27,6 +15,19 @@ export class PubsubService {
         private readonly pubsubHelper: PubsubHelper,
         private readonly serviceIdentifier: string,
     ) {}
+
+    public static create (
+        clientConfig: ClientConfig,
+        cryptoEncryptionKey: string,
+        cryptoSignKey: string,
+        pubSubHelper: PubsubHelper,
+        serviceIdentifier: string,
+    ): PubsubService {
+        const pubSubService: PubsubService = new PubsubService(cryptoEncryptionKey, cryptoSignKey, pubSubHelper, serviceIdentifier);
+        pubSubService.initPubSubLibrary(clientConfig);
+
+        return pubSubService;
+    }
 
     public listenOnSubscription (
         subscriptionName: string,
@@ -103,7 +104,7 @@ export class PubsubService {
         return MessageCrypto.encrypt(message, this.cryptoEncryptionKey);
     }
 
-    private async initPubSubLibrary (googleClientConfig: ClientConfig): Promise<void> {
+    private initPubSubLibrary (googleClientConfig: ClientConfig): void {
         if (!this.pubSubLibrary) {
             this.pubSubLibrary = new PubSub(googleClientConfig);
         }
@@ -116,7 +117,7 @@ export class PubsubService {
 
         try {
             return this.pubSubLibrary.topic(topicName, publishOptions);
-        } catch (err) {
+        } catch {
             throw new Error('Cannot get a publisher.');
         }
     }

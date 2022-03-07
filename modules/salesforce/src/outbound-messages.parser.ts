@@ -5,7 +5,7 @@ interface MessageBodyNotification<T> {
     sobject: T[];
 }
 
-interface MessageBodyNotificationList<T> extends Array<MessageBodyNotification<T>> {}
+type MessageBodyNotificationList<T> = MessageBodyNotification<T>[];
 
 interface MessageBody<T> {
     notifications: {
@@ -21,7 +21,7 @@ interface MessageBody<T> {
     };
 }
 
-interface MessageBodyList<T> extends Array<MessageBody<T>> {}
+type MessageBodyList<T> = MessageBody<T>[];
 
 interface OutboundMessage<T> {
     'soapenv:envelope': {
@@ -49,7 +49,7 @@ export class OutboundMessagesParser {
         try {
             const payload: OutboundMessage<R> = <any> xmlAsJson;
             const body: MessageBodyList<R> = payload['soapenv:envelope']['soapenv:body'];
-            const notificationList: MessageBodyNotificationList<SalesforceObject> = body[0]['notifications'][0]['notification'];
+            const notificationList: MessageBodyNotificationList<SalesforceObject> = body[0].notifications[0].notification;
 
             const messages: R[] = [];
             notificationList.forEach((notification: MessageBodyNotification<SalesforceObject>): void => {
@@ -63,7 +63,7 @@ export class OutboundMessagesParser {
             });
 
             return messages;
-        } catch (e) {
+        } catch (e: any) {
             e.message = `Couldn't parse an outbound message. Original message: ${e.message}.`;
             throw e;
         }

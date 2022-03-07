@@ -5,7 +5,7 @@ import {REQUEST_KEY} from '../constants';
 
 @Injectable()
 export class RequestMiddleware implements NestMiddleware {
-    public async use (req: Request, _res: Response, next: Function): Promise<void> {
+    public use (req: Request, _res: Response, next: () => void): void {
         httpContext.set(REQUEST_KEY, {
             requestMethod: req.method,
             requestUrl: req.originalUrl,

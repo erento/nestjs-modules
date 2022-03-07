@@ -16,9 +16,10 @@ interface ExtendedRequest extends Request {
 export class ElapsedTimeMiddleware implements NestMiddleware {
     constructor (private readonly logger: Logger) {}
 
-    public async use (req: ExtendedRequest, res: any, next: any): Promise<void> {
+    public use (req: ExtendedRequest, res: any, next: () => void): void {
         if (filteredUrls.indexOf(req.url) !== -1) {
             next();
+
             return;
         }
 

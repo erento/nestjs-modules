@@ -4,7 +4,9 @@ import {S3Client} from './s3.client';
 
 let connection: aws.S3;
 
-/* tslint:disable:no-unbound-method */
+type VariadicCallback = (...args: any[]) => void;
+
+/* eslint-disable @typescript-eslint/unbound-method */
 describe('S3 Client', (): void => {
     beforeEach((): void => {
         connection = <any> {
@@ -17,7 +19,7 @@ describe('S3 Client', (): void => {
     });
 
     describe('upload', (): void => {
-        test('should skip path prefix when empty', async (): Promise<void> => {
+        test('should skip path prefix when empty', (): void => {
             const s3Client: S3Client = new S3Client(connection, 'my-bucket-name', '');
 
             // intentionally not awaiting because of a callback handler
@@ -72,14 +74,16 @@ describe('S3 Client', (): void => {
 
     describe('fileExists', (): void => {
         test('it throws if there is an unknown error', async (): Promise<void> => {
-            (<jest.Mock> connection.headObject).mockImplementation((_: never, callback: Function): void => callback(new Error('Test')));
+            (<jest.Mock> connection.headObject)
+                .mockImplementation((_: never, callback: VariadicCallback): void => callback(new Error('Test')));
 
             const s3Client: S3Client = new S3Client(connection, 'my-bucket-name', 'some-prefix');
             await expect(s3Client.fileExists('some-object.txt')).rejects.toThrowError('Test');
         });
 
         test('it returns false if object is not found', async (): Promise<void> => {
-            (<jest.Mock> connection.headObject).mockImplementation((_: never, callback: Function): void => callback({statusCode: 404}));
+            (<jest.Mock> connection.headObject)
+                .mockImplementation((_: never, callback: VariadicCallback): void => callback({statusCode: 404}));
 
             const s3Client: S3Client = new S3Client(connection, 'my-bucket-name', 'some-prefix');
             await expect(s3Client.fileExists('some-object.txt')).resolves.toBe(false);
@@ -87,7 +91,7 @@ describe('S3 Client', (): void => {
 
         test('it returns true if metadata is returned', async (): Promise<void> => {
             (<jest.Mock> connection.headObject).mockImplementation(
-                (_: never, callback: Function): void => callback(undefined, {ObjectName: 'yay'}),
+                (_: never, callback: VariadicCallback): void => callback(undefined, {ObjectName: 'yay'}),
             );
 
             const s3Client: S3Client = new S3Client(connection, 'my-bucket-name', 'some-prefix');
@@ -102,18 +106,21 @@ describe('S3 Client', (): void => {
 
     describe('moveWithinBucket', (): void => {
         test('it throws if there is an error with copying', async (): Promise<void> => {
-            (<jest.Mock> connection.copyObject).mockImplementation((_: never, callback: Function): void => callback(new Error('Test')));
+            (<jest.Mock> connection.copyObject)
+                .mockImplementation((_: never, callback: VariadicCallback): void => callback(new Error('Test')));
 
             const s3Client: S3Client = new S3Client(connection, 'my-bucket-name', 'some-prefix');
             await expect(s3Client.moveWithinBucket('some-object.txt', 'some-other-object.txt'))
-                .rejects.toThrowError(new S3MoveFileError(S3MoveFileErrorCode.COPY_FAILED));
+                .rejects.toThrowError(new S3MoveFileError(S3MoveFileErrorCode.CopyFailed));
             expect(connection.deleteObject).not.toHaveBeenCalled();
         });
 
         test('it copies object from source to target and deletes original', async (): Promise<void> => {
             const stubOutput: aws.S3.CopyObjectOutput = <any> {};
-            (<jest.Mock> connection.copyObject).mockImplementation((_: never, callback: Function): void => callback(undefined, stubOutput));
-            (<jest.Mock> connection.deleteObject).mockImplementation((_: never, callback: Function): void => callback(undefined));
+            (<jest.Mock> connection.copyObject)
+                .mockImplementation((_: never, callback: VariadicCallback): void => callback(undefined, stubOutput));
+            (<jest.Mock> connection.deleteObject)
+                .mockImplementation((_: never, callback: VariadicCallback): void => callback(undefined));
 
             const s3Client: S3Client = new S3Client(connection, 'my-bucket-name', 'some-prefix');
             await expect(s3Client.moveWithinBucket('some-object.txt', 'some-other-object.txt')).resolves.toBe(stubOutput);
@@ -135,12 +142,14 @@ describe('S3 Client', (): void => {
         test('it throws if copy succeeds but delete fails', async (): Promise<void> => {
             const stubOutput: aws.S3.CopyObjectOutput = <any> {};
             const stubError: aws.AWSError = <any> {};
-            (<jest.Mock> connection.copyObject).mockImplementation((_: never, callback: Function): void => callback(undefined, stubOutput));
-            (<jest.Mock> connection.deleteObject).mockImplementation((_: never, callback: Function): void => callback(stubError));
+            (<jest.Mock> connection.copyObject)
+                .mockImplementation((_: never, callback: VariadicCallback): void => callback(undefined, stubOutput));
+            (<jest.Mock> connection.deleteObject)
+                .mockImplementation((_: never, callback: VariadicCallback): void => callback(stubError));
 
             const s3Client: S3Client = new S3Client(connection, 'my-bucket-name', 'some-prefix');
             await expect(s3Client.moveWithinBucket('some-object.txt', 'some-other-object.txt'))
-                .rejects.toThrowError(new S3MoveFileError(S3MoveFileErrorCode.DELETE_FAILED));
+                .rejects.toThrowError(new S3MoveFileError(S3MoveFileErrorCode.DeleteFailed));
 
             expect(connection.copyObject).toHaveBeenCalledWith(
                 {
