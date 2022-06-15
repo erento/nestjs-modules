@@ -1,4 +1,4 @@
-import {CanActivate, ExecutionContext, HttpException, HttpStatus, Injectable} from '@nestjs/common';
+import {CanActivate, ExecutionContext, HttpStatus, Injectable, UnauthorizedException} from '@nestjs/common';
 import {Reflector} from '@nestjs/core';
 
 export const TOKEN: string = 'authToken';
@@ -29,10 +29,10 @@ export class AuthorizationGuard implements CanActivate {
 
         console.log(`Required token value "${tokenValue}", given value "${requestTokenValue}"`);
 
-        throw new HttpException({
+        throw new UnauthorizedException({
             error: NOT_AUTHORIZED_ERROR_NAME,
             reason: `Provided token is "${requestTokenValue}"`,
             statusCode: HttpStatus.UNAUTHORIZED,
-        }, HttpStatus.UNAUTHORIZED);
+        });
     }
 }
