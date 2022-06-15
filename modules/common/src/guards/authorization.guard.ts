@@ -6,10 +6,9 @@ export const TOKEN_ROLE_HEADER: string = 'x-token-role';
 
 @Injectable()
 export class AuthorizationGuard implements CanActivate {
-    constructor(private readonly reflector: Reflector) {
-    }
+    constructor (private readonly reflector: Reflector) {}
 
-    public canActivate(context: ExecutionContext): boolean {
+    public canActivate (context: ExecutionContext): boolean {
         const req: Request = context.switchToHttp().getRequest();
         const {handler}: any = context;
 
