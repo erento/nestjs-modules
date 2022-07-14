@@ -46,10 +46,10 @@ export class PubsubService {
         return subscription;
     }
 
-    public decryptMessage <T = string> (body: EncodedMessage, encoded: boolean = true): Promise<T> {
+    public decryptMessage <T = string> (body: EncodedMessage, encrypted: boolean = true): Promise<T> {
         const message: Buffer | undefined = body && body.data || undefined;
 
-        return encoded ? MessageCrypto.decrypt(message, this.cryptoEncryptionKey) : this.parseMessage(message);
+        return encrypted ? MessageCrypto.decrypt(message, this.cryptoEncryptionKey) : this.parseMessage(message);
     }
 
     public async verifyMessage (body: EncodedMessage): Promise<boolean> {
