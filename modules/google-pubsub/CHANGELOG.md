@@ -1,5 +1,9 @@
+<a name="3.1.0"></a>
+# 3.1.0 (2022-07-20)
+- added flag to pubsub service to be able to use publish without encryption 
+
 <a name="3.0.0"></a>
-# 3.0.0 (2022-03-7)
+# 3.0.0 (2022-03-07)
 - updated dependencies to latest possible versions
 - raised required node to >=16.0.0 & npm to >=8.0.0
 - replaced TSLint with ESLint
