@@ -46,10 +46,10 @@ export class PubsubService {
         return subscription;
     }
 
-    public decryptMessage <T = string> (body: EncodedMessage): Promise<T> {
+    public decryptMessage <T = string> (body: EncodedMessage, encrypted: boolean = true): Promise<T> {
         const message: Buffer | undefined = body && body.data || undefined;
 
-        return MessageCrypto.decrypt(message, this.cryptoEncryptionKey);
+        return encrypted ? MessageCrypto.decrypt(message, this.cryptoEncryptionKey) : this.parseMessage(message);
     }
 
     public async verifyMessage (body: EncodedMessage): Promise<boolean> {
@@ -120,5 +120,11 @@ export class PubsubService {
         } catch {
             throw new Error('Cannot get a publisher.');
         }
+    }
+
+    private parseMessage (body: Buffer): string {
+        const buff = Buffer.from(body.toString(), 'base64');
+
+        return buff.toString('utf-8');
     }
 }
