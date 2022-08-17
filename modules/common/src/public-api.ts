@@ -24,6 +24,7 @@ export * from './pipes/interfaces';
 export * from './pipes/locale-param.pipe';
 export * from './pipes/pagination-params.pipe';
 export * from './pipes/pattern.pipe';
+export * from './pipes/sorting-params.pipe';
 export * from './utils/decorator.utils';
 export * from './utils/enum.utils';
 export * from './utils/pagination.utils';
