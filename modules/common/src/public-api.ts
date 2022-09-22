@@ -30,7 +30,6 @@ export * from './pipes/pattern.pipe';
 export * from './pipes/radius-validation.pipe';
 export * from './pipes/sorting-params.pipe';
 export * from './pipes/string-list-validation.pipe';
-export * from './pipes/vehicle-type-validation.pipe';
 export * from './utils/decorator.utils';
 export * from './utils/enum.utils';
 export * from './utils/pagination.utils';

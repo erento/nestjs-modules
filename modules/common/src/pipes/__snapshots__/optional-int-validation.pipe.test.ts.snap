@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OptionalIntValidationPipe should fail on empty string 1`] = `"Value is not a number: ''"`;
+
+exports[`OptionalIntValidationPipe should fail on invalid string 1`] = `"Value is not a number: 'asdf'"`;

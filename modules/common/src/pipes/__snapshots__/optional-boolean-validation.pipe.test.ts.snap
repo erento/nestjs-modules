@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OptionalBooleanValidationPipe should fail on empty string 1`] = `"value is not a boolean: ''"`;
+
+exports[`OptionalBooleanValidationPipe should fail on invalid string 1`] = `"value is not a boolean: 'asdf'"`;
