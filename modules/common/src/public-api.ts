@@ -25,6 +25,7 @@ export * from './pipes/interfaces';
 export * from './pipes/iso-date-validation.pipe';
 export * from './pipes/locale-param.pipe';
 export * from './pipes/optional-boolean-validation.pipe';
+export * from './pipes/optional-int-validation.pipe';
 export * from './pipes/pagination-params.pipe';
 export * from './pipes/pattern.pipe';
 export * from './pipes/radius-validation.pipe';
