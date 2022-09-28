@@ -1,3 +1,11 @@
+<a name="5.4.0"></a>
+# 5.4.0 (2022-09-28)
+- added various validation pipes
+
+<a name="5.3.0"></a>
+# 5.3.0 (2022-08-22)
+- added sorting param pipe
+
 <a name="5.2.0"></a>
 # 5.2.0 (2022-03-25)
 - change `AuthorizationGuard` to return `UnauthorizedException`
