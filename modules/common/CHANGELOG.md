@@ -1,3 +1,17 @@
+<a name="5.4.0"></a>
+# 5.4.0 (2022-09-28)
+Added validation pipes:
+- boolean-validation.pipe.ts
+- iso-date-validation.pipe.ts
+- optional-boolean-validation.pipe.ts
+- optional-int-validation.pipe.ts
+- radius-validation.pipe.ts
+- string-list-validation.pipe.ts
+
+<a name="5.3.0"></a>
+# 5.3.0 (2022-08-22)
+- added sorting param pipe
+
 <a name="5.2.0"></a>
 # 5.2.0 (2022-03-25)
 - change `AuthorizationGuard` to return `UnauthorizedException`
