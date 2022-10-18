@@ -58,7 +58,8 @@ describe('Authorization Guard', (): void => {
         };
         const reflector: any = jest.fn();
         reflector.mockReturnValueOnce('not matching');
-        expect(new AuthorizationGuard(<any> {get: reflector}).canActivate(getExecutionContext(req))).toEqual(false);
+        expect((): boolean => new AuthorizationGuard(<any> {get: reflector}).canActivate(getExecutionContext(req)))
+            .toThrowErrorMatchingSnapshot();
     });
 
     it('Should not authorize when array of tokens does not matches req header', (): void => {
@@ -69,7 +70,8 @@ describe('Authorization Guard', (): void => {
         };
         const reflector: any = jest.fn();
         reflector.mockReturnValueOnce(['not matching', 'not-matching-2']);
-        expect(new AuthorizationGuard(<any> {get: reflector}).canActivate(getExecutionContext(req))).toEqual(false);
+        expect((): boolean => new AuthorizationGuard(<any> {get: reflector}).canActivate(getExecutionContext(req)))
+            .toThrowErrorMatchingSnapshot();
     });
 
     it('Should not authorize when no req header is passed', (): void => {
@@ -78,6 +80,7 @@ describe('Authorization Guard', (): void => {
         };
         const reflector: any = jest.fn();
         reflector.mockReturnValueOnce('not matching');
-        expect(new AuthorizationGuard(<any> {get: reflector}).canActivate(getExecutionContext(req))).toEqual(false);
+        expect((): boolean => new AuthorizationGuard(<any> {get: reflector}).canActivate(getExecutionContext(req)))
+            .toThrowErrorMatchingSnapshot();
     });
 });

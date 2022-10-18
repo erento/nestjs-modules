@@ -21,17 +21,19 @@ export class BugsnagErrorFilter implements ExceptionFilter {
 
         (this.loggerMethod || console.error)(exception);
 
-        this.bugsnagClient.notifyWithMetadata(
-            exception,
-            {
-                severity: BugsnagSeverity.ERROR,
-                breadcrumbs: getBreadcrumbs(),
-                metadata: {
-                    uniqueId: (httpContext.get(REQUEST_UNIQUE_ID_KEY) || 'unknown'),
-                    reason: exception.message,
+        if (!err?.silent) {
+            this.bugsnagClient.notifyWithMetadata(
+                exception,
+                {
+                    severity: BugsnagSeverity.ERROR,
+                    breadcrumbs: getBreadcrumbs(),
+                    metadata: {
+                        uniqueId: (httpContext.get(REQUEST_UNIQUE_ID_KEY) || 'unknown'),
+                        reason: exception.message,
+                    },
                 },
-            },
-        );
+            );
+        }
         clearBreadcrumbs();
 
         return res.status(status).send({
