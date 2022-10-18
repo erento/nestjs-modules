@@ -3,7 +3,7 @@ import {Reflector} from '@nestjs/core';
 import {Observable, of} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 
-const bugsnagIgnoredExceptions: string = 'bugsnag-ignored-exceptions';
+export const bugsnagIgnoredExceptions: string = 'bugsnag-ignored-exceptions';
 
 export function BugsnagIgnoreExceptions (exceptions: any[]): MethodDecorator {
     return applyDecorators(
