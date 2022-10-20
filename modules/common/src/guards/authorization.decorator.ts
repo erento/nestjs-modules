@@ -1,5 +1,5 @@
 import {CustomDecorator, SetMetadata} from '@nestjs/common';
-import {TOKEN} from './authorization.guard';
+import {TOKEN} from './consts';
 
 // tslint:disable-next-line variable-name
 export const Auth: (tokenValue?: string | string[]) => CustomDecorator = (

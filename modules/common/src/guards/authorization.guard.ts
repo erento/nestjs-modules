@@ -1,8 +1,7 @@
-import {CanActivate, ExecutionContext, Injectable, UnauthorizedException} from '@nestjs/common';
+import {CanActivate, ExecutionContext, Injectable} from '@nestjs/common';
 import {Reflector} from '@nestjs/core';
-
-export const TOKEN: string = 'authToken';
-export const TOKEN_ROLE_HEADER: string = 'x-token-role';
+import {CommonUnauthorizedException} from '../exceptions/common-unauthorized.exception';
+import {SILENT_FAIL_TOKEN, TOKEN, TOKEN_ROLE_HEADER} from './consts';
 
 @Injectable()
 export class AuthorizationGuard implements CanActivate {
@@ -27,6 +26,8 @@ export class AuthorizationGuard implements CanActivate {
 
         console.log(`Required token value "${tokenValue}", given value "${requestTokenValue}"`);
 
-        throw new UnauthorizedException(`Provided token is "${requestTokenValue}"`);
+        const silent: boolean = !!this.reflector.get<string>(SILENT_FAIL_TOKEN, handler);
+
+        throw new CommonUnauthorizedException(`Provided token is "${requestTokenValue}"`, undefined, silent);
     }
 }
