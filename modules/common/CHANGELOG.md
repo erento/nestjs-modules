@@ -1,3 +1,7 @@
+<a name="5.5.0"></a>
+- fixed BugsnagIgnoreExceptions behaviour
+- removed BugsnagInterceptor
+
 <a name="5.4.0"></a>
 # 5.4.0 (2022-09-28)
 Added validation pipes:
