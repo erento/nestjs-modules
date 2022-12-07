@@ -34,4 +34,8 @@ export class Environments {
     public static getVersion (): string {
         return process.env.APP_VERSION || EnvironmentType.DEV;
     }
+
+    public static getApplicationName (): string {
+        return this.getPackageJson().name;
+    }
 }

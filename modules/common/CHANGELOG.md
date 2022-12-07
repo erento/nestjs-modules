@@ -1,4 +1,5 @@
 <a name="5.5.0"></a>
+# 5.5.0 (2022-09-28)
 - fixed BugsnagIgnoreExceptions behaviour
 - removed BugsnagInterceptor
 
