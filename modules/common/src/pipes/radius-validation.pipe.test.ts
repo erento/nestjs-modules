@@ -14,6 +14,7 @@ describe('RadiusValidationPipe', (): void => {
         ['100', 100],
         ['-1', undefined],
     ])('should transform radius value properly', (input: string | undefined, expected: number | undefined): void => {
-        expect(pipe.transform(input)).toEqual(expected);
+        expect(pipe.transform(input))
+            .toEqual(expected);
     });
 });

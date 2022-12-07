@@ -24,11 +24,14 @@ export class IsoDateValidationPipe implements PipeTransform {
             throw new Error(`value is not a date: '${value}'`);
         }
 
-        const dateOffset: number = moment.parseZone(dateString).utcOffset();
+        const dateOffset: number = moment.parseZone(dateString)
+            .utcOffset();
         const isInitialDateDst: boolean = date.isDST();
-        const berlinOffsetToUtc: number = moment.tz(isInitialDateDst ? DATE_IN_DST : DATE_IN_NON_DST, TIMEZONE_BERLIN).utcOffset();
+        const berlinOffsetToUtc: number = moment.tz(isInitialDateDst ? DATE_IN_DST : DATE_IN_NON_DST, TIMEZONE_BERLIN)
+            .utcOffset();
         const calculatedOffset: number = dateOffset - berlinOffsetToUtc;
 
-        return date.clone().add(calculatedOffset, 'minutes');
+        return date.clone()
+            .add(calculatedOffset, 'minutes');
     }
 }

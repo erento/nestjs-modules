@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`LocaleParamPipe should transform campanda locale params properly 1`] = `
-Object {
+{
   "language": "de",
   "locale": "de_DE",
   "original": "",
@@ -10,7 +10,7 @@ Object {
 `;
 
 exports[`LocaleParamPipe should transform campanda locale params properly 2`] = `
-Object {
+{
   "language": "de",
   "locale": "de_DE",
   "original": "",
@@ -19,7 +19,7 @@ Object {
 `;
 
 exports[`LocaleParamPipe should transform campanda locale params properly 3`] = `
-Object {
+{
   "language": "de",
   "locale": "de_DE",
   "original": "",
@@ -28,7 +28,7 @@ Object {
 `;
 
 exports[`LocaleParamPipe should transform campanda locale params properly 4`] = `
-Object {
+{
   "language": "de",
   "locale": "de_DE",
   "original": "de_DE",
@@ -37,7 +37,7 @@ Object {
 `;
 
 exports[`LocaleParamPipe should transform campanda locale params properly 5`] = `
-Object {
+{
   "language": "de",
   "locale": "de_CH",
   "original": "de_CH",
@@ -46,7 +46,7 @@ Object {
 `;
 
 exports[`LocaleParamPipe should transform campanda locale params properly 6`] = `
-Object {
+{
   "language": "de",
   "locale": "de_AT",
   "original": "de_AT",
@@ -55,7 +55,7 @@ Object {
 `;
 
 exports[`LocaleParamPipe should transform campanda locale params properly 7`] = `
-Object {
+{
   "language": "en",
   "locale": "en_GB",
   "original": "en_GB",
@@ -64,7 +64,7 @@ Object {
 `;
 
 exports[`LocaleParamPipe should transform campanda locale params properly 8`] = `
-Object {
+{
   "language": "en",
   "locale": "en_US",
   "original": "en_US",
@@ -73,7 +73,7 @@ Object {
 `;
 
 exports[`LocaleParamPipe should transform campanda locale params properly 9`] = `
-Object {
+{
   "language": "es",
   "locale": "es_ES",
   "original": "es_ES",
@@ -82,7 +82,7 @@ Object {
 `;
 
 exports[`LocaleParamPipe should transform campanda locale params properly 10`] = `
-Object {
+{
   "language": "fr",
   "locale": "fr_FR",
   "original": "fr_FR",
@@ -91,7 +91,7 @@ Object {
 `;
 
 exports[`LocaleParamPipe should transform campanda locale params properly 11`] = `
-Object {
+{
   "language": "it",
   "locale": "it_IT",
   "original": "it_IT",
@@ -100,7 +100,7 @@ Object {
 `;
 
 exports[`LocaleParamPipe should transform campanda locale params properly 12`] = `
-Object {
+{
   "language": "de",
   "locale": "de_DE",
   "original": "de",
@@ -109,7 +109,7 @@ Object {
 `;
 
 exports[`LocaleParamPipe should transform campanda locale params properly 13`] = `
-Object {
+{
   "language": "en",
   "locale": "en_GB",
   "original": "en",
@@ -118,7 +118,7 @@ Object {
 `;
 
 exports[`LocaleParamPipe should transform campanda locale params properly 14`] = `
-Object {
+{
   "language": "es",
   "locale": "es_ES",
   "original": "es",
@@ -127,7 +127,7 @@ Object {
 `;
 
 exports[`LocaleParamPipe should transform campanda locale params properly 15`] = `
-Object {
+{
   "language": "fr",
   "locale": "fr_FR",
   "original": "fr",
@@ -136,7 +136,7 @@ Object {
 `;
 
 exports[`LocaleParamPipe should transform campanda locale params properly 16`] = `
-Object {
+{
   "language": "it",
   "locale": "it_IT",
   "original": "it",
@@ -145,7 +145,7 @@ Object {
 `;
 
 exports[`LocaleParamPipe should transform campanda locale params properly 17`] = `
-Object {
+{
   "language": "de",
   "locale": "de_DE",
   "original": "abc",
@@ -154,7 +154,7 @@ Object {
 `;
 
 exports[`LocaleParamPipe should transform campanda locale params properly 18`] = `
-Object {
+{
   "language": "de",
   "locale": "de_DE",
   "original": "en-GB",
@@ -163,7 +163,7 @@ Object {
 `;
 
 exports[`LocaleParamPipe should transform erento locale params properly 1`] = `
-Object {
+{
   "language": "de",
   "locale": "de-DE",
   "original": "",
@@ -172,7 +172,7 @@ Object {
 `;
 
 exports[`LocaleParamPipe should transform erento locale params properly 2`] = `
-Object {
+{
   "language": "de",
   "locale": "de-DE",
   "original": "",
@@ -181,7 +181,7 @@ Object {
 `;
 
 exports[`LocaleParamPipe should transform erento locale params properly 3`] = `
-Object {
+{
   "language": "de",
   "locale": "de-DE",
   "original": "",
@@ -190,7 +190,7 @@ Object {
 `;
 
 exports[`LocaleParamPipe should transform erento locale params properly 4`] = `
-Object {
+{
   "language": "de",
   "locale": "de-DE",
   "original": "de-DE",
@@ -199,7 +199,7 @@ Object {
 `;
 
 exports[`LocaleParamPipe should transform erento locale params properly 5`] = `
-Object {
+{
   "language": "de",
   "locale": "de-CH",
   "original": "de-CH",
@@ -208,7 +208,7 @@ Object {
 `;
 
 exports[`LocaleParamPipe should transform erento locale params properly 6`] = `
-Object {
+{
   "language": "de",
   "locale": "de-AT",
   "original": "de-AT",
@@ -217,7 +217,7 @@ Object {
 `;
 
 exports[`LocaleParamPipe should transform erento locale params properly 7`] = `
-Object {
+{
   "language": "en",
   "locale": "en-GB",
   "original": "en-GB",
@@ -226,7 +226,7 @@ Object {
 `;
 
 exports[`LocaleParamPipe should transform erento locale params properly 8`] = `
-Object {
+{
   "language": "en",
   "locale": "en-US",
   "original": "en-US",
@@ -235,7 +235,7 @@ Object {
 `;
 
 exports[`LocaleParamPipe should transform erento locale params properly 9`] = `
-Object {
+{
   "language": "de",
   "locale": "de-DE",
   "original": "de",
@@ -244,7 +244,7 @@ Object {
 `;
 
 exports[`LocaleParamPipe should transform erento locale params properly 10`] = `
-Object {
+{
   "language": "en",
   "locale": "en-GB",
   "original": "en",
@@ -253,7 +253,7 @@ Object {
 `;
 
 exports[`LocaleParamPipe should transform erento locale params properly 11`] = `
-Object {
+{
   "language": "de",
   "locale": "de-DE",
   "original": "abc",
@@ -262,7 +262,7 @@ Object {
 `;
 
 exports[`LocaleParamPipe should transform erento locale params properly 12`] = `
-Object {
+{
   "language": "de",
   "locale": "de-DE",
   "original": "en_GB",
@@ -271,7 +271,7 @@ Object {
 `;
 
 exports[`LocaleParamPipe should transform erento locale params properly 13`] = `
-Object {
+{
   "language": "de",
   "locale": "de-DE",
   "original": "es-ES",
@@ -280,7 +280,7 @@ Object {
 `;
 
 exports[`LocaleParamPipe should transform erento locale params properly 14`] = `
-Object {
+{
   "language": "de",
   "locale": "de-DE",
   "original": "es",

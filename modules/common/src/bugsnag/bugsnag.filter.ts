@@ -15,7 +15,8 @@ export class BugsnagErrorFilter implements ExceptionFilter {
     ) {}
 
     public catch (err: any, host: ArgumentsHost): Response {
-        const res: Response = host.switchToHttp().getResponse();
+        const res: Response = host.switchToHttp()
+            .getResponse();
         const status: number = err instanceof HttpException ? err.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
         const exception: Error = err instanceof Error ? err : new Error(err);
 
@@ -36,8 +37,9 @@ export class BugsnagErrorFilter implements ExceptionFilter {
         }
         clearBreadcrumbs();
 
-        return res.status(status).send({
-            err: exception.message,
-        });
+        return res.status(status)
+            .send({
+                err: exception.message,
+            });
     }
 }

@@ -7,7 +7,9 @@ describe('Pattern Pipe', (): void => {
         ['^(pattern|pipe)$', 'pattern'],
         ['^(pattern|pipe)$', 'pipe'],
     ])('value "%s" matches pattern "%s"', (pattern: string, value: string): void => {
-        expect(new PatternPipe(pattern).transform(value)).toBe(value);
+        expect(new PatternPipe(pattern)
+            .transform(value))
+            .toBe(value);
     });
 
     test.each([
@@ -16,6 +18,8 @@ describe('Pattern Pipe', (): void => {
         ['^(pattern|pipe)$', 'matter'],
         ['^(pattern|pipe)$', 'type'],
     ])('it throws if "%s" doesnt match pattern "%s"', (pattern: string, value: string): void => {
-        expect((): string => new PatternPipe(pattern).transform(value)).toThrow();
+        expect((): string => new PatternPipe(pattern)
+            .transform(value))
+            .toThrow();
     });
 });

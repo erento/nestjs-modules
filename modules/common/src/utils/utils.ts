@@ -103,11 +103,12 @@ export function replaceEmptyStringValuesWithNull<T extends Object> (someObject: 
         return null;
     }
 
-    Object.keys(someObject).forEach((key: string): void => {
-        if (!someObject[key] || (undefined !== someObject[key].trim && someObject[key].trim() === '')) {
-            someObject[key] = null;
-        }
-    });
+    Object.keys(someObject)
+        .forEach((key: string): void => {
+            if (!someObject[key] || (undefined !== someObject[key].trim && someObject[key].trim() === '')) {
+                someObject[key] = null;
+            }
+        });
 
     return someObject;
 }
@@ -136,7 +137,8 @@ export function getPropertyOrFallback<V, F> (value: V | undefined | null, fallBa
 
 export function fillArrayWithIndices (length: number = 0): number[] {
     /* eslint-disable unicorn/new-for-builtins */
-    return [...Array(length).keys()];
+    return [...Array(length)
+        .keys()];
 }
 
 export function batchArray<T> (items: T[], maxBatchSize: number): T[][] {

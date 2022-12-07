@@ -22,6 +22,7 @@ describe('PaginationParamsPipe', (): void => {
         [{page: '-1', size: '-5'}, {page: 1, size: DEFAULT_SIZE}],
         [{page: -1, size: -5}, {page: 1, size: DEFAULT_SIZE}],
     ])('should transform query params properly', (input: any, expected: PaginationParams): void => {
-        expect(pipe.transform(input)).toEqual(expected);
+        expect(pipe.transform(input))
+            .toEqual(expected);
     });
 });

@@ -22,6 +22,7 @@ describe('SortingParamsPipe', (): void => {
         [{sort: 'Created,asc'}, {sort: 'Created', direction: 'asc'}],
         [{sort: 'Created,desc'}, {sort: 'Created', direction: 'desc'}],
     ])('should transform query params properly', (input: any, expected: SortingParams): void => {
-        expect(pipe.transform(input)).toEqual(expected);
+        expect(pipe.transform(input))
+            .toEqual(expected);
     });
 });

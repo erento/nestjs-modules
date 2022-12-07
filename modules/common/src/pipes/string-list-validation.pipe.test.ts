@@ -19,7 +19,8 @@ describe('StringListValidationPipe', (): void => {
     ])(
         'should transform string to value properly',
         (input: string | undefined, expected: string[]): void => {
-            expect(pipe.transform(input)).toEqual(expected);
+            expect(pipe.transform(input))
+                .toEqual(expected);
         },
     );
 });

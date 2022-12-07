@@ -41,18 +41,23 @@ const colorMethod: colorMethodFunction = (uniqueId: string): chalk.Chalk => chal
 type consoleFunction = (...data: any[]) => void;
 type logFunction = (method: LoggerMethod, uniqueId: string, message: string | Record<string, string>) => void;
 const log: logFunction = (method: LoggerMethod, uniqueId: string, message: string | Record<string, string>): void => {
-    const logMethod: consoleFunction = method === LoggerMethod.ERROR ? console.error : (
-        method === LoggerMethod.WARNING ? console.warn : console.log
-    );
+    const logMethod: consoleFunction = method === LoggerMethod.ERROR ?
+        console.error :
+        (
+            method === LoggerMethod.WARNING ? console.warn : console.log
+        );
 
     if (Environments.isDev()) {
-        const methodColor: consoleFunction = method === LoggerMethod.ERROR ? chalk.red.bold : (
-            method === LoggerMethod.WARNING ? chalk.yellow.bold : chalk.cyan
-        );
+        const methodColor: consoleFunction = method === LoggerMethod.ERROR ?
+            chalk.red.bold :
+            (
+                method === LoggerMethod.WARNING ? chalk.yellow.bold : chalk.cyan
+            );
 
         const messageColor: consoleFunction = colorMethod(uniqueId);
         logMethod(
-            chalk.gray(`${new Date(Date.now()).toLocaleString('en-GB', dateOptions)}`),
+            chalk.gray(`${new Date(Date.now())
+                .toLocaleString('en-GB', dateOptions)}`),
             `${methodColor((`${method}  `).substr(0, 5))} ${messageColor(uniqueId)}`,
             chalk.white(jsonStringifySafe(message)),
         );
@@ -63,10 +68,11 @@ const log: logFunction = (method: LoggerMethod, uniqueId: string, message: strin
     let jsonLog: LogObject = {
         requestId: uniqueId,
         severity: method,
-        time: new Date(Date.now()).toISOString(),
+        time: new Date(Date.now())
+            .toISOString(),
     };
 
-    if (typeof(message) === 'string') {
+    if (typeof (message) === 'string') {
         jsonLog.message = message;
     } else {
         jsonLog = {

@@ -17,13 +17,16 @@ describe('OptionalIntValidationPipe', (): void => {
     ])(
         'should transform string to value properly',
         (input: string | undefined, expected: number | undefined): void => {
-            expect(pipe.transform(input)).toEqual(expected);
+            expect(pipe.transform(input))
+                .toEqual(expected);
         },
     );
     test('should fail on empty string', (): void => {
-        expect((): number | undefined => pipe.transform('')).toThrowErrorMatchingSnapshot();
+        expect((): number | undefined => pipe.transform(''))
+            .toThrowErrorMatchingSnapshot();
     });
     test('should fail on invalid string', (): void => {
-        expect((): number | undefined => pipe.transform('asdf')).toThrowErrorMatchingSnapshot();
+        expect((): number | undefined => pipe.transform('asdf'))
+            .toThrowErrorMatchingSnapshot();
     });
 });

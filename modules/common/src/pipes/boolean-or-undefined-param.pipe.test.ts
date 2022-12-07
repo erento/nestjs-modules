@@ -14,6 +14,7 @@ describe('BooleanOrUndefinedParamsPipe', (): void => {
         [{online: 'false'}, false],
         [{online: 'abc'}, undefined],
     ])('should transform query params properly', (input: any, expected: boolean | undefined): void => {
-        expect(pipe.transform(input)).toEqual(expected);
+        expect(pipe.transform(input))
+            .toEqual(expected);
     });
 });

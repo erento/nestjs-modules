@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Authorization Guard Should not authorize when array of tokens does not matches req header 1`] = `"Provided token is \\"service\\""`;
+exports[`Authorization Guard Should not authorize when array of tokens does not matches req header 1`] = `"Provided token is "service""`;
 
-exports[`Authorization Guard Should not authorize when no req header is passed 1`] = `"Provided token is \\"undefined\\""`;
+exports[`Authorization Guard Should not authorize when no req header is passed 1`] = `"Provided token is "undefined""`;
 
-exports[`Authorization Guard Should not authorize when token does not matches req header 1`] = `"Provided token is \\"service\\""`;
+exports[`Authorization Guard Should not authorize when token does not matches req header 1`] = `"Provided token is "service""`;

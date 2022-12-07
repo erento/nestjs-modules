@@ -25,24 +25,31 @@ enum EnumWithMixedValues {
 
 describe('Enum utils', (): void => {
     test('should get values from empty enumeration', (): void => {
-        expect(getEnumValues(EnumEmpty)).toEqual([]);
+        expect(getEnumValues(EnumEmpty))
+            .toEqual([]);
     });
 
     test('should get values from string enumeration', (): void => {
-        expect(getEnumValues(EnumWithStrings)).toMatchSnapshot();
+        expect(getEnumValues(EnumWithStrings))
+            .toMatchSnapshot();
     });
 
     test('should get values from number enumeration', (): void => {
-        expect(getEnumValues(EnumWithNumbers)).toMatchSnapshot();
+        expect(getEnumValues(EnumWithNumbers))
+            .toMatchSnapshot();
     });
 
     test('should get values from mixed enumeration', (): void => {
-        expect(getEnumValues(EnumWithMixedValues)).toMatchSnapshot();
+        expect(getEnumValues(EnumWithMixedValues))
+            .toMatchSnapshot();
     });
 
     test('should get max length of enumeration', (): void => {
-        expect(getMaxLengthOfEnumValues(EnumWithStrings)).toBe(21);
-        expect((): number => getMaxLengthOfEnumValues(EnumWithNumbers)).toThrowErrorMatchingSnapshot();
-        expect((): number => getMaxLengthOfEnumValues(EnumWithMixedValues)).toThrowErrorMatchingSnapshot();
+        expect(getMaxLengthOfEnumValues(EnumWithStrings))
+            .toBe(21);
+        expect((): number => getMaxLengthOfEnumValues(EnumWithNumbers))
+            .toThrowErrorMatchingSnapshot();
+        expect((): number => getMaxLengthOfEnumValues(EnumWithMixedValues))
+            .toThrowErrorMatchingSnapshot();
     });
 });
