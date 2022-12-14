@@ -1,5 +1,8 @@
 import {ExecutionContext} from '@nestjs/common';
+import {SilentUnauthorizedException} from '../exceptions/silent-unauthorized.exception';
+import {UnauthorizedException} from '../exceptions/unauthorized.exception';
 import {AuthorizationGuard} from './authorization.guard';
+import {AuthMetadata} from './interfaces';
 
 const getExecutionContext: (req: any) => ExecutionContext = (req: any): ExecutionContext => <any> {
     switchToHttp: (): any => {
@@ -9,9 +12,23 @@ const getExecutionContext: (req: any) => ExecutionContext = (req: any): Executio
 };
 
 describe('Authorization Guard', (): void => {
+    it('Should pass when Auth decorator is not used at all', (): void => {
+        const reflector: any = jest.fn()
+            .mockReturnValueOnce(undefined);
+        const req: Request = <any> {
+            headers: {},
+        };
+        expect(new AuthorizationGuard(<any> {get: reflector})
+            .canActivate(getExecutionContext(req)))
+            .toBe(true);
+    });
+
     it('Should authorize when token is not passed', (): void => {
-        const reflector: any = jest.fn();
-        reflector.mockReturnValueOnce(undefined);
+        const reflector: any = jest.fn()
+            .mockReturnValueOnce(<AuthMetadata> {
+                tokenValue: undefined,
+                options: {silent: false},
+            });
         const req: Request = <any> {
             headers: {},
         };
@@ -26,8 +43,11 @@ describe('Authorization Guard', (): void => {
                 'x-token-role': 'service',
             },
         };
-        const reflector: any = jest.fn();
-        reflector.mockReturnValueOnce('service');
+        const reflector: any = jest.fn()
+            .mockReturnValueOnce(<AuthMetadata> {
+                tokenValue: 'service',
+                options: {silent: false},
+            });
         expect(new AuthorizationGuard(<any> {get: reflector})
             .canActivate(getExecutionContext(req)))
             .toBe(true);
@@ -39,8 +59,11 @@ describe('Authorization Guard', (): void => {
                 'x-token-role': 'service',
             },
         };
-        const reflector: any = jest.fn();
-        reflector.mockReturnValueOnce(['x', 'y', 'service', 'z']);
+        const reflector: any = jest.fn()
+            .mockReturnValueOnce(<AuthMetadata> {
+                tokenValue: ['x', 'y', 'service', 'z'],
+                options: {silent: false},
+            });
         expect(new AuthorizationGuard(<any> {get: reflector})
             .canActivate(getExecutionContext(req)))
             .toBe(true);
@@ -53,7 +76,10 @@ describe('Authorization Guard', (): void => {
             },
         };
         const reflector: any = jest.fn()
-            .mockReturnValueOnce(undefined);
+            .mockReturnValueOnce(<AuthMetadata> {
+                tokenValue: undefined,
+                options: {silent: false},
+            });
         expect(new AuthorizationGuard(<any> {get: reflector})
             .canActivate(getExecutionContext(req)))
             .toBe(true);
@@ -65,8 +91,11 @@ describe('Authorization Guard', (): void => {
                 'x-token-role': 'service',
             },
         };
-        const reflector: any = jest.fn();
-        reflector.mockReturnValueOnce('not matching');
+        const reflector: any = jest.fn()
+            .mockReturnValueOnce(<AuthMetadata> {
+                tokenValue: 'not matching',
+                options: {silent: false},
+            });
         expect((): boolean => new AuthorizationGuard(<any> {get: reflector})
             .canActivate(getExecutionContext(req)))
             .toThrowErrorMatchingSnapshot();
@@ -78,8 +107,11 @@ describe('Authorization Guard', (): void => {
                 'x-token-role': 'service',
             },
         };
-        const reflector: any = jest.fn();
-        reflector.mockReturnValueOnce(['not matching', 'not-matching-2']);
+        const reflector: any = jest.fn()
+            .mockReturnValueOnce(<AuthMetadata> {
+                tokenValue: ['not matching', 'not-matching-2'],
+                options: {silent: false},
+            });
         expect((): boolean => new AuthorizationGuard(<any> {get: reflector})
             .canActivate(getExecutionContext(req)))
             .toThrowErrorMatchingSnapshot();
@@ -89,10 +121,45 @@ describe('Authorization Guard', (): void => {
         const req: Request = <any> {
             headers: {},
         };
-        const reflector: any = jest.fn();
-        reflector.mockReturnValueOnce('not matching');
+        const reflector: any = jest.fn()
+            .mockReturnValueOnce(<AuthMetadata> {
+                tokenValue: 'not matching',
+                options: {silent: false},
+            });
         expect((): boolean => new AuthorizationGuard(<any> {get: reflector})
             .canActivate(getExecutionContext(req)))
             .toThrowErrorMatchingSnapshot();
+    });
+
+    it('Should throw laud exception', (): void => {
+        const req: Request = <any> {
+            headers: {
+                'x-token-role': 'service',
+            },
+        };
+        const reflector: any = jest.fn()
+            .mockReturnValueOnce(<AuthMetadata> {
+                tokenValue: 'not matching',
+                options: {silent: false},
+            });
+        expect((): boolean => new AuthorizationGuard(<any> {get: reflector})
+            .canActivate(getExecutionContext(req)))
+            .toThrowError(UnauthorizedException);
+    });
+
+    it('Should throw silent exception', (): void => {
+        const req: Request = <any> {
+            headers: {
+                'x-token-role': 'service',
+            },
+        };
+        const reflector: any = jest.fn()
+            .mockReturnValueOnce(<AuthMetadata> {
+                tokenValue: 'not matching',
+                options: {silent: true},
+            });
+        expect((): boolean => new AuthorizationGuard(<any> {get: reflector})
+            .canActivate(getExecutionContext(req)))
+            .toThrowError(SilentUnauthorizedException);
     });
 });

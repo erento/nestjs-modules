@@ -20,9 +20,9 @@ export class BugsnagErrorFilter implements ExceptionFilter {
         const status: number = err instanceof HttpException ? err.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
         const exception: Error = err instanceof Error ? err : new Error(err);
 
-        (this.loggerMethod || console.error)(exception);
-
         if (!err?.silent) {
+            (this.loggerMethod || console.error)(exception);
+
             this.bugsnagClient.notifyWithMetadata(
                 exception,
                 {

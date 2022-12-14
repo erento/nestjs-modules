@@ -1,7 +1,9 @@
 import {CanActivate, ExecutionContext, Injectable} from '@nestjs/common';
 import {Reflector} from '@nestjs/core';
-import {CommonUnauthorizedException} from '../exceptions/common-unauthorized.exception';
-import {SILENT_FAIL_TOKEN, TOKEN, TOKEN_ROLE_HEADER} from './consts';
+import {SilentUnauthorizedException} from '../exceptions/silent-unauthorized.exception';
+import {UnauthorizedException} from '../exceptions/unauthorized.exception';
+import {TOKEN, TOKEN_ROLE_HEADER} from './consts';
+import {AuthMetadata} from './interfaces';
 
 @Injectable()
 export class AuthorizationGuard implements CanActivate {
@@ -12,23 +14,24 @@ export class AuthorizationGuard implements CanActivate {
             .getRequest();
         const {handler}: any = context;
 
-        const tokenValue: string | string[] | undefined = this.reflector.get<string | string[] | undefined>(TOKEN, handler);
+        const authMetadata: AuthMetadata = this.reflector.get<AuthMetadata>(TOKEN, handler);
 
-        if (tokenValue === undefined) {
+        if (!authMetadata || authMetadata.tokenValue === undefined) {
             return true;
         }
 
-        const tokenValueList: string[] = Array.isArray(tokenValue) ? tokenValue : [tokenValue];
+        const tokenValueList: string[] = Array.isArray(authMetadata.tokenValue) ? authMetadata.tokenValue : [authMetadata.tokenValue];
         const requestTokenValue: string = req.headers[TOKEN_ROLE_HEADER];
 
         if (tokenValueList.indexOf(requestTokenValue) !== -1) {
             return true;
         }
 
-        console.log(`Required token value "${tokenValue}", given value "${requestTokenValue}"`);
+        console.log(`Required token value "${authMetadata.tokenValue}", given value "${requestTokenValue}"`);
 
-        const silent: boolean = !!this.reflector.get<string>(SILENT_FAIL_TOKEN, handler);
-
-        throw new CommonUnauthorizedException(`Provided token is "${requestTokenValue}"`, undefined, silent);
+        const message: string = `Provided token is "${requestTokenValue}"`;
+        throw authMetadata.options.silent ?
+            new SilentUnauthorizedException(message) :
+            new UnauthorizedException(message);
     }
 }
