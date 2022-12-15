@@ -4,3 +4,14 @@ export enum AuthorizationType {
     admin = 'admin',
     seller = 'seller',
 }
+
+export interface AuthOptions {
+    silent: boolean;
+}
+
+export type AuthTokenValue = string | string[] | undefined;
+
+export interface AuthMetadata {
+    tokenValue: AuthTokenValue;
+    options: AuthOptions;
+}

@@ -1,5 +1,6 @@
 export * from './bugsnag/breadcrumbs';
 export * from './bugsnag/bugsnag-ignore-exceptions.decorator';
+export * from './bugsnag/bugsnag-ignore-exceptions.interceptor';
 export * from './bugsnag/bugsnag.client';
 export * from './bugsnag/bugsnag.filter';
 export * from './bugsnag/bugsnag.module';
