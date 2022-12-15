@@ -12,11 +12,12 @@ const gcpMonitoringContext: Config = {
 };
 
 export function onApplicationInit (): void {
-    traceStart(gcpMonitoringContext);
-    profilerStart(gcpMonitoringContext)
-        .then((): void => {
-            console.log('profiler started');
-        });
-
+    if (!Environments.isDev()) {
+        traceStart(gcpMonitoringContext);
+        profilerStart(gcpMonitoringContext)
+            .then((): void => {
+                console.log('profiler started');
+            });
+    }
     (<any> axios).defaults.headers.common['user-agent'] = USER_AGENT;
 }
