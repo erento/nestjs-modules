@@ -1,3 +1,7 @@
+<a name="7.0.2"></a>
+# 7.0.2 (2022-12-16)
+- Another fix to avoid duplicate request id in the url in query param
+
 <a name="7.0.1"></a>
 # 7.0.1 (2022-12-16)
 - Fix duplicate request id in the url in query param `_requestUniqueId`
