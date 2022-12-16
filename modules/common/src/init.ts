@@ -12,7 +12,7 @@ const gcpMonitoringContext: Config = {
 };
 
 export function onApplicationInit (): void {
-    if (!Environments.isDev()) {
+    if (Environments.isProd()) {
         traceStart(gcpMonitoringContext);
         profilerStart(gcpMonitoringContext)
             .then((): void => {
