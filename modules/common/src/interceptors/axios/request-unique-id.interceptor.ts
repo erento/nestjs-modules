@@ -18,8 +18,10 @@ export class RequestUniqueIdInterceptor extends AxiosInterceptor {
             if (!config.params) {
                 config.params = new URLSearchParams();
             }
-            if (typeof config.params.append === 'function' && config.params.has(REQUEST_UNIQUE_ID_QUERY_PARAM) === false) {
-                config.params.append(REQUEST_UNIQUE_ID_QUERY_PARAM, getCurrentRequestUniqueId());
+            if (typeof config.params.append === 'function') {
+                if (config.params.has(REQUEST_UNIQUE_ID_QUERY_PARAM) === false) {
+                    config.params.append(REQUEST_UNIQUE_ID_QUERY_PARAM, getCurrentRequestUniqueId());
+                }
             } else {
                 config.params = {...config.params, [REQUEST_UNIQUE_ID_QUERY_PARAM]: getCurrentRequestUniqueId()};
             }
