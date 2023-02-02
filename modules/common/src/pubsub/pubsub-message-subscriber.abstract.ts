@@ -1,6 +1,7 @@
 import {
     EncodedMessage,
     PubsubMessage,
+    PubsubMessageMeta,
     PubsubService,
     Subscription,
     SubscriptionOptions,
@@ -81,15 +82,28 @@ export abstract class PubSubMessageSubscriber<TMsgBody, TAppSvc extends BasicApp
 
     private onMessageReceived (encrypted: boolean, message: EncodedMessage): void {
         this.contextify(async (): Promise<void> => {
-            let parsedBody: PubsubMessage<TMsgBody> | undefined;
+            let parsedBody: TMsgBody | undefined;
 
             try {
                 this.logger.log(`Processing Pub/Sub message "${message.id}".`);
                 await this.pubsubService.verifyMessage(message);
                 const decryptedMessage: string = await this.pubsubService.decryptMessage(message, encrypted);
-                parsedBody = JSON.parse(decryptedMessage);
+                const decryptedObject: PubsubMessage<TMsgBody> = JSON.parse(decryptedMessage);
+                const parsedMeta: PubsubMessageMeta = decryptedObject.meta;
 
-                await this.handleRequest(parsedBody);
+                parsedBody = decryptedObject.payload;
+
+                if (!parsedMeta.type || (this.topicName && !this.topicName.endsWith(parsedMeta.type))) {
+                    this.logger.error(
+                        `Unknown event type. I got: "${parsedMeta.type}" and it should be "${this.topicName}". ` +
+                        `Skipping the message. Message was: "${jsonStringifySafe(parsedBody)}"`,
+                    );
+                    message.ack();
+
+                    return;
+                }
+
+                await this.handleRequest(parsedBody, parsedMeta);
 
                 message.ack();
             } catch (e: any) {
@@ -125,5 +139,5 @@ export abstract class PubSubMessageSubscriber<TMsgBody, TAppSvc extends BasicApp
         httpContext.middleware(<any> undefined, <any> undefined, <any> contextful);
     }
 
-    public abstract handleRequest (parsedBody: PubsubMessage<TMsgBody> | undefined): Promise<void>;
+    public abstract handleRequest (parsedBody: TMsgBody, meta: PubsubMessageMeta): Promise<void>;
 }
