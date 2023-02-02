@@ -31,8 +31,8 @@ export abstract class PubSubMessageSubscriber<TMsgBody, TAppSvc extends BasicApp
     protected subscribeToPubSub (
         subscriptionName: string,
         topicName: string,
-        options?: SubscriptionOptions,
-        cronJobName?: string,
+        options?: SubscriptionOptions | undefined,
+        cronJobName?: string | undefined,
         encrypted: boolean = true,
     ): void {
         if (!topicName || !subscriptionName) {
