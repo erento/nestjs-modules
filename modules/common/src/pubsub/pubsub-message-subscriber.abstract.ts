@@ -24,8 +24,10 @@ export abstract class PubSubMessageSubscriber<TMsgBody, TAppSvc extends BasicApp
         protected readonly appService: TAppSvc,
         protected readonly logger: Logger,
         protected readonly pubsubService: PubsubService,
-        protected readonly cronjobName?: string | undefined,
+        protected readonly cronjobName: string | undefined = undefined,
         protected readonly disableSubscription: boolean = false,
+        protected readonly delayAfterStartup: number = DELAY_AFTER_STARTUP,
+        protected readonly skipDeadline: number = SKIP_DEADLINE,
     ) {}
 
     protected subscribeToPubSub (
@@ -50,7 +52,7 @@ export abstract class PubSubMessageSubscriber<TMsgBody, TAppSvc extends BasicApp
         this.appService
             .hasStarted()
             .pipe(
-                delay(DELAY_AFTER_STARTUP),
+                delay(this.delayAfterStartup),
                 filter((val: boolean): boolean => val && !this.disableSubscription),
             )
             .subscribe((): void => {
@@ -113,7 +115,7 @@ export abstract class PubSubMessageSubscriber<TMsgBody, TAppSvc extends BasicApp
                     const errorMessage: string = e?.message || jsonStringifySafe(e);
                     this.logger.error(
                         `Failed to receive a Pub/Sub message. No ack/nack condition met, waiting for NACK skip to kick in. ` +
-                        `Waiting for: ${SKIP_DEADLINE}ms. Original message: "${errorMessage}".`,
+                        `Waiting for: ${this.skipDeadline}ms. Original message: "${errorMessage}".`,
                         e?.stack,
                     );
                 }
@@ -121,7 +123,7 @@ export abstract class PubSubMessageSubscriber<TMsgBody, TAppSvc extends BasicApp
                 setTimeout((): void => {
                     this.logger.log(`Nacking message "${message.id}" in the topic "${this.topicName}".`);
                     message.nack();
-                }, SKIP_DEADLINE);
+                }, this.skipDeadline);
             }
         });
     }
