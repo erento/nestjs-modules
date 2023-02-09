@@ -1,3 +1,7 @@
+<a name="7.2.0"></a>
+# 7.2.0 (2022-02-09)
+- added abstract pubsub pull subscriber
+
 <a name="7.1.0"></a>
 # 7.1.0 (2022-12-16)
 - use trace&profiler only on beta/production, dev & test should be avoided
