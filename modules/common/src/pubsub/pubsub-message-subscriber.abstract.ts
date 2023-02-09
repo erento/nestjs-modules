@@ -13,7 +13,7 @@ import {v4 as uuidv4} from 'uuid';
 import {REQUEST_UNIQUE_ID_KEY} from '../constants';
 import {Logger} from '../logger/logger';
 import {BasicAppService} from '../services/basic-app.service';
-import {DELAY_AFTER_STARTUP, SKIP_DEADLINE} from './consts';
+import {PUBSUB_DELAY_AFTER_STARTUP, PUBSUB_SKIP_DEADLINE} from './consts';
 import {NackSilentError} from './nack-silent.error';
 
 export abstract class PubSubMessageSubscriber<TMsgBody, TAppSvc extends BasicAppService> {
@@ -26,8 +26,8 @@ export abstract class PubSubMessageSubscriber<TMsgBody, TAppSvc extends BasicApp
         protected readonly pubsubService: PubsubService,
         protected readonly cronjobName: string | undefined = undefined,
         protected readonly disableSubscription: boolean = false,
-        protected readonly delayAfterStartup: number = DELAY_AFTER_STARTUP,
-        protected readonly skipDeadline: number = SKIP_DEADLINE,
+        protected readonly delayAfterStartup: number = PUBSUB_DELAY_AFTER_STARTUP,
+        protected readonly skipDeadline: number = PUBSUB_SKIP_DEADLINE,
     ) {}
 
     protected subscribeToPubSub (

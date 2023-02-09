@@ -66,6 +66,7 @@
     "chalk": "4.1.2",
     "json-stringify-safe": "5.0.1",
     "moment-timezone": "0.5.40",
+    "ms": "3.0.0-canary.1",
     "rxjs": "7.5.4",
     "uuid": "9.0.0"
   },
