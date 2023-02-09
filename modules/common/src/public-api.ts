@@ -45,3 +45,5 @@ export * from './cronjob/run.cronjob';
 export * from './init';
 export * from './services/base-app.service';
 export * from './services/basic-app.service';
+export * from './pubsub/nack-silent.error';
+export * from './pubsub/pubsub-message-subscriber.abstract';
