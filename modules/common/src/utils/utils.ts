@@ -1,3 +1,4 @@
+import slugify from 'slugify';
 import {Environments} from '../environments/environments';
 import {UtilsError} from './errors/utils.error';
 
@@ -181,4 +182,23 @@ export function waitForMs (time: number): Promise<void> {
     return new Promise((resolve: TimerHandler): void => {
         setTimeout(resolve, time);
     });
+}
+
+slugify.extend({
+    Þ: 'B',
+    þ: 'b',
+});
+
+export function slugifyText (text: string, locale: string): string {
+    const slugifiedText: string = slugify(text, {
+        locale,
+        lower: true,
+        replacement: '-',
+    });
+
+    return slugifiedText
+        .replace(/[^a-z-]/g, '')
+        .replace(/-{2,}/g, '-')
+        .replace(/^-/g, '')
+        .replace(/-$/g, '');
 }

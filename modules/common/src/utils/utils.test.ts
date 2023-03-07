@@ -17,6 +17,7 @@ import {
     parseDateOrUndefined,
     replaceEmptyStringValuesWithNull,
     requiredEnvVariable,
+    slugifyText,
     waitForMs,
 } from './utils';
 import DoneCallback = jest.DoneCallback;
@@ -340,6 +341,75 @@ describe('utils', (): void => {
             expect(callback).not.toHaveBeenCalled();
 
             jest.runAllTimers();
+        });
+    });
+
+    describe('slugifyText', (): void => {
+        test('should replace umlaut characters with normalized counterparts', (): void => {
+            expect(slugifyText('ä', 'de'))
+                .toEqual('ae');
+            expect(slugifyText('ö', 'de'))
+                .toEqual('oe');
+            expect(slugifyText('ü', 'de'))
+                .toEqual('ue');
+            expect(slugifyText('ß', 'de'))
+                .toEqual('ss');
+            expect(slugifyText('é', 'de'))
+                .toEqual('e');
+
+            expect(slugifyText('märz', 'de'))
+                .toEqual('maerz');
+            expect(slugifyText('Köln', 'de'))
+                .toEqual('koeln');
+            expect(slugifyText('München', 'de'))
+                .toEqual('muenchen');
+            expect(slugifyText('Nußloch', 'de'))
+                .toEqual('nussloch');
+            expect(slugifyText('Créteil', 'de'))
+                .toEqual('creteil');
+        });
+
+        test('should ignore capitalization', (): void => {
+            expect(slugifyText('Köln', 'de'))
+                .toEqual(slugifyText('köln', 'de'));
+            expect(slugifyText('München', 'de'))
+                .toEqual(slugifyText('münchen', 'de'));
+            expect(slugifyText('ÜÄÖ', 'de'))
+                .toEqual(slugifyText('üäö', 'de'));
+        });
+
+        test('should normalize city name', (): void => {
+            expect(slugifyText('München  ', 'de'))
+                .toEqual('muenchen');
+        });
+
+        test('should normalize city name, remove hyphens and spaces', (): void => {
+            expect(slugifyText(' - köln -- ', 'de'))
+                .toEqual('koeln');
+        });
+
+        test('should normalize city name, remove hyphens, slashes, underscores and spaces', (): void => {
+            expect(slugifyText(' bad -  / _ ReichenHall  ', 'de'))
+                .toEqual('bad-reichenhall');
+        });
+
+        test('should normalize city name that includes brackets', (): void => {
+            expect(slugifyText(' bad -  / _ (ReichenHall)  ', 'de'))
+                .toEqual('bad-reichenhall');
+        });
+
+        test('should slugify city name', (): void => {
+            expect(slugifyText('München', 'de'))
+                .toEqual('muenchen');
+            expect(slugifyText('Bad ReichenHall', 'de'))
+                .toEqual('bad-reichenhall');
+            expect(slugifyText('Neustadt an der Weinstraße', 'de'))
+                .toEqual('neustadt-an-der-weinstrasse');
+        });
+
+        test('should throw on slugify undefined', (): void => {
+            expect((): string => slugifyText(<any> undefined, 'de'))
+                .toThrow(new Error('slugify: string argument expected'));
         });
     });
 });
