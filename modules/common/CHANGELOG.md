@@ -1,9 +1,9 @@
 <a name="7.2.0"></a>
 # 7.3.0 (2023-03-07)
-- added abstract pubsub pull subscriber
+- added slugify text to utils.
 
 <a name="7.2.0"></a>
-# 7.2.0 (2022-02-09)
+# 7.2.0 (2023-02-09)
 - added abstract pubsub pull subscriber
 
 <a name="7.1.0"></a>
