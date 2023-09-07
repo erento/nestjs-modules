@@ -8,6 +8,7 @@ export * from './bugsnag/interfaces';
 export * from './constants';
 export * from './environments/environments';
 export * from './environments/interfaces';
+export * from './exceptions/validation-exception.factory';
 export * from './guards/authorization.decorator';
 export * from './guards/authorization.guard';
 export * from './guards/guards.module';
