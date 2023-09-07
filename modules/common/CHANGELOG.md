@@ -1,4 +1,8 @@
-<a name="7.2.0"></a>
+<a name="7.4.0"></a>
+# 7.4.0 (2023-09-07)
+- added validation exception factory
+
+<a name="7.3.0"></a>
 # 7.3.0 (2023-03-07)
 - added slugify text to utils.
 
