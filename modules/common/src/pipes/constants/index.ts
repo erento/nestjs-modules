@@ -6,12 +6,6 @@ export enum ErentoLocale {
     EnUs = 'en-US',
 }
 
-export const ErentoGermanLocales = [
-    ErentoLocale.DeDe,
-    ErentoLocale.DeCh,
-    ErentoLocale.DeAt,
-];
-
 export const languageHosts: Record<ErentoLocale, string> = {
     [ErentoLocale.DeAt]: 'https://www.erento.at',
     [ErentoLocale.DeCh]: 'https://www.erento.ch',
@@ -49,3 +43,8 @@ export const CAMPANDA_DEFAULT_LOCALE: string = CampandaLocale.DeDe;
 
 export const ERENTO_LOCALE_ARRAY: string[] = Object.values(ErentoLocale);
 export const ERENTO_DEFAULT_LOCALE: string = ErentoLocale.DeDe;
+export const ERENTO_GERMAN_LOCALE_ARRAY: string[] = [
+    ErentoLocale.DeDe,
+    ErentoLocale.DeCh,
+    ErentoLocale.DeAt,
+];
