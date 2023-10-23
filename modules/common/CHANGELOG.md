@@ -1,3 +1,7 @@
+<a name="7.5.0"></a>
+# 7.5.0 (2023-10-23)
+- added additional erento enum
+
 <a name="7.4.0"></a>
 # 7.4.0 (2023-09-07)
 - added validation exception factory
