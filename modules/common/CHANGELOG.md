@@ -1,3 +1,7 @@
+<a name="7.6.0"></a>
+# 7.6.0 (2023-11-22)
+- locale pipe can have different parameter names
+
 <a name="7.5.0"></a>
 # 7.5.0 (2023-10-23)
 - added additional erento enum
