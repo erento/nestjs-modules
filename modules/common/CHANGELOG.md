@@ -1,3 +1,7 @@
+<a name="7.6.1"></a>
+# 7.6.1 (2023-11-22)
+- fix for 7.6.0
+
 <a name="7.6.0"></a>
 # 7.6.0 (2023-11-22)
 - locale pipe can have different parameter names
