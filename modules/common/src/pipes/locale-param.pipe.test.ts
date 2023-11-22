@@ -47,4 +47,29 @@ describe('LocaleParamPipe', (): void => {
         expect(pipe.transform(input))
             .toMatchSnapshot();
     });
+
+    test.each<[any]>([
+        [undefined],
+        [null],
+        [{}],
+        [{countryBasedLocale: 'de_DE'}],
+        [{countryBasedLocale: 'de_CH'}],
+        [{countryBasedLocale: 'de_AT'}],
+        [{countryBasedLocale: 'en_GB'}],
+        [{countryBasedLocale: 'en_US'}],
+        [{countryBasedLocale: 'es_ES'}],
+        [{countryBasedLocale: 'fr_FR'}],
+        [{countryBasedLocale: 'it_IT'}],
+        [{countryBasedLocale: 'de'}],
+        [{countryBasedLocale: 'en'}],
+        [{countryBasedLocale: 'es'}],
+        [{countryBasedLocale: 'fr'}],
+        [{countryBasedLocale: 'it'}],
+        [{countryBasedLocale: 'abc'}],
+        [{countryBasedLocale: 'en-GB'}], // fails to find it returns default
+    ])('should transform campanda locale params properly for different param name', (input: any): void => {
+        const pipe: LocaleParamPipe = new LocaleParamPipe(CAMPANDA_DEFAULT_LOCALE, CAMPANDA_LOCALE_ARRAY, 'countryBasedLocale');
+        expect(pipe.transform(input))
+            .toMatchSnapshot();
+    });
 });

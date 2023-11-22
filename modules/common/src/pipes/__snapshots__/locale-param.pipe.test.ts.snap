@@ -162,6 +162,168 @@ exports[`LocaleParamPipe should transform campanda locale params properly 18`] =
 }
 `;
 
+exports[`LocaleParamPipe should transform campanda locale params properly for different param name 1`] = `
+{
+  "language": "de",
+  "locale": "de_DE",
+  "original": "",
+  "territory": "DE",
+}
+`;
+
+exports[`LocaleParamPipe should transform campanda locale params properly for different param name 2`] = `
+{
+  "language": "de",
+  "locale": "de_DE",
+  "original": "",
+  "territory": "DE",
+}
+`;
+
+exports[`LocaleParamPipe should transform campanda locale params properly for different param name 3`] = `
+{
+  "language": "de",
+  "locale": "de_DE",
+  "original": "",
+  "territory": "DE",
+}
+`;
+
+exports[`LocaleParamPipe should transform campanda locale params properly for different param name 4`] = `
+{
+  "language": "de",
+  "locale": "de_DE",
+  "original": "de_DE",
+  "territory": "DE",
+}
+`;
+
+exports[`LocaleParamPipe should transform campanda locale params properly for different param name 5`] = `
+{
+  "language": "de",
+  "locale": "de_CH",
+  "original": "de_CH",
+  "territory": "CH",
+}
+`;
+
+exports[`LocaleParamPipe should transform campanda locale params properly for different param name 6`] = `
+{
+  "language": "de",
+  "locale": "de_AT",
+  "original": "de_AT",
+  "territory": "AT",
+}
+`;
+
+exports[`LocaleParamPipe should transform campanda locale params properly for different param name 7`] = `
+{
+  "language": "en",
+  "locale": "en_GB",
+  "original": "en_GB",
+  "territory": "GB",
+}
+`;
+
+exports[`LocaleParamPipe should transform campanda locale params properly for different param name 8`] = `
+{
+  "language": "en",
+  "locale": "en_US",
+  "original": "en_US",
+  "territory": "US",
+}
+`;
+
+exports[`LocaleParamPipe should transform campanda locale params properly for different param name 9`] = `
+{
+  "language": "es",
+  "locale": "es_ES",
+  "original": "es_ES",
+  "territory": "ES",
+}
+`;
+
+exports[`LocaleParamPipe should transform campanda locale params properly for different param name 10`] = `
+{
+  "language": "fr",
+  "locale": "fr_FR",
+  "original": "fr_FR",
+  "territory": "FR",
+}
+`;
+
+exports[`LocaleParamPipe should transform campanda locale params properly for different param name 11`] = `
+{
+  "language": "it",
+  "locale": "it_IT",
+  "original": "it_IT",
+  "territory": "IT",
+}
+`;
+
+exports[`LocaleParamPipe should transform campanda locale params properly for different param name 12`] = `
+{
+  "language": "de",
+  "locale": "de_DE",
+  "original": "de",
+  "territory": "DE",
+}
+`;
+
+exports[`LocaleParamPipe should transform campanda locale params properly for different param name 13`] = `
+{
+  "language": "en",
+  "locale": "en_GB",
+  "original": "en",
+  "territory": "GB",
+}
+`;
+
+exports[`LocaleParamPipe should transform campanda locale params properly for different param name 14`] = `
+{
+  "language": "es",
+  "locale": "es_ES",
+  "original": "es",
+  "territory": "ES",
+}
+`;
+
+exports[`LocaleParamPipe should transform campanda locale params properly for different param name 15`] = `
+{
+  "language": "fr",
+  "locale": "fr_FR",
+  "original": "fr",
+  "territory": "FR",
+}
+`;
+
+exports[`LocaleParamPipe should transform campanda locale params properly for different param name 16`] = `
+{
+  "language": "it",
+  "locale": "it_IT",
+  "original": "it",
+  "territory": "IT",
+}
+`;
+
+exports[`LocaleParamPipe should transform campanda locale params properly for different param name 17`] = `
+{
+  "language": "de",
+  "locale": "de_DE",
+  "original": "abc",
+  "territory": "DE",
+}
+`;
+
+exports[`LocaleParamPipe should transform campanda locale params properly for different param name 18`] = `
+{
+  "language": "de",
+  "locale": "de_DE",
+  "original": "en-GB",
+  "territory": "DE",
+}
+`;
+
 exports[`LocaleParamPipe should transform erento locale params properly 1`] = `
 {
   "language": "de",

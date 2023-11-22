@@ -11,32 +11,36 @@ export class LocaleParamPipe implements PipeTransform<Record<string, any>, Local
      * @param locales Array of allowed locale strings e.g. [de-DE] or [en_GB]
      * @param defaultLocale  Default locale e.g. de-DE or en_GB
      */
-    constructor (private defaultLocale: string, private locales: string[]) {
+    constructor (
+        private defaultLocale: string,
+        private locales: string[],
+        private propertyName: string = 'locale',
+    ) {
         this.separator = this.createSeparator();
     }
 
     public transform (query: Record<string, any>): LocaleObject {
-        if (!query?.locale) {
+        if (!query?.[this.propertyName]) {
             return this.createLocaleObject(this.defaultLocale, '');
         }
 
         const selectedByLocale: string | undefined = this.locales.find(
-            (locale: string): boolean => locale === query.locale,
+            (locale: string): boolean => locale === query[this.propertyName],
         );
 
         if (selectedByLocale !== undefined) {
-            return this.createLocaleObject(selectedByLocale, query.locale);
+            return this.createLocaleObject(selectedByLocale, query[this.propertyName]);
         }
 
         const selectedByLanguage: string | undefined = this.locales.find(
-            (locale: string): boolean => locale.split(this.separator)[0] === query.locale,
+            (locale: string): boolean => locale.split(this.separator)[0] === query[this.propertyName],
         );
 
         if (selectedByLanguage !== undefined) {
-            return this.createLocaleObject(selectedByLanguage, query.locale);
+            return this.createLocaleObject(selectedByLanguage, query[this.propertyName]);
         }
 
-        return this.createLocaleObject(this.defaultLocale, query.locale);
+        return this.createLocaleObject(this.defaultLocale, query[this.propertyName]);
     }
 
     private createSeparator (): string {
