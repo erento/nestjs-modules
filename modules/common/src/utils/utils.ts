@@ -1,5 +1,6 @@
 import slugify from 'slugify';
 import {Environments} from '../environments/environments';
+import {EnvironmentType} from '../environments/interfaces';
 import {UtilsError} from './errors/utils.error';
 
 interface ES7Array extends Array<any> {
@@ -160,6 +161,23 @@ export function batchArray<T> (items: T[], maxBatchSize: number): T[][] {
 }
 
 export function requiredEnvVariable (key: keyof typeof process.env): string {
+    if (key in process.env && process.env[key]) {
+        return <string> process.env[key];
+    }
+
+    if (Environments.isTest()) {
+        // enables running test directly in IDE in test mode
+        return '';
+    }
+
+    throw new Error(`Missing environment variable "${key}"!`);
+}
+
+export function requiredEnvProdVariable (key: keyof typeof process.env, envType: EnvironmentType): string | null {
+    if (envType !== EnvironmentType.PROD) {
+        return null;
+    }
+
     if (key in process.env && process.env[key]) {
         return <string> process.env[key];
     }

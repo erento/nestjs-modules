@@ -16,6 +16,7 @@ import {
     oneLine,
     parseDateOrUndefined,
     replaceEmptyStringValuesWithNull,
+    requiredEnvProdVariable,
     requiredEnvVariable,
     slugifyText,
     waitForMs,
@@ -302,6 +303,21 @@ describe('utils', (): void => {
             expect((): string => requiredEnvVariable('__NOT_EXISTING'))
                 .toThrowError('Missing environment variable "__NOT_EXISTING"!');
             process.env.NODE_ENV = EnvironmentType.TEST;
+        });
+    });
+
+    describe('requiredEnvVariable', (): void => {
+        test('it returns process.env variable, if environment is production', (): void => {
+            // eslint-disable-next-line no-underscore-dangle
+            process.env.__TESTING_PROPERTY = 'some-value';
+
+            expect(requiredEnvProdVariable('__TESTING_PROPERTY', EnvironmentType.PROD))
+                .toBe('some-value');
+        });
+
+        test('it returns null, if environment is not production', (): void => {
+            expect(requiredEnvProdVariable('__NOT_EXISTING', EnvironmentType.BETA))
+                .toBe(null);
         });
     });
 
