@@ -173,9 +173,9 @@ export function requiredEnvVariable (key: keyof typeof process.env): string {
     throw new Error(`Missing environment variable "${key}"!`);
 }
 
-export function requiredEnvProdVariable (key: keyof typeof process.env, envType: EnvironmentType): string | null {
+export function requiredEnvProdVariable (key: keyof typeof process.env, envType: EnvironmentType): string {
     if (envType !== EnvironmentType.PROD) {
-        return null;
+        return <string> process.env[key];
     }
 
     if (key in process.env && process.env[key]) {

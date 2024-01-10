@@ -306,7 +306,7 @@ describe('utils', (): void => {
         });
     });
 
-    describe('requiredEnvVariable', (): void => {
+    describe('requiredEnvProdVariable', (): void => {
         test('it returns process.env variable, if environment is production', (): void => {
             // eslint-disable-next-line no-underscore-dangle
             process.env.__TESTING_PROPERTY = 'some-value';
@@ -317,7 +317,14 @@ describe('utils', (): void => {
 
         test('it returns null, if environment is not production', (): void => {
             expect(requiredEnvProdVariable('__NOT_EXISTING', EnvironmentType.BETA))
-                .toBe(null);
+                .toBe(undefined);
+        });
+
+        test('it throws for missing environment variables on production', (): void => {
+            process.env.NODE_ENV = EnvironmentType.PROD;
+            expect((): string => requiredEnvVariable('__NOT_EXISTING'))
+                .toThrowError('Missing environment variable "__NOT_EXISTING"!');
+            process.env.NODE_ENV = EnvironmentType.TEST;
         });
     });
 
