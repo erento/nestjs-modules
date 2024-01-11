@@ -23,3 +23,5 @@ export const COMMON_HEADERS: Record<string, string> = {
     ...COMMON_SERVICE_HEADERS,
     'content-type': 'application/json',
 };
+
+export const NON_PRODUCTION_NULL_ENVIRONMENT_KEYS: string[] = ['GOOGLE_SITEMAP_CREDENTIALS'];
