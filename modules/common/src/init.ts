@@ -1,20 +1,21 @@
-import {start as profilerStart} from '@google-cloud/profiler';
-import {Config, start as traceStart} from '@google-cloud/trace-agent';
 import * as axios from 'axios';
 import {USER_AGENT} from './constants';
 import {Environments} from './environments/environments';
 
-const gcpMonitoringContext: Config = {
-    serviceContext: {
-        service: Environments.getPackageJson().name,
-        version: Environments.getVersion(),
-    },
-};
-
-export function onApplicationInit (): void {
+export async function onApplicationInit (): Promise<void> {
     if (Environments.isProd()) {
-        traceStart(gcpMonitoringContext);
-        profilerStart(gcpMonitoringContext)
+        const profiler = await import('@google-cloud/profiler');
+        const tracer = await import('@google-cloud/trace-agent');
+
+        const gcpMonitoringContext: any = {
+            serviceContext: {
+                service: Environments.getPackageJson().name,
+                version: Environments.getVersion(),
+            },
+        };
+
+        tracer.start(gcpMonitoringContext);
+        profiler.start(gcpMonitoringContext)
             .then((): void => {
                 console.log('profiler started');
             });
