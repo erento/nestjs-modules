@@ -305,9 +305,9 @@ describe('utils', (): void => {
             process.env.NODE_ENV = EnvironmentType.TEST;
         });
 
-        test('it returns empty string, if environment is not production', (): void => {
+        test('it returns undefined, if environment is not production', (): void => {
             expect(requiredEnvVariable(NON_PRODUCTION_NULL_ENVIRONMENT_KEYS[0]))
-                .toBe('');
+                .toBe(undefined);
         });
 
         test('it throws for missing environment variables on production', (): void => {

@@ -1,6 +1,7 @@
 import slugify from 'slugify';
 import {NON_PRODUCTION_NULL_ENVIRONMENT_KEYS} from '../constants';
 import {Environments} from '../environments/environments';
+import {EnvironmentType} from '../environments/interfaces';
 import {UtilsError} from './errors/utils.error';
 
 interface ES7Array extends Array<any> {
@@ -161,7 +162,7 @@ export function batchArray<T> (items: T[], maxBatchSize: number): T[][] {
 }
 
 export function requiredEnvVariable (key: keyof typeof process.env): string {
-    if (key in NON_PRODUCTION_NULL_ENVIRONMENT_KEYS && process.env.NODE_ENV && !Environments.isProd()) {
+    if (NON_PRODUCTION_NULL_ENVIRONMENT_KEYS.includes(key.toString()) && Environments.getEnv() !== EnvironmentType.PROD) {
         return <string> process.env[key];
     }
 
