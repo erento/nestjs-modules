@@ -11,8 +11,8 @@ export class Environments {
                     EnvironmentType.DEV;
     }
 
-    public static isProd (shouldIncludeBeta: boolean = true): boolean {
-        return this.getEnv() === EnvironmentType.PROD || (shouldIncludeBeta && this.getEnv() === EnvironmentType.BETA);
+    public static isProd (): boolean {
+        return this.getEnv() === EnvironmentType.PROD || this.getEnv() === EnvironmentType.BETA;
     }
 
     public static isDev (): boolean {

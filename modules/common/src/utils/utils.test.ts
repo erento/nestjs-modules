@@ -1,4 +1,3 @@
-import {NON_PRODUCTION_NULL_ENVIRONMENT_KEYS} from '../constants';
 import {EnvironmentType} from '../environments/interfaces';
 import {
     arrayDifference,
@@ -302,18 +301,6 @@ describe('utils', (): void => {
             process.env.NODE_ENV = EnvironmentType.BETA;
             expect((): string => requiredEnvVariable('__NOT_EXISTING'))
                 .toThrowError('Missing environment variable "__NOT_EXISTING"!');
-            process.env.NODE_ENV = EnvironmentType.TEST;
-        });
-
-        test('it returns undefined, if environment is not production', (): void => {
-            expect(requiredEnvVariable(NON_PRODUCTION_NULL_ENVIRONMENT_KEYS[0]))
-                .toBe(undefined);
-        });
-
-        test('it throws for missing environment variables on production', (): void => {
-            process.env.NODE_ENV = EnvironmentType.PROD;
-            expect((): string => requiredEnvVariable(NON_PRODUCTION_NULL_ENVIRONMENT_KEYS[0]))
-                .toThrowError(`Missing environment variable "${NON_PRODUCTION_NULL_ENVIRONMENT_KEYS[0]}"!`);
             process.env.NODE_ENV = EnvironmentType.TEST;
         });
     });

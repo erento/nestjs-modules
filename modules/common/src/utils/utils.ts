@@ -1,5 +1,4 @@
 import slugify from 'slugify';
-import {NON_PRODUCTION_NULL_ENVIRONMENT_KEYS} from '../constants';
 import {Environments} from '../environments/environments';
 import {UtilsError} from './errors/utils.error';
 
@@ -161,10 +160,6 @@ export function batchArray<T> (items: T[], maxBatchSize: number): T[][] {
 }
 
 export function requiredEnvVariable (key: keyof typeof process.env): string {
-    if (NON_PRODUCTION_NULL_ENVIRONMENT_KEYS.includes(key.toString()) && !Environments.isProd(false)) {
-        return <string> process.env[key];
-    }
-
     if (key in process.env && process.env[key]) {
         return <string> process.env[key];
     }
