@@ -14,7 +14,7 @@
     "common:lint-staged": "cd ./modules/common && npm run lint-staged",
     "google-pubsub:lint-staged": "cd ./modules/google-pubsub && npm run lint-staged",
     "salesforce:lint-staged": "cd ./modules/salesforce && npm run lint-staged",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "private": true,
   "keywords": [],
@@ -25,6 +25,6 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "husky": "7.0.0"
+    "husky": "8.0.3"
   }
 }
