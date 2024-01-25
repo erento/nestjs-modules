@@ -1,64 +1,64 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Outbound Messages Parser should process salesforce messages with top position type 1`] = `
-Array [
-  Object {
-    "$": Object {
+[
+  {
+    "$": {
       "xmlns:sf": "urn:sobject.enterprise.soap.sforce.com",
       "xsi:type": "sf:Billing_Contract_Line__c",
     },
-    "sf:accountowner__c": Array [
+    "sf:accountowner__c": [
       "005b0000001VIpR",
     ],
-    "sf:accountuid__c": Array [
+    "sf:accountuid__c": [
       "3005713",
     ],
-    "sf:id": Array [
+    "sf:id": [
       "a430X000000ytuiQAA",
     ],
-    "sf:toppositionactive__c": Array [
+    "sf:toppositionactive__c": [
       "1.0",
     ],
-    "sf:toppositioncategory__c": Array [
+    "sf:toppositioncategory__c": [
       "020616",
     ],
-    "sf:toppositioncodee2__c": Array [
+    "sf:toppositioncodee2__c": [
       "DE-50-2794_01",
     ],
-    "sf:toppositioncountry__c": Array [
+    "sf:toppositioncountry__c": [
       "3",
     ],
-    "sf:toppositionzip__c": Array [
+    "sf:toppositionzip__c": [
       "50",
     ],
   },
-  Object {
-    "$": Object {
+  {
+    "$": {
       "xmlns:sf": "urn:sobject.enterprise.soap.sforce.com",
       "xsi:type": "sf:Billing_Contract_Line__c",
     },
-    "sf:accountowner__c": Array [
+    "sf:accountowner__c": [
       "005b0000001VIpR",
     ],
-    "sf:accountuid__c": Array [
+    "sf:accountuid__c": [
       "3005713",
     ],
-    "sf:id": Array [
+    "sf:id": [
       "a430X000000ytuiQAA",
     ],
-    "sf:toppositionactive__c": Array [
+    "sf:toppositionactive__c": [
       "1.0",
     ],
-    "sf:toppositioncategory__c": Array [
+    "sf:toppositioncategory__c": [
       "020616",
     ],
-    "sf:toppositioncodee2__c": Array [
+    "sf:toppositioncodee2__c": [
       "DE-10-2794_01",
     ],
-    "sf:toppositioncountry__c": Array [
+    "sf:toppositioncountry__c": [
       "3",
     ],
-    "sf:toppositionzip__c": Array [
+    "sf:toppositionzip__c": [
       "10",
     ],
   },
