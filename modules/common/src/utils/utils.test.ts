@@ -87,18 +87,15 @@ describe('utils', (): void => {
                 .toMatchSnapshot();
         });
 
-        test('copy not an object', (): void => {
-            expect(deepCopyObj(undefined))
-                .toMatchSnapshot();
-            expect(deepCopyObj(null))
-                .toMatchSnapshot();
-            expect(deepCopyObj(NaN))
-                .toMatchSnapshot();
-            expect(deepCopyObj(''))
-                .toMatchSnapshot();
-            expect(deepCopyObj('some string'))
-                .toMatchSnapshot();
-            expect(deepCopyObj(1))
+        test.each([
+            undefined,
+            null,
+            NaN,
+            '',
+            'some string',
+            1,
+        ])('copy not an object', (value: any): void => {
+            expect(deepCopyObj(value))
                 .toMatchSnapshot();
         });
     });
@@ -128,10 +125,14 @@ describe('utils', (): void => {
                 .toMatchSnapshot();
         });
 
-        test('get true or undefined', (): void => {
-            expect(getTrueOrUndefined(false))
-                .toMatchSnapshot();
-            expect(getTrueOrUndefined(true))
+        test.each([
+            false,
+            true,
+            '',
+            null,
+            undefined,
+        ])('get true or undefined', (value: any): void => {
+            expect(getTrueOrUndefined(value))
                 .toMatchSnapshot();
         });
 

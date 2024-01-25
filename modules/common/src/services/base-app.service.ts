@@ -1,4 +1,4 @@
-import {Server} from 'http';
+import {Server} from 'node:http';
 import {OnApplicationBootstrap, OnApplicationShutdown, ShutdownSignal} from '@nestjs/common';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {GRACE_PERIOD, SHUTDOWN_TIMEOUT_PERIOD} from '../constants';
@@ -39,6 +39,7 @@ export abstract class BaseAppService implements OnApplicationBootstrap, OnApplic
 
         return new Promise((res: any): void => {
             let i: number = 0;
+            // eslint-disable-next-line @typescript-eslint/no-misused-promises
             const interval: NodeJS.Timeout = setInterval(async (): Promise<void> => {
                 this.logger.log(`Application shutdown: Waiting #${++i}`);
 

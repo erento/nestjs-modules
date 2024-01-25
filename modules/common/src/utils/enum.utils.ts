@@ -16,7 +16,7 @@ export const getMaxLengthOfEnumValues: (enumeration: any) => number = (enumerati
     const enumerationValuesLengths: number[] = getEnumValues(enumeration)
         .map((enumerationValue: string): number => enumerationValue.length);
 
-    if (enumerationValuesLengths.indexOf(<any> undefined) !== -1) {
+    if (enumerationValuesLengths.includes(<any> undefined)) {
         throw new Error(`Enumeration can contain only string values to get a max length.`);
     }
 

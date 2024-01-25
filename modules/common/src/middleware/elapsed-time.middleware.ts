@@ -4,9 +4,9 @@ import {Logger} from '../logger/logger';
 /**
  * List of URLs which will be skipped for logging.
  */
-const filteredUrls: string[] = [
+const filteredUrls: Set<string> = new Set([
     '/favicon.ico',
-];
+]);
 
 interface ExtendedRequest extends Request {
     originalUrl: string;
@@ -17,7 +17,7 @@ export class ElapsedTimeMiddleware implements NestMiddleware {
     constructor (private readonly logger: Logger) {}
 
     public use (req: ExtendedRequest, res: any, next: () => void): void {
-        if (filteredUrls.indexOf(req.url) !== -1) {
+        if (filteredUrls.has(req.url)) {
             next();
 
             return;
@@ -26,7 +26,7 @@ export class ElapsedTimeMiddleware implements NestMiddleware {
         const startHrTime: [number, number] = process.hrtime();
         res.on('finish', (): void => {
             const elapsedHrTime: [number, number] = process.hrtime(startHrTime);
-            const elapsedTimeInMs: number = elapsedHrTime[0] * 1e3 + elapsedHrTime[1] / 1e6;
+            const elapsedTimeInMs: number = (elapsedHrTime[0] * 1e3) + (elapsedHrTime[1] / 1e6);
             this.logger.log({
                 statusCode: `${res.statusCode}`,
                 elapsedTime: `${elapsedTimeInMs}`,

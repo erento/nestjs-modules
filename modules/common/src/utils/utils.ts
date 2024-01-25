@@ -29,6 +29,7 @@ export function arrayIntersection (arr1: any[], arr2: any[]): any[] {
 export function arrayDifference (arr1: any[], arr2: any[]): any[] {
     return arr1
         .filter((x: any): boolean => !(<ES7Array> arr2).includes(x))
+        // eslint-disable-next-line unicorn/prefer-spread
         .concat(arr2.filter((x: any): boolean => !(<ES7Array> arr1).includes(x)));
 }
 
@@ -37,6 +38,7 @@ export function getPropertyOrUndefined<T> (property: T | null | undefined): T | 
 }
 
 export function getTrueOrUndefined (value: boolean): true | undefined {
+    // eslint-disable-next-line unicorn/no-negated-condition, unicorn/prefer-logical-operator-over-ternary
     return !value ? undefined : value;
 }
 
@@ -180,6 +182,7 @@ export function oneLine (multiline: string): string {
 
 export function waitForMs (time: number): Promise<void> {
     return new Promise((resolve: TimerHandler): void => {
+        // eslint-disable-next-line @typescript-eslint/no-implied-eval
         setTimeout(resolve, time);
     });
 }
