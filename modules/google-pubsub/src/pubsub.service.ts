@@ -47,7 +47,7 @@ export class PubsubService {
     }
 
     public decryptMessage <T = string> (body: EncodedMessage, encrypted: boolean = true): Promise<T> {
-        const message: Buffer | undefined = body && body.data || undefined;
+        const message: Buffer | undefined = (body && body.data) || undefined;
 
         return encrypted ? MessageCrypto.decrypt(message, this.cryptoEncryptionKey) : this.parseMessage(message);
     }
