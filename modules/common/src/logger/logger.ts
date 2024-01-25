@@ -1,6 +1,6 @@
 import {Injectable, LoggerService, Optional} from '@nestjs/common';
 // eslint-disable-next-line unicorn/import-style
-import chalk, {ChalkInstance} from 'chalk';
+import * as chalk from 'chalk';
 import * as httpContext from 'express-http-context';
 import * as jsonStringifySafe from 'json-stringify-safe';
 import {clearBreadcrumbs, getBreadcrumbs} from '../bugsnag/breadcrumbs';
@@ -35,8 +35,8 @@ function uniqueIdToHex (str: string): string {
     return '00000'.slice(0, Math.max(0, 6 - c.length)) + c;
 }
 
-type colorMethodFunction = (uniqueId: string) => ChalkInstance;
-const colorMethod: colorMethodFunction = (uniqueId: string): ChalkInstance => chalk.hex(uniqueIdToHex(uniqueId));
+type colorMethodFunction = (uniqueId: string) => chalk.Chalk;
+const colorMethod: colorMethodFunction = (uniqueId: string): chalk.Chalk => chalk.hex(uniqueIdToHex(uniqueId));
 
 type consoleFunction = (...data: any[]) => string;
 type consoleVoidFunction = (...data: any[]) => void;
