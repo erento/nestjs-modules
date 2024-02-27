@@ -32,12 +32,12 @@
     "aws-sdk": "2.1074.0"
   },
   "devDependencies": {
-    "@erento/eslint-plugin-erento-rules": "file:erento-eslint-plugin-erento-rules-3.0.0-rc.1.tgz",
+    "@erento/eslint-plugin-erento-rules": "3.0.0",
     "@nestjs/common": "10.3.1",
-    "@types/jest": "29.5.11",
+    "@types/jest": "29.5.12",
     "@types/node": "20.10.8",
     "jest": "29.7.0",
-    "lint-staged": "15.2.0",
+    "lint-staged": "15.2.2",
     "prettier": "2.5.1",
     "reflect-metadata": "0.1.13",
     "rxjs": "7.5.4",
