@@ -12,7 +12,7 @@
     "noUnusedParameters": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es6",
+    "target": "ESNext",
     "sourceMap": false,
     "allowJs": false,
     "pretty": true

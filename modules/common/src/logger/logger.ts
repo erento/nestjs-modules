@@ -1,4 +1,5 @@
 import {Injectable, LoggerService, Optional} from '@nestjs/common';
+// eslint-disable-next-line unicorn/import-style
 import * as chalk from 'chalk';
 import * as httpContext from 'express-http-context';
 import * as jsonStringifySafe from 'json-stringify-safe';
@@ -16,14 +17,13 @@ enum LoggerMethod {
 }
 
 const dateOptions: Intl.DateTimeFormatOptions = {
-    ...{},
     ...(Environments.isProd() ? {timeZone: 'UTC'} : {}),
 };
 
 function uniqueIdToHex (str: string): string {
     let hashedNumber: number = 0;
     for (let i: number = 0; i < str.length; i++) {
-        // eslint-disable-next-line no-bitwise
+        // eslint-disable-next-line unicorn/prefer-code-point, no-bitwise
         hashedNumber = str.charCodeAt(i) + ((hashedNumber << 5) - hashedNumber);
     }
 
@@ -32,16 +32,17 @@ function uniqueIdToHex (str: string): string {
         .toString(16)
         .toUpperCase();
 
-    return '00000'.substring(0, 6 - c.length) + c;
+    return '00000'.slice(0, Math.max(0, 6 - c.length)) + c;
 }
 
 type colorMethodFunction = (uniqueId: string) => chalk.Chalk;
 const colorMethod: colorMethodFunction = (uniqueId: string): chalk.Chalk => chalk.hex(uniqueIdToHex(uniqueId));
 
-type consoleFunction = (...data: any[]) => void;
+type consoleFunction = (...data: any[]) => string;
+type consoleVoidFunction = (...data: any[]) => void;
 type logFunction = (method: LoggerMethod, uniqueId: string, message: string | Record<string, string>) => void;
 const log: logFunction = (method: LoggerMethod, uniqueId: string, message: string | Record<string, string>): void => {
-    const logMethod: consoleFunction = method === LoggerMethod.ERROR ?
+    const logMethod: consoleVoidFunction = method === LoggerMethod.ERROR ?
         console.error :
         (
             method === LoggerMethod.WARNING ? console.warn : console.log
@@ -58,7 +59,7 @@ const log: logFunction = (method: LoggerMethod, uniqueId: string, message: strin
         logMethod(
             chalk.gray(`${new Date(Date.now())
                 .toLocaleString('en-GB', dateOptions)}`),
-            `${methodColor((`${method}  `).substr(0, 5))} ${messageColor(uniqueId)}`,
+            `${methodColor((`${method}  `).slice(0, 5))} ${messageColor(uniqueId)}`,
             chalk.white(jsonStringifySafe(message)),
         );
 
@@ -121,7 +122,7 @@ export class Logger implements LoggerService {
     public warn (err: any): void {
         const uniqueId: string = getCurrentRequestUniqueId();
         const error: Error = err instanceof Error ? err : new Error(err);
-        error.message = error.message.indexOf(uniqueId) !== -1 ? `${uniqueId}: ${error.message}` : error.message;
+        error.message = error.message.includes(uniqueId) ? `${uniqueId}: ${error.message}` : error.message;
 
         log(LoggerMethod.WARNING, uniqueId, {
             errorMessage: error.message,
@@ -149,7 +150,7 @@ export class Logger implements LoggerService {
     public error (err: any, trace?: any): void {
         const uniqueId: string = getCurrentRequestUniqueId();
         const error: Error = err instanceof Error ? err : new Error(err);
-        error.message = error.message.indexOf(uniqueId) !== -1 ? `${uniqueId}: ${error.message}` : error.message;
+        error.message = error.message.includes(uniqueId) ? `${uniqueId}: ${error.message}` : error.message;
         if (!(err instanceof Error) && trace) {
             error.stack = trace;
         }

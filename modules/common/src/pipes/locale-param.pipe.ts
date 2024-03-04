@@ -4,6 +4,7 @@ import {LocaleObject} from './interfaces';
 @Injectable()
 export class LocaleParamPipe implements PipeTransform<Record<string, any>, LocaleObject> {
     private separator: string;
+
     /**
      * Delimiters can be dashes or underscores but must match between defaultLocale and other locales
      *

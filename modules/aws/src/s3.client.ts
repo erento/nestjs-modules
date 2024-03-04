@@ -40,7 +40,7 @@ export class S3Client {
         payloadItems: object[],
         options: ManagedUpload.ManagedUploadOptions = {},
     ): Promise<ManagedUpload.SendData> {
-        if (!Array.isArray(payloadItems) || payloadItems.length < 1) {
+        if (!Array.isArray(payloadItems) || payloadItems.length === 0) {
             throw new Error('You are trying to upload an empty file.');
         }
         const payload: string = payloadItems
@@ -84,9 +84,9 @@ export class S3Client {
                         Key: sourceObjectName,
                         Bucket: this.bucketName,
                     },
-                    (deleteErr: aws.AWSError) => deleteErr ?
+                    (deleteErr: aws.AWSError) => (deleteErr ?
                         reject(new S3MoveFileError(S3MoveFileErrorCode.DeleteFailed, deleteErr)) :
-                        resolve(output),
+                        resolve(output)),
                 );
             });
         });

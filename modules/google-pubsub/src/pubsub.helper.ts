@@ -1,4 +1,4 @@
-import * as os from 'os';
+import * as os from 'node:os';
 import {Injectable} from '@nestjs/common';
 import * as hash from 'object-hash';
 import {PubsubMessage} from './domain';

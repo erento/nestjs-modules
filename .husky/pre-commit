@@ -1,6 +1,3 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
 npm run aws:lint-staged
 npm run common:lint-staged
 npm run google-pubsub:lint-staged

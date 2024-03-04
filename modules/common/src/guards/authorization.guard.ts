@@ -1,5 +1,6 @@
 import {CanActivate, ExecutionContext, Injectable} from '@nestjs/common';
 import {Reflector} from '@nestjs/core';
+import * as jsonStringifySafe from 'json-stringify-safe';
 import {SilentUnauthorizedException} from '../exceptions/silent-unauthorized.exception';
 import {UnauthorizedException} from '../exceptions/unauthorized.exception';
 import {TOKEN, TOKEN_ROLE_HEADER} from './consts';
@@ -23,11 +24,11 @@ export class AuthorizationGuard implements CanActivate {
         const tokenValueList: string[] = Array.isArray(authMetadata.tokenValue) ? authMetadata.tokenValue : [authMetadata.tokenValue];
         const requestTokenValue: string = req.headers[TOKEN_ROLE_HEADER];
 
-        if (tokenValueList.indexOf(requestTokenValue) !== -1) {
+        if (tokenValueList.includes(requestTokenValue)) {
             return true;
         }
 
-        console.log(`Required token value "${authMetadata.tokenValue}", given value "${requestTokenValue}"`);
+        console.log(`Required token value "${jsonStringifySafe(authMetadata.tokenValue)}", given value "${requestTokenValue}"`);
 
         const message: string = `Provided token is "${requestTokenValue}"`;
         throw authMetadata.options.silent ?
