@@ -1,6 +1,6 @@
 {
   "name": "@erento/nestjs-common",
-  "version": "7.7.0",
+  "version": "8.0.0",
   "engines": {
     "node": ">=20.0.0",
     "npm": ">=10.0.0"
@@ -53,7 +53,7 @@
     "typescript": "5.2.2"
   },
   "dependencies": {
-    "@erento/nestjs-module-google-pubsub": "file:erento-nestjs-module-google-pubsub-3.1.0.tgz",
+    "@erento/nestjs-module-google-pubsub": "4.0.0",
     "@google-cloud/profiler": "6.0.1",
     "@google-cloud/trace-agent": "8.0.0",
     "axios": "1.6.7",
