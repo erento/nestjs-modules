@@ -1,3 +1,8 @@
+<a name="8.0.0"></a>
+# 8.0.0 (2024-03-04)
+- Min required is Node 20
+- updated dependencies
+
 <a name="7.6.1"></a>
 # 7.6.1 (2023-11-22)
 - fix for 7.6.0

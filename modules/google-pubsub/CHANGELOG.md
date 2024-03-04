@@ -1,3 +1,8 @@
+<a name="4.0.0"></a>
+# 4.0.0 (2024-03-04)
+- Min required is Node 20
+- updated dependencies
+
 <a name="3.1.0"></a>
 # 3.1.0 (2022-07-20)
 - added flag to pubsub service to be able to use publish without encryption 
