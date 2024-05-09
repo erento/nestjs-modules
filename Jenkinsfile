@@ -3,6 +3,13 @@ buildImage = docker.image('node:16.14')
 node {
     stage('checkout') {
         checkout scm
+
+        if (env.BRANCH_NAME == "master") {
+            def files = findFiles(glob: '*.tgz')
+            if (files.length > 0) {
+                error("Found .tgz file in root directory: ${files[0].name}")
+            }
+        }
     }
 
     stage('Tests') {
