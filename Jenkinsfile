@@ -1,4 +1,4 @@
-buildImage = docker.image('node:16.14')
+def buildImage = docker.image('node:16.14')
 
 node {
     stage('checkout') {
